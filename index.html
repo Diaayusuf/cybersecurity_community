@@ -134,6 +134,12 @@
   .module-hero-icon{font-size:3rem;margin-bottom:1rem;}
   .module-hero-title{font-family:var(--title-font);font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;line-height:0.9;letter-spacing:0;margin-bottom:1.5rem;}
   .module-hero-title.red{color:var(--red);text-shadow:var(--glow-red);}
+  @media(max-width:768px){
+  .module-hero-title{
+    font-size: 2rem; /* صغر الحجم هنا */
+    line-height: 1.1;
+  }
+}
   .module-hero-title.blue{color:var(--cyan);text-shadow:var(--glow-cyan);}
   .module-hero-meta{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;}
   .module-meta-tag{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;padding:0.35rem 0.8rem;border:1px solid var(--border);color:rgba(200,224,232,0.45);}
