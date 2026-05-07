@@ -1355,8 +1355,7 @@ const FS={
       'threat-intel':{type:'dir',moduleId:'threat-intel',children:{}},
       'threat-hunting':{type:'dir',moduleId:'threat-hunt',children:{}},
     }},
-    'awareness':{type:'dir',children:{}},
-    'articles':{type:'dir',children:{}},
+'awareness':{type:'dir', url:'awareness.html', children:{}},    'articles':{type:'dir',children:{}},
     'advanced':{type:'dir',hidden:true,children:{}},
     'README.txt':{type:'file',color:'file-g'},
     'MISSION.txt':{type:'file',color:'file-y'},
@@ -1383,14 +1382,9 @@ function print(html,cls=''){
   document.getElementById('terminal-body').appendChild(d);scrollTerminal();
 }
 function scrollTerminal(){const b=document.getElementById('terminal-body');b.scrollTop=b.scrollHeight;}
-// function updatePrompt(){
-//   document.getElementById('t-prompt-label').textContent=`cyberx@root:${cwd}$ `;
-//   document.getElementById('t-header-path').textContent=`cyberx@terminal — bash — ${cwd}`;
-// }
-function updatePrompt() {
-const dirEl = document.getElementById('t-prompt-label');
-if (dirEl) dirEl.textContent = cwd;
-document.getElementById('t-header-path').textContent = `root@cyberx: ${cwd} — zsh`;
+function updatePrompt(){
+  document.getElementById('t-prompt-label').textContent=`cyberx@root:${cwd}$ `;
+  document.getElementById('t-header-path').textContent=`cyberx@terminal — bash — ${cwd}`;
 }
 const CMD={
   '--help':()=>{
@@ -1427,6 +1421,16 @@ const CMD={
     if(node.type!=='dir'){print(`cd: ${args[0]}: Not a directory`,'r');return;}
     if(node.hidden){print(`cd: ${args[0]}: Permission denied  [ collect all hints first ]`,'r');return;}
     cwd=target;updatePrompt();
+    if(node.url){
+  print(`<span style="color:var(--cyan)">[ NAVIGATING ]</span> ${target}`,'');
+  setTimeout(()=>print('Loading module...','dim'),100);
+  setTimeout(()=>print('Redirecting...','dim'),400);
+  setTimeout(()=>{
+    closeTerminal();
+    window.location.href = node.url;
+  },900);
+  return;
+}
     if(node.moduleId){
       const m=MODULES[node.moduleId];
       if(m){
@@ -1479,6 +1483,9 @@ const CMD={
     print('  cd blue-team/digital-forensics → Digital Forensics','dim');
     print('  cd blue-team/threat-intel      → Threat Intelligence','dim');
     print('  cd blue-team/threat-hunting    → Threat Hunting','dim');
+    print(' ');
+print('AWARENESS:','');
+print('  cd awareness                   → Security Awareness Page','dim');
   },
   '--status':()=>{
     print('SYSTEM STATUS:','');
@@ -1520,8 +1527,7 @@ document.getElementById('t-input').addEventListener('keydown',e=>{
   if(e.key!=='Enter')return;
   const raw=input.value.trim();if(!raw)return;
   cmdHistory.push(raw);histIdx=-1;
-  const il=document.createElement('div');il.className='t-line';il.innerHTML = `<span style="color:#09D8C7">┌──(root㉿c)-[${cwd}]<br>└─# </span>${raw}`;
-
+  const il=document.createElement('div');il.className='t-line';il.textContent=`cyberx@root:${cwd}$ ${raw}`;
   document.getElementById('terminal-body').appendChild(il);
   const[cmd,...args]=raw.split(/\s+/);
   const handler=CMD[cmd]||CMD[cmd.toLowerCase()];
