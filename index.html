@@ -37,14 +37,15 @@
   /* DEPTH CANVAS */
   #depth-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;}
 
-  /* ════════════════════════════════════
-     CINEMATIC TRANSITION OVERLAY
-  ════════════════════════════════════ */
   @font-face {
     font-family: 'Minecraft';
     src: url('Minecraftia.ttf') format('truetype');
     font-display: swap;
   }
+
+  /* ════════════════════════════════════
+     CINEMATIC TRANSITION OVERLAY
+  ════════════════════════════════════ */
   #cinematic-overlay{
     position:fixed;inset:0;z-index:900;
     background:#000;
@@ -76,7 +77,7 @@
   .cin-vignette{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 40%,rgba(0,0,0,0.7) 100%);pointer-events:none;}
 
   /* ════════════════════════════════════
-     MODULE PAGE — FULL SCREEN SEPARATE PAGE
+     MODULE PAGE
   ════════════════════════════════════ */
   #module-page{
     display:none;
@@ -88,162 +89,93 @@
     overflow-x:hidden;
   }
   #module-page.open{display:block;}
-  #module-page-bg{
-    position:fixed;
-    inset:0;
-    pointer-events:none;
-    z-index:0;
-  }
-  .mp-grid{
-    position:fixed;inset:-10%;pointer-events:none;
-    background-image:linear-gradient(rgba(9,216,199,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(9,216,199,0.012) 1px,transparent 1px);
-    background-size:80px 80px;
-    animation:gridDrift 40s linear infinite;
-  }
-  .mp-scanlines{
-    position:fixed;inset:0;pointer-events:none;
-    background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);
-    animation:scanlineMove 8s linear infinite;
-  }
+  .mp-grid{position:fixed;inset:-10%;pointer-events:none;background-image:linear-gradient(rgba(9,216,199,0.012) 1px,transparent 1px),linear-gradient(90deg,rgba(9,216,199,0.012) 1px,transparent 1px);background-size:80px 80px;animation:gridDrift 40s linear infinite;}
+  .mp-scanlines{position:fixed;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,0.04) 3px,rgba(0,0,0,0.04) 4px);animation:scanlineMove 8s linear infinite;}
 
   /* MODULE NAV */
-  .module-nav{
-    position:sticky;top:0;z-index:100;
-    padding:1rem 3rem;
-    display:flex;align-items:center;justify-content:space-between;
-    background:rgba(13,26,47,0.95);
-    backdrop-filter:blur(32px) saturate(1.5);
-    border-bottom:1px solid rgba(9,216,199,0.12);
-  }
+  .module-nav{position:sticky;top:0;z-index:100;padding:1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(13,26,47,0.95);backdrop-filter:blur(32px) saturate(1.5);border-bottom:1px solid rgba(9,216,199,0.12);}
   .module-nav .logo{font-family:var(--title-font);font-size:1.3rem;font-weight:900;color:var(--cyan);letter-spacing:0.2em;text-shadow:var(--glow-cyan);}
   .module-nav .logo span{color:var(--red);}
   .module-nav-path{font-family:'Share Tech Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;color:rgba(9,216,199,0.45);}
   .module-nav-path .sep{color:rgba(200,224,232,0.2);margin:0 0.4rem;}
   .module-nav-path .cur{color:var(--cyan);}
+  .module-back-btn{font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:0.2em;color:rgba(200,224,232,0.35);background:transparent;border:1px solid rgba(200,224,232,0.12);padding:0.5rem 1rem;cursor:pointer;display:flex;align-items:center;gap:0.5rem;transition:all 0.3s;}
+  .module-back-btn:hover{color:var(--cyan);border-color:rgba(9,216,199,0.35);}
 
   /* MODULE HERO */
-  .module-hero{
-    position:relative;z-index:1;
-    padding:5rem 3rem 3rem;
-    max-width:1100px;margin:0 auto;
-    opacity:0;transform:translateY(24px);
-    animation:fadeUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;
-  }
+  .module-hero{position:relative;z-index:1;padding:5rem 3rem 3rem;max-width:1100px;margin:0 auto;opacity:0;transform:translateY(24px);animation:fadeUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) forwards;}
   .module-hero-eyebrow{font-family:'Share Tech Mono',monospace;font-size:0.68rem;letter-spacing:0.4em;color:rgba(200,224,232,0.35);margin-bottom:1rem;display:flex;align-items:center;gap:1rem;}
   .module-hero-eyebrow::before{content:'';width:28px;height:1px;background:rgba(200,224,232,0.2);}
   .module-hero-icon{font-size:3rem;margin-bottom:1rem;}
   .module-hero-title{font-family:var(--title-font);font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;line-height:0.9;letter-spacing:0;margin-bottom:1.5rem;}
   .module-hero-title.red{color:var(--red);text-shadow:var(--glow-red);}
-  @media(max-width:768px){
-  .module-hero-title{
-    font-size: 2rem; /* صغر الحجم هنا */
-    line-height: 1.1;
-  }
-}
   .module-hero-title.blue{color:var(--cyan);text-shadow:var(--glow-cyan);}
   .module-hero-meta{display:flex;gap:1.5rem;flex-wrap:wrap;margin-bottom:2rem;}
   .module-meta-tag{font-family:'Share Tech Mono',monospace;font-size:0.65rem;letter-spacing:0.15em;padding:0.35rem 0.8rem;border:1px solid var(--border);color:rgba(200,224,232,0.45);}
-  .module-back-btn{
-    font-family:'Share Tech Mono',monospace;font-size:0.72rem;letter-spacing:0.2em;
-    color:rgba(200,224,232,0.35);
-    background:transparent;border:1px solid rgba(200,224,232,0.12);
-    padding:0.5rem 1rem;cursor:pointer;
-    display:flex;align-items:center;gap:0.5rem;
-    transition:all 0.3s;
-  }
-  .module-back-btn:hover{color:var(--cyan);border-color:rgba(9,216,199,0.35);}
 
   /* MODULE BODY */
-  .module-body{
-    position:relative;z-index:1;
-    max-width:1100px;margin:0 auto;
-    padding:0 3rem 6rem;
-    display:grid;
-    grid-template-columns:1fr 340px;
-    gap:3rem;
-    align-items:start;
-  }
+  .module-body{position:relative;z-index:1;max-width:1100px;margin:0 auto;padding:0 3rem 6rem;display:grid;grid-template-columns:1fr 340px;gap:3rem;align-items:start;}
   .module-main{opacity:0;animation:fadeUp 0.7s 0.25s cubic-bezier(0.16,1,0.3,1) forwards;}
   .module-sidebar{opacity:0;animation:fadeUp 0.7s 0.4s cubic-bezier(0.16,1,0.3,1) forwards;}
 
   /* STORY */
-  .story-block{
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-left:3px solid var(--cyan);
-    padding:2.5rem;
-    margin-bottom:2rem;
-    position:relative;
-    overflow:hidden;
-  }
+  .story-block{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--cyan);padding:2.5rem;margin-bottom:2rem;position:relative;overflow:hidden;}
   .story-block.red{border-left-color:var(--red);}
-  .story-block::before{
-    content:'// ORIGIN STORY';
-    position:absolute;top:1.5rem;right:1.5rem;
-    font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;
-    color:rgba(9,216,199,0.2);
-  }
+  .story-block::before{content:'// ORIGIN STORY';position:absolute;top:1.5rem;right:1.5rem;font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.2em;color:rgba(9,216,199,0.2);}
   .story-block.red::before{color:rgba(189,9,39,0.25);}
   .story-text{font-size:1.05rem;line-height:2;color:rgba(200,224,232,0.72);}
   .story-text p{margin-bottom:1.2rem;}
   .story-text p:last-child{margin-bottom:0;}
 
   /* CHALLENGE */
-  .challenge-block{
-    background:rgba(189,9,39,0.04);
-    border:1px solid rgba(189,9,39,0.2);
-    padding:2rem;
-    margin-bottom:2rem;
-    position:relative;
-  }
-  .challenge-block::before{
-    content:'⚔';
-    position:absolute;top:-0.7rem;left:1.5rem;
-    background:var(--bg);padding:0 0.5rem;
-    color:var(--red);font-size:1rem;
-  }
+  .challenge-block{background:rgba(189,9,39,0.04);border:1px solid rgba(189,9,39,0.2);padding:2rem;margin-bottom:2rem;position:relative;}
+  .challenge-block::before{content:'⚔';position:absolute;top:-0.7rem;left:1.5rem;background:var(--bg);padding:0 0.5rem;color:var(--red);font-size:1rem;}
   .challenge-title{font-family:var(--title-font);font-size:0.82rem;font-weight:700;color:var(--red);letter-spacing:0.08em;margin-bottom:1rem;}
   .challenge-text{font-size:0.95rem;line-height:1.8;color:rgba(200,224,232,0.6);}
 
   /* HINT FRAGMENT */
-  .hint-block{
-    background:rgba(9,216,199,0.03);
-    border:1px dashed rgba(9,216,199,0.25);
-    padding:2rem;
-    text-align:center;
-  }
+  .hint-block{background:rgba(9,216,199,0.03);border:1px dashed rgba(9,216,199,0.25);padding:2rem;text-align:center;margin-bottom:2rem;}
   .hint-label{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:0.35em;color:rgba(9,216,199,0.4);margin-bottom:0.8rem;}
   .hint-code{font-family:var(--title-font);font-size:1.8rem;font-weight:900;color:var(--cyan);letter-spacing:0.5em;text-shadow:var(--glow-cyan);}
+
+  /* ════════ PDF & VIDEO SECTION ════════ */
+  .media-section{margin-top:2rem;}
+  .media-section-title{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:0.25em;color:rgba(9,216,199,0.45);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid rgba(9,216,199,0.15);}
+  .media-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:0.8rem;}
+  .media-card{background:var(--surface);border:1px solid var(--border);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;text-decoration:none;transition:border-color 0.3s,transform 0.2s,background 0.3s;position:relative;cursor:pointer;}
+  .media-card:hover{transform:translateX(4px);}
+  .media-card.pdf:hover{border-color:rgba(189,9,39,0.4);background:rgba(189,9,39,0.04);}
+  .media-card.video:hover{border-color:rgba(9,216,199,0.4);background:rgba(9,216,199,0.04);}
+  .media-icon{font-size:1.8rem;min-width:2rem;text-align:center;}
+  .media-info{flex:1;min-width:0;}
+  .media-type-badge{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;margin-bottom:0.3rem;}
+  .media-card.pdf .media-type-badge{color:var(--red);}
+  .media-card.video .media-type-badge{color:var(--cyan);}
+  .media-title{font-family:var(--title-font);font-size:0.82rem;font-weight:700;color:#fff;margin-bottom:0.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .media-desc{font-size:0.78rem;color:rgba(200,224,232,0.45);margin-bottom:0.3rem;}
+  .media-meta{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:rgba(200,224,232,0.3);}
+  .media-arrow{font-size:1rem;color:rgba(200,224,232,0.2);transition:color 0.3s,transform 0.3s;}
+  .media-card:hover .media-arrow{transform:translateX(4px);}
+  .media-card.pdf:hover .media-arrow{color:var(--red);}
+  .media-card.video:hover .media-arrow{color:var(--cyan);}
 
   /* SIDEBAR */
   .sidebar-section{margin-bottom:2rem;}
   .sidebar-title{font-family:var(--title-font);font-size:0.62rem;letter-spacing:0.25em;color:rgba(9,216,199,0.45);margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border);}
-  .resource-card{
-    background:var(--surface);border:1px solid var(--border);
-    padding:1.2rem 1.5rem;
-    display:flex;align-items:center;gap:1rem;
-    cursor:pointer;transition:border-color 0.3s,transform 0.2s;
-    margin-bottom:0.6rem;
-    text-decoration:none;
-  }
+  .resource-card{background:var(--surface);border:1px solid var(--border);padding:1.2rem 1.5rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:border-color 0.3s,transform 0.2s;margin-bottom:0.6rem;text-decoration:none;}
   .resource-card:hover{border-color:rgba(9,216,199,0.35);transform:translateX(4px);}
   .res-icon{font-size:1.4rem;min-width:1.4rem;}
   .res-label{font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;color:rgba(200,224,232,0.35);}
   .res-name{font-family:var(--title-font);font-size:0.78rem;font-weight:700;color:var(--cyan);}
   .tag-cloud{display:flex;flex-wrap:wrap;gap:0.5rem;}
   .sidebar-tag{font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:0.1em;padding:0.35rem 0.7rem;background:rgba(255,255,255,0.02);border:1px solid var(--border);color:rgba(200,224,232,0.4);}
-  .terminal-hint{
-    background:rgba(0,0,0,0.4);
-    border:1px solid rgba(9,216,199,0.15);
-    padding:1.2rem;
-    font-family:'Share Tech Mono',monospace;font-size:0.7rem;
-    color:rgba(9,216,199,0.5);
-    line-height:1.8;
-  }
+  .terminal-hint{background:rgba(0,0,0,0.4);border:1px solid rgba(9,216,199,0.15);padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.7rem;color:rgba(9,216,199,0.5);line-height:1.8;}
   .terminal-hint .t-prompt{color:rgba(9,216,199,0.6);}
   .terminal-hint .cmd{color:var(--cyan);}
 
-  /* ════════════════ BOOT ════════════════ */
+  /* ════════════════════════════════════
+     BOOT
+  ════════════════════════════════════ */
   #boot{position:fixed;inset:0;background:#000;z-index:1000;display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Share Tech Mono',monospace;overflow:hidden;}
   #boot-canvas{position:absolute;inset:0;pointer-events:none;}
   .boot-content{position:relative;z-index:2;text-align:center;}
@@ -480,7 +412,6 @@
   @keyframes geoFloat2{0%,100%{transform:rotate(45deg) translateY(0);}50%{transform:rotate(45deg) translateY(-15px);}}
   @keyframes marquee{from{transform:translateX(0);}to{transform:translateX(-50%);}}
   @keyframes termSlide{from{transform:translateY(40px);opacity:0;}to{transform:translateY(0);opacity:1;}}
-  @keyframes cinGlitch{0%,100%{clip-path:inset(0 0 100% 0);}10%{clip-path:inset(20% 0 60% 0);}20%{clip-path:inset(40% 0 40% 0);}30%{clip-path:inset(60% 0 20% 0);}40%{clip-path:inset(80% 0 0% 0);}50%{clip-path:inset(0 0 0 0);}}
   @keyframes glitchCell{0%,100%{transform:translate(0);filter:none;}25%{transform:translate(-2px,1px);filter:hue-rotate(90deg);}75%{transform:translate(2px,-1px);filter:hue-rotate(-90deg);}}
   .glitch{animation:glitchCell 0.25s;}
 
@@ -495,6 +426,8 @@
     .module-body{grid-template-columns:1fr;padding:0 1.5rem 4rem;}
     .module-hero{padding:4rem 1.5rem 2rem;}
     .module-nav{padding:1rem 1.5rem;}
+    .module-hero-title{font-size:2rem;line-height:1.1;}
+    .media-grid{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -504,9 +437,7 @@
 <div class="cursor-ring" id="cursor-ring"></div>
 <canvas id="depth-canvas"></canvas>
 
-<!-- ════════════════════════════════
-     CINEMATIC TRANSITION OVERLAY
-════════════════════════════════ -->
+<!-- CINEMATIC OVERLAY -->
 <div id="cinematic-overlay">
   <canvas id="cin-canvas"></canvas>
   <div class="cin-scanlines"></div>
@@ -521,28 +452,17 @@
   </div>
 </div>
 
-<!-- ════════════════════════════════
-     MODULE PAGE (FULL SCREEN)
-════════════════════════════════ -->
+<!-- MODULE PAGE -->
 <div id="module-page">
   <div class="mp-grid"></div>
   <div class="mp-scanlines"></div>
-
   <nav class="module-nav">
     <div class="logo"><img src="image/CYBERX-LOGO.png" width="100" alt="CYBERX Logo">CYBER<span>X</span></div>
-    <div class="module-nav-path" id="module-nav-path">
-      <span>/cyberx</span>
-    </div>
+    <div class="module-nav-path" id="module-nav-path"><span>/cyberx</span></div>
     <button class="module-back-btn" onclick="closeModulePage()">← BACK TO MISSION CONTROL</button>
   </nav>
-
-  <div class="module-hero" id="module-hero">
-    <!-- filled by JS -->
-  </div>
-
-  <div class="module-body" id="module-body">
-    <!-- filled by JS -->
-  </div>
+  <div class="module-hero" id="module-hero"></div>
+  <div class="module-body" id="module-body"></div>
 </div>
 
 <!-- BOOT -->
@@ -664,9 +584,9 @@
       <div class="team-badge red">⚠ OFFENSIVE CONTENT<br><span style="color:rgba(200,224,232,0.4)">Educational use only</span></div>
     </div>
     <div class="modules-grid">
-      <div class="module-card red" onclick="launchModule('pen-testing')"><div class="module-num">MODULE // 01.01</div><div class="module-icon">🎯</div><div class="module-name">PENTEST</div><div class="module-desc">The story of the ethical hacker — plan, execute, and report an attack. From reconnaissance to post-exploitation.</div><div class="module-tags"><span class="tag">RECON</span><span class="tag">EXPLOITATION</span><span class="tag">POST-EXPLOIT</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
-      <div class="module-card red" onclick="launchModule('malware-dev')"><div class="module-num">MODULE // 01.02</div><div class="module-icon">🦠</div><div class="module-name">MALWARE DEV</div><div class="module-desc">Understand how malware is written, how it evades detection, and how attackers deploy it against targets.</div><div class="module-tags"><span class="tag">EVASION</span><span class="tag">PERSISTENCE</span><span class="tag">C2</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
-      <div class="module-card red" onclick="launchModule('reverse-eng')"><div class="module-num">MODULE // 01.03</div><div class="module-icon">🔬</div><div class="module-name">REVERSING</div><div class="module-desc">Tear apart binaries. Disassemble code. Uncover hidden logic. Understand software without source code.</div><div class="module-tags"><span class="tag">BINARY</span><span class="tag">ASSEMBLY</span><span class="tag">GHIDRA</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card red" onclick="launchModule('pen-testing')"><div class="module-num">MODULE // 01.01</div><div class="module-icon"></div><div class="module-name">PENTEST</div><div class="module-desc">The story of the ethical hacker — plan, execute, and report an attack. From reconnaissance to post-exploitation.</div><div class="module-tags"><span class="tag">RECON</span><span class="tag">EXPLOITATION</span><span class="tag">POST-EXPLOIT</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card red" onclick="launchModule('malware-dev')"><div class="module-num">MODULE // 01.02</div><div class="module-icon"></div><div class="module-name">MALWARE DEV</div><div class="module-desc">Understand how malware is written, how it evades detection, and how attackers deploy it against targets.</div><div class="module-tags"><span class="tag">EVASION</span><span class="tag">PERSISTENCE</span><span class="tag">C2</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card red" onclick="launchModule('reverse-eng')"><div class="module-num">MODULE // 01.03</div><div class="module-icon"></div><div class="module-name">REVERSING</div><div class="module-desc">Tear apart binaries. Disassemble code. Uncover hidden logic. Understand software without source code.</div><div class="module-tags"><span class="tag">BINARY</span><span class="tag">ASSEMBLY</span><span class="tag">GHIDRA</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
     </div>
   </div>
 </section>
@@ -683,12 +603,12 @@
       <div class="team-badge blue">🛡 DEFENSIVE OPS<br><span style="color:rgba(200,224,232,0.4)">Protect & respond</span></div>
     </div>
     <div class="modules-grid">
-      <div class="module-card blue" onclick="launchModule('soc')"><div class="module-num">MODULE // 02.01</div><div class="module-icon">📡</div><div class="module-name">SOC</div><div class="module-desc">Life inside the Security Operations Center. Alerts, triage, investigation. The detective work of cybersecurity.</div><div class="module-tags"><span class="tag">SIEM</span><span class="tag">ALERTS</span><span class="tag">TRIAGE</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
-      <div class="module-card blue" onclick="launchModule('ir')"><div class="module-num">MODULE // 02.02</div><div class="module-icon">🚨</div><div class="module-name">IR</div><div class="module-desc">The breach happened. The clock is ticking. Contain, eradicate, recover — before it's too late.</div><div class="module-tags"><span class="tag">CONTAIN</span><span class="tag">ERADICATE</span><span class="tag">RECOVER</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
-      <div class="module-card blue" onclick="launchModule('malware-analysis')"><div class="module-num">MODULE // 02.03</div><div class="module-icon">🧬</div><div class="module-name">MALWARE LAB</div><div class="module-desc">A suspicious file arrives. Static and dynamic analysis to uncover what it really does.</div><div class="module-tags"><span class="tag">STATIC</span><span class="tag">DYNAMIC</span><span class="tag">SANDBOX</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
-      <div class="module-card blue" onclick="launchModule('forensics')"><div class="module-num">MODULE // 02.04</div><div class="module-icon">🔍</div><div class="module-name">FORENSICS</div><div class="module-desc">The crime scene is a hard drive. Every deleted file tells a story. Recover evidence. Build the case.</div><div class="module-tags"><span class="tag">EVIDENCE</span><span class="tag">ARTIFACTS</span><span class="tag">MEMORY</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
-      <div class="module-card blue" onclick="launchModule('threat-intel')"><div class="module-num">MODULE // 02.05</div><div class="module-icon">🧠</div><div class="module-name">THREAT INTEL</div><div class="module-desc">Know your enemy before they strike. Track APT groups, analyze TTPs, share intel across the community.</div><div class="module-tags"><span class="tag">APT</span><span class="tag">TTPs</span><span class="tag">MITRE</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
-      <div class="module-card blue" onclick="launchModule('threat-hunt')"><div class="module-num">MODULE // 02.06</div><div class="module-icon">🏹</div><div class="module-name">HUNTING</div><div class="module-desc">Don't wait for alerts. Go hunting. Proactively search for hidden threats lurking in your network.</div><div class="module-tags"><span class="tag">PROACTIVE</span><span class="tag">HYPOTHESIS</span><span class="tag">HUNT</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card blue" onclick="launchModule('soc')"><div class="module-num">MODULE // 02.01</div><div class="module-icon"></div><div class="module-name">SOC</div><div class="module-desc">Life inside the Security Operations Center. Alerts, triage, investigation. The detective work of cybersecurity.</div><div class="module-tags"><span class="tag">SIEM</span><span class="tag">ALERTS</span><span class="tag">TRIAGE</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card blue" onclick="launchModule('ir')"><div class="module-num">MODULE // 02.02</div><div class="module-icon"></div><div class="module-name">IR</div><div class="module-desc">The breach happened. The clock is ticking. Contain, eradicate, recover — before it's too late.</div><div class="module-tags"><span class="tag">CONTAIN</span><span class="tag">ERADICATE</span><span class="tag">RECOVER</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card blue" onclick="launchModule('malware-analysis')"><div class="module-num">MODULE // 02.03</div><div class="module-icon"></div><div class="module-name">MALWARE LAB</div><div class="module-desc">A suspicious file arrives. Static and dynamic analysis to uncover what it really does.</div><div class="module-tags"><span class="tag">STATIC</span><span class="tag">DYNAMIC</span><span class="tag">SANDBOX</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card blue" onclick="launchModule('forensics')"><div class="module-num">MODULE // 02.04</div><div class="module-icon"></div><div class="module-name">FORENSICS</div><div class="module-desc">The crime scene is a hard drive. Every deleted file tells a story. Recover evidence. Build the case.</div><div class="module-tags"><span class="tag">EVIDENCE</span><span class="tag">ARTIFACTS</span><span class="tag">MEMORY</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card blue" onclick="launchModule('threat-intel')"><div class="module-num">MODULE // 02.05</div><div class="module-icon"></div><div class="module-name">THREAT INTEL</div><div class="module-desc">Know your enemy before they strike. Track APT groups, analyze TTPs, share intel across the community.</div><div class="module-tags"><span class="tag">APT</span><span class="tag">TTPs</span><span class="tag">MITRE</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
+      <div class="module-card blue" onclick="launchModule('threat-hunt')"><div class="module-num">MODULE // 02.06</div><div class="module-icon"></div><div class="module-name">HUNTING</div><div class="module-desc">Don't wait for alerts. Go hunting. Proactively search for hidden threats lurking in your network.</div><div class="module-tags"><span class="tag">PROACTIVE</span><span class="tag">HYPOTHESIS</span><span class="tag">HUNT</span></div><div class="module-cta">ENTER MODULE <span class="module-cta-arrow">→</span></div></div>
     </div>
   </div>
 </section>
@@ -822,6 +742,12 @@ You stop before damage, document every step, and hand over the report. The bank 
       {icon:'🛠', label:'TOOL', name:'Kali Linux Setup'},
       {icon:'📋', label:'CHECKLIST', name:'Pentest Methodology'},
     ],
+    media:[
+      {type:'pdf', title:'PTES Framework Guide', desc:'Full penetration testing execution standard', url:'#', size:'2.4 MB'},
+      {type:'pdf', title:'Pentest Report Template', desc:'Professional reporting structure', url:'#', size:'1.1 MB'},
+      {type:'video', title:'Metasploit for Beginners', desc:'Complete framework walkthrough', url:'#', duration:'42 min'},
+      {type:'video', title:'Recon Techniques Deep Dive', desc:'OSINT to active scanning', url:'#', duration:'58 min'},
+    ],
     hint:'CYB',
     challenge:'A target exposes SSH and an old Apache web server. What do you check first, and why?'
   },
@@ -846,6 +772,12 @@ Every trick leaves a footprint. Persistence, injection, and evasion become detec
       {icon:'▶', label:'VIDEO', name:'Process Injection Deep Dive'},
       {icon:'🛠', label:'TOOL', name:'YARA Rule Writing'},
       {icon:'📋', label:'CHECKLIST', name:'Evasion Techniques Map'},
+    ],
+    media:[
+      {type:'pdf', title:'Malware Dev Concepts', desc:'Core concepts and techniques', url:'#', size:'3.1 MB'},
+      {type:'pdf', title:'Evasion Techniques Map', desc:'AV/EDR bypass reference sheet', url:'#', size:'0.9 MB'},
+      {type:'video', title:'Process Injection Deep Dive', desc:'Hollowing, injection, and more', url:'#', duration:'51 min'},
+      {type:'video', title:'Writing YARA Rules', desc:'Detect malware with signatures', url:'#', duration:'35 min'},
     ],
     hint:'_SE',
     challenge:'A sample injects code into explorer.exe. Name three artifacts defenders should look for.'
@@ -872,11 +804,17 @@ The execution flow points to shellcode injection. With patience and tools, the u
       {icon:'🛠', label:'TOOL', name:'x64dbg Setup & Usage'},
       {icon:'📋', label:'CHECKLIST', name:'RE Analysis Workflow'},
     ],
+    media:[
+      {type:'pdf', title:'Ghidra Beginner Guide', desc:'Setup and first binary analysis', url:'#', size:'2.7 MB'},
+      {type:'pdf', title:'x86 Assembly Cheatsheet', desc:'Quick reference for RE work', url:'#', size:'0.5 MB'},
+      {type:'video', title:'Assembly Fundamentals', desc:'Registers, stack, and control flow', url:'#', duration:'47 min'},
+      {type:'video', title:'Cracking with x64dbg', desc:'Dynamic analysis walkthrough', url:'#', duration:'62 min'},
+    ],
     hint:'CUR',
     challenge:'A function returns fixed-length output for any input. What primitive does that suggest?'
   },
   'soc': {
-    num:'02.01', team:'blue', color:'blue', icon:'📡', name:'SOC ANALYSIS',
+    num:'02.01', team:'blue', color:'blue', icon:'', name:'SOC ANALYSIS',
     path:'/cyberx/blue-team/soc-analysis',
     tags:['SIEM','ALERTS','TRIAGE','SPLUNK','ELK'],
     cinLines:[
@@ -896,6 +834,12 @@ You escalate, isolate the host, and hand IR a clean timeline. The attacker had 4
       {icon:'▶', label:'VIDEO', name:'Splunk for Analysts'},
       {icon:'🛠', label:'TOOL', name:'ELK Stack Setup'},
       {icon:'📋', label:'CHECKLIST', name:'Alert Investigation Flow'},
+    ],
+    media:[
+      {type:'pdf', title:'SIEM Alert Triage Guide', desc:'Step-by-step triage procedures', url:'#', size:'1.8 MB'},
+      {type:'pdf', title:'SOC Analyst Playbook', desc:'Runbooks for common alert types', url:'#', size:'2.2 MB'},
+      {type:'video', title:'Splunk for SOC Analysts', desc:'Queries, dashboards, and hunting', url:'#', duration:'55 min'},
+      {type:'video', title:'ELK Stack Setup & Usage', desc:'Build your own SIEM lab', url:'#', duration:'40 min'},
     ],
     hint:'ERX',
     challenge:'A workstation calls one external IP every 60 seconds. What signs suggest C2 beaconing?'
@@ -922,6 +866,12 @@ The breach becomes two hours of downtime instead of a public disaster.`,
       {icon:'🛠', label:'TOOL', name:'Velociraptor for IR'},
       {icon:'📋', label:'CHECKLIST', name:'IR Runbook Template'},
     ],
+    media:[
+      {type:'pdf', title:'NIST IR Framework', desc:'SP 800-61 simplified for analysts', url:'#', size:'1.5 MB'},
+      {type:'pdf', title:'IR Runbook Template', desc:'Fillable incident response template', url:'#', size:'0.8 MB'},
+      {type:'video', title:'Containment Decision Making', desc:'When and how to isolate systems', url:'#', duration:'38 min'},
+      {type:'video', title:'Velociraptor for IR Teams', desc:'Live forensics at scale', url:'#', duration:'49 min'},
+    ],
     hint:'ITY',
     challenge:'A host has been compromised for 30 days. What do you collect before isolation?'
   },
@@ -946,6 +896,12 @@ From one sample, you extract IOCs, TTPs, and detections that protect the whole o
       {icon:'▶', label:'VIDEO', name:'Cuckoo Sandbox Setup'},
       {icon:'🛠', label:'TOOL', name:'PE Studio + FLOSS'},
       {icon:'📋', label:'CHECKLIST', name:'Malware Analysis Template'},
+    ],
+    media:[
+      {type:'pdf', title:'PE File Format Deep Dive', desc:'Headers, sections, and imports', url:'#', size:'2.0 MB'},
+      {type:'pdf', title:'Malware Analysis Template', desc:'Structured reporting for samples', url:'#', size:'0.6 MB'},
+      {type:'video', title:'Cuckoo Sandbox Setup', desc:'Build a malware detonation lab', url:'#', duration:'44 min'},
+      {type:'video', title:'PE Studio & FLOSS Workflow', desc:'Static analysis from zero to IOC', url:'#', duration:'33 min'},
     ],
     hint:'_ZE',
     challenge:'A .text section has entropy 7.8. What does that suggest, and how would you handle it?'
@@ -972,6 +928,12 @@ The pattern shows rapid access to sensitive files minutes after a portable drive
       {icon:'🛠', label:'TOOL', name:'FTK Imager + Volatility'},
       {icon:'📋', label:'CHECKLIST', name:'Evidence Collection Order'},
     ],
+    media:[
+      {type:'pdf', title:'Windows Forensics Artifacts', desc:'Registry, LNK, shellbags, MFT', url:'#', size:'3.3 MB'},
+      {type:'pdf', title:'Evidence Collection Order', desc:'Volatility order of operations', url:'#', size:'0.7 MB'},
+      {type:'video', title:'Autopsy Forensics Tool', desc:'Full disk investigation walkthrough', url:'#', duration:'52 min'},
+      {type:'video', title:'Volatility Memory Analysis', desc:'Process, network, and malware', url:'#', duration:'60 min'},
+    ],
     hint:'RO',
     challenge:'You have a Windows memory dump. Which Volatility commands do you run first?'
   },
@@ -996,6 +958,12 @@ You publish IOCs and context to partners before the payload spreads. Shared inte
       {icon:'▶', label:'VIDEO', name:'OSINT Investigation Techniques'},
       {icon:'🛠', label:'TOOL', name:'MISP Threat Sharing Platform'},
       {icon:'📋', label:'CHECKLIST', name:'CTI Report Template'},
+    ],
+    media:[
+      {type:'pdf', title:'MITRE ATT&CK Handbook', desc:'Tactics, techniques, and procedures', url:'#', size:'4.1 MB'},
+      {type:'pdf', title:'CTI Report Template', desc:'Intelligence report structure', url:'#', size:'0.9 MB'},
+      {type:'video', title:'OSINT Investigation Techniques', desc:'Pivoting on domains and IPs', url:'#', duration:'48 min'},
+      {type:'video', title:'MISP Setup & Sharing', desc:'Build your threat intel platform', url:'#', duration:'36 min'},
     ],
     hint:'_ST',
     challenge:'A campaign partly matches a known actor. How do you assign confidence without overclaiming?'
@@ -1022,34 +990,35 @@ The trail leads from a dormant service account to an accounting workstation. A s
       {icon:'🛠', label:'TOOL', name:'Microsoft Defender for Endpoint'},
       {icon:'📋', label:'CHECKLIST', name:'Hunt Mission Framework'},
     ],
+    media:[
+      {type:'pdf', title:'Hypothesis-Driven Hunting', desc:'Build and test hunt hypotheses', url:'#', size:'1.6 MB'},
+      {type:'pdf', title:'Hunt Mission Framework', desc:'Planning and execution template', url:'#', size:'0.8 MB'},
+      {type:'video', title:'KQL for Threat Hunting', desc:'Advanced queries in Sentinel/Defender', url:'#', duration:'45 min'},
+      {type:'video', title:'Lateral Movement Hunting', desc:'Find attackers hiding in plain sight', url:'#', duration:'53 min'},
+    ],
     hint:'ORE',
     challenge:'Build a hunt hypothesis for DNS tunneling. What data and signals matter?'
   }
 };
 
 /* ═══════════════════════════════════════════════
-   CINEMATIC TRANSITION + MODULE PAGE SYSTEM
+   CINEMATIC TRANSITION
 ═══════════════════════════════════════════════ */
-
-// Matrix rain on cinematic canvas
 let cinCanvas, cinCtx, cinAnimId;
 function startCinMatrix(canvas) {
-  cinCanvas = canvas;
-  cinCtx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  cinCanvas = canvas; cinCtx = canvas.getContext('2d');
+  canvas.width = window.innerWidth; canvas.height = window.innerHeight;
   const CHARS = '01アイウエオABCDEF0123456789@#$%><[]{}|\\/*';
   const cols = Math.floor(canvas.width / 16);
   const drops = Array(cols).fill(1);
   function draw() {
-    cinCtx.fillStyle = 'rgba(0,0,0,0.06)';
-    cinCtx.fillRect(0, 0, canvas.width, canvas.height);
+    cinCtx.fillStyle = 'rgba(0,0,0,0.06)'; cinCtx.fillRect(0,0,canvas.width,canvas.height);
     cinCtx.font = '13px Share Tech Mono';
-    drops.forEach((y, i) => {
-      cinCtx.globalAlpha = Math.random() * 0.15 + 0.03;
-      cinCtx.fillStyle = i % 7 === 0 ? '#BD0927' : '#09D8C7';
-      cinCtx.fillText(CHARS[Math.floor(Math.random() * CHARS.length)], i * 16, y * 16);
-      if (y * 16 > canvas.height && Math.random() > 0.97) drops[i] = 0;
+    drops.forEach((y,i) => {
+      cinCtx.globalAlpha = Math.random()*0.15+0.03;
+      cinCtx.fillStyle = i%7===0 ? '#BD0927' : '#09D8C7';
+      cinCtx.fillText(CHARS[Math.floor(Math.random()*CHARS.length)], i*16, y*16);
+      if (y*16 > canvas.height && Math.random()>0.97) drops[i]=0;
       drops[i]++;
     });
     cinAnimId = requestAnimationFrame(draw);
@@ -1058,13 +1027,11 @@ function startCinMatrix(canvas) {
 }
 function stopCinMatrix() {
   if (cinAnimId) cancelAnimationFrame(cinAnimId);
-  if (cinCtx && cinCanvas) cinCtx.clearRect(0, 0, cinCanvas.width, cinCanvas.height);
+  if (cinCtx && cinCanvas) cinCtx.clearRect(0,0,cinCanvas.width,cinCanvas.height);
 }
 
 function launchModule(id) {
-  const m = MODULES[id];
-  if (!m) return;
-
+  const m = MODULES[id]; if (!m) return;
   const overlay = document.getElementById('cinematic-overlay');
   const cinCanvas = document.getElementById('cin-canvas');
   const topBar = document.getElementById('cin-top-bar');
@@ -1072,101 +1039,82 @@ function launchModule(id) {
   const nameEl = document.getElementById('cin-name');
   const linesEl = document.getElementById('cin-lines');
   const barEl = document.getElementById('cin-bar');
-
-  // Reset
-  linesEl.innerHTML = '';
-  barEl.style.width = '0%';
-  topBar.classList.remove('go');
-  nameEl.className = 'cin-module-name';
-
-  // Setup content
+  linesEl.innerHTML = ''; barEl.style.width = '0%';
+  topBar.classList.remove('go'); nameEl.className = 'cin-module-name';
   label.textContent = `MODULE // ${m.num}  //  ${m.team.toUpperCase()} TEAM`;
-  nameEl.textContent = m.name;
-  nameEl.classList.add(m.color);
-
-  // Build lines
-  m.cinLines.forEach((l, i) => {
-    const d = document.createElement('div');
-    d.className = 'cin-line';
-    const colorClass = l.c === 'ok' ? 'var(--cyan)' : '#f0a500';
-    const tag = l.c === 'ok'
+  nameEl.textContent = m.name; nameEl.classList.add(m.color);
+  m.cinLines.forEach((l,i) => {
+    const d = document.createElement('div'); d.className = 'cin-line';
+    const tag = l.c==='ok'
       ? `<span style="color:var(--cyan);margin-right:0.8rem">[  OK  ]</span>`
       : `<span style="color:#f0a500;margin-right:0.8rem">[ WARN ]</span>`;
-    d.innerHTML = tag + l.t;
-    linesEl.appendChild(d);
+    d.innerHTML = tag + l.t; linesEl.appendChild(d);
   });
-
-  // Show overlay
-  overlay.classList.add('active');
-  startCinMatrix(cinCanvas);
-
-  // Animate top bar
+  overlay.classList.add('active'); startCinMatrix(cinCanvas);
   setTimeout(() => topBar.classList.add('go'), 50);
-
-  // Show lines sequentially
-  const lineEls = linesEl.querySelectorAll('.cin-line');
-  lineEls.forEach((el, i) => {
-    setTimeout(() => el.classList.add('show'), 200 + i * 200);
+  linesEl.querySelectorAll('.cin-line').forEach((el,i) => {
+    setTimeout(() => el.classList.add('show'), 200+i*200);
   });
-
-  // Progress bar
   let pct = 0;
-  const totalTime = 200 + m.cinLines.length * 200 + 200;
+  const totalTime = 200+m.cinLines.length*200+200;
   const pInterval = setInterval(() => {
-    pct = Math.min(pct + 2, 100);
-    barEl.style.width = pct + '%';
-    if (pct >= 100) clearInterval(pInterval);
-  }, totalTime / 50);
-
-  // After all lines shown → fade out + show module page
-  const fadeTiming = 200 + m.cinLines.length * 200 + 600;
+    pct = Math.min(pct+2,100); barEl.style.width = pct+'%';
+    if (pct>=100) clearInterval(pInterval);
+  }, totalTime/50);
+  const fadeTiming = 200+m.cinLines.length*200+600;
   setTimeout(() => {
-    overlay.style.transition = 'opacity 0.6s ease';
-    overlay.style.opacity = '0';
+    overlay.style.transition = 'opacity 0.6s ease'; overlay.style.opacity = '0';
     setTimeout(() => {
-      overlay.classList.remove('active');
-      overlay.style.opacity = '';
-      overlay.style.transition = '';
-      stopCinMatrix();
-      openModulePage(id);
+      overlay.classList.remove('active'); overlay.style.opacity = ''; overlay.style.transition = '';
+      stopCinMatrix(); openModulePage(id);
     }, 600);
   }, fadeTiming);
 }
 
 function openModulePage(id) {
-  const m = MODULES[id];
-  if (!m) return;
-
-  // Update nav path
-  const pathEl = document.getElementById('module-nav-path');
-  pathEl.innerHTML = `
+  const m = MODULES[id]; if (!m) return;
+  document.getElementById('module-nav-path').innerHTML = `
     <span style="color:rgba(9,216,199,0.4)">/cyberx</span>
     <span class="sep">/</span>
     <span style="color:rgba(9,216,199,0.5)">${m.team}-team</span>
     <span class="sep">/</span>
     <span class="cur">${id}</span>
   `;
-
-  // Build hero
   const heroEl = document.getElementById('module-hero');
-  heroEl.style.cssText = ''; // reset animation
+  heroEl.style.cssText = '';
   heroEl.innerHTML = `
     <div class="module-hero-eyebrow">MODULE // ${m.num} — ${m.team.toUpperCase()} TEAM</div>
     <div class="module-hero-icon">${m.icon}</div>
     <h1 class="module-hero-title ${m.color}">${m.name}</h1>
-    <div class="module-hero-meta">
-      ${m.tags.map(t => `<span class="module-meta-tag">${t}</span>`).join('')}
-    </div>
+    <div class="module-hero-meta">${m.tags.map(t=>`<span class="module-meta-tag">${t}</span>`).join('')}</div>
     <button class="module-back-btn" onclick="closeModulePage()">← BACK TO MISSION CONTROL</button>
   `;
-  // Re-trigger animation
   void heroEl.offsetWidth;
-  heroEl.style.opacity = '0';
-  heroEl.style.transform = 'translateY(24px)';
-  heroEl.style.animation = 'fadeUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) forwards';
+  heroEl.style.opacity='0'; heroEl.style.transform='translateY(24px)';
+  heroEl.style.animation='fadeUp 0.7s 0.1s cubic-bezier(0.16,1,0.3,1) forwards';
 
-  // Build body (story + sidebar)
-  const storyParas = m.story.split('\n\n').map(p => `<p>${p}</p>`).join('');
+  const storyParas = m.story.split('\n\n').map(p=>`<p>${p}</p>`).join('');
+
+  // Build media section HTML
+  const mediaHTML = m.media && m.media.length ? `
+    <div class="media-section">
+      <div class="media-section-title">// PDFs &amp; VIDEOS</div>
+      <div class="media-grid">
+        ${m.media.map(item => `
+          <a href="${item.url}" target="_blank" class="media-card ${item.type}">
+            <div class="media-icon">${item.type === 'pdf' ? '📄' : '▶'}</div>
+            <div class="media-info">
+              <div class="media-type-badge">${item.type.toUpperCase()}</div>
+              <div class="media-title">${item.title}</div>
+              <div class="media-desc">${item.desc}</div>
+              <div class="media-meta">${item.type === 'pdf' ? item.size : item.duration}</div>
+            </div>
+            <div class="media-arrow">→</div>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
 
   const bodyEl = document.getElementById('module-body');
   bodyEl.innerHTML = `
@@ -1182,11 +1130,12 @@ function openModulePage(id) {
         <div class="hint-label">// HINT FRAGMENT UNLOCKED — ${m.num}</div>
         <div class="hint-code">${m.hint}</div>
       </div>
+      ${mediaHTML}
     </div>
     <div class="module-sidebar">
       <div class="sidebar-section">
         <div class="sidebar-title">// RESOURCES</div>
-        ${m.resources.map(r => `
+        ${m.resources.map(r=>`
           <div class="resource-card">
             <div class="res-icon">${r.icon}</div>
             <div>
@@ -1198,110 +1147,96 @@ function openModulePage(id) {
       </div>
       <div class="sidebar-section">
         <div class="sidebar-title">// TAGS</div>
-        <div class="tag-cloud">
-          ${m.tags.map(t => `<span class="sidebar-tag">${t}</span>`).join('')}
-        </div>
+        <div class="tag-cloud">${m.tags.map(t=>`<span class="sidebar-tag">${t}</span>`).join('')}</div>
       </div>
       <div class="sidebar-section">
         <div class="sidebar-title">// TERMINAL ACCESS</div>
         <div class="terminal-hint">
-          <div><span class="t-prompt">$</span> <span class="cmd">cd ${m.path.replace('/cyberx/', '')}</span></div>
+          <div><span class="t-prompt">$</span> <span class="cmd">cd ${m.path.replace('/cyberx/','')}</span></div>
           <div style="color:rgba(9,216,199,0.35);font-size:0.65rem;margin-top:0.5rem">Run from /cyberx to open this module</div>
         </div>
       </div>
     </div>
   `;
 
-  // Re-trigger sidebar animation
-  const main = bodyEl.querySelector('.module-main');
-  const sidebar = bodyEl.querySelector('.module-sidebar');
-  [main, sidebar].forEach((el, i) => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(24px)';
-    el.style.animation = `fadeUp 0.7s ${0.25 + i*0.15}s cubic-bezier(0.16,1,0.3,1) forwards`;
+  ['module-main','module-sidebar'].forEach((cls,i) => {
+    const el = bodyEl.querySelector('.'+cls);
+    el.style.opacity='0'; el.style.transform='translateY(24px)';
+    el.style.animation=`fadeUp 0.7s ${0.25+i*0.15}s cubic-bezier(0.16,1,0.3,1) forwards`;
   });
 
-  // Show module page
   const page = document.getElementById('module-page');
-  page.classList.add('open');
-  page.scrollTo(0, 0);
-
-  // Prevent background scroll
+  page.classList.add('open'); page.scrollTo(0,0);
   document.body.style.overflow = 'hidden';
 }
 
 function closeModulePage() {
   const page = document.getElementById('module-page');
-  page.style.transition = 'opacity 0.4s ease';
-  page.style.opacity = '0';
+  page.style.transition='opacity 0.4s ease'; page.style.opacity='0';
   setTimeout(() => {
-    page.classList.remove('open');
-    page.style.opacity = '';
-    page.style.transition = '';
-    document.body.style.overflow = '';
+    page.classList.remove('open'); page.style.opacity=''; page.style.transition='';
+    document.body.style.overflow='';
   }, 400);
 }
 
 /* ═══════════════════════════════════════════════
-   DEPTH CANVAS (background particles)
+   DEPTH CANVAS
 ═══════════════════════════════════════════════ */
 const dc = document.getElementById('depth-canvas'), dctx = dc.getContext('2d');
 let DW, DH;
-function resizeDepth() { DW = dc.width = window.innerWidth; DH = dc.height = window.innerHeight; }
-resizeDepth(); window.addEventListener('resize', resizeDepth);
-const DEPTH_LAYERS = [
+function resizeDepth(){DW=dc.width=window.innerWidth;DH=dc.height=window.innerHeight;}
+resizeDepth(); window.addEventListener('resize',resizeDepth);
+const DEPTH_LAYERS=[
   {count:25,minR:1.2,maxR:2.8,speedMult:0.12,alpha:0.07,colors:['rgba(9,216,199,','rgba(23,54,79,'],waveAmp:0.15,waveSpeed:0.003},
   {count:35,minR:0.8,maxR:1.8,speedMult:0.22,alpha:0.15,colors:['rgba(9,216,199,','rgba(189,9,39,','rgba(65,30,58,'],waveAmp:0.3,waveSpeed:0.006},
   {count:20,minR:0.3,maxR:0.9,speedMult:0.4,alpha:0.3,colors:['rgba(9,216,199,','rgba(189,9,39,'],waveAmp:0.5,waveSpeed:0.01},
 ];
-class DepthParticle {
-  constructor(l) { this.layer = l; this.reset(true); }
-  reset(init) {
-    const L = DEPTH_LAYERS[this.layer];
-    this.x = Math.random() * DW; this.y = init ? Math.random() * DH : DH + 5;
-    this.r = L.minR + Math.random() * (L.maxR - L.minR);
-    this.vx = (Math.random() - 0.5) * 0.2; this.vy = -(Math.random() * 0.3 + 0.05) * (L.speedMult + Math.random() * 0.1);
-    this.baseAlpha = L.alpha * (0.5 + Math.random() * 0.5);
-    this.color = L.colors[Math.floor(Math.random() * L.colors.length)];
-    this.life = 1; this.decay = Math.random() * 0.0015 + 0.0005;
-    this.wave = Math.random() * Math.PI * 2; this.waveSpeed = L.waveSpeed + Math.random() * 0.003; this.waveAmp = L.waveAmp;
+class DepthParticle{
+  constructor(l){this.layer=l;this.reset(true);}
+  reset(init){
+    const L=DEPTH_LAYERS[this.layer];
+    this.x=Math.random()*DW;this.y=init?Math.random()*DH:DH+5;
+    this.r=L.minR+Math.random()*(L.maxR-L.minR);
+    this.vx=(Math.random()-0.5)*0.2;this.vy=-(Math.random()*0.3+0.05)*(L.speedMult+Math.random()*0.1);
+    this.baseAlpha=L.alpha*(0.5+Math.random()*0.5);
+    this.color=L.colors[Math.floor(Math.random()*L.colors.length)];
+    this.life=1;this.decay=Math.random()*0.0015+0.0005;
+    this.wave=Math.random()*Math.PI*2;this.waveSpeed=L.waveSpeed+Math.random()*0.003;this.waveAmp=L.waveAmp;
   }
-  update() { this.wave += this.waveSpeed; this.x += this.vx + Math.sin(this.wave) * this.waveAmp; this.y += this.vy; this.life -= this.decay; if (this.life <= 0 || this.y < -5) this.reset(false); }
-  draw() { dctx.save(); dctx.globalAlpha = Math.max(0, this.life * this.baseAlpha); dctx.fillStyle = this.color + this.baseAlpha + ')'; if (this.layer === 2) { dctx.shadowBlur = 4; dctx.shadowColor = this.color + '1)'; } dctx.beginPath(); dctx.arc(this.x, this.y, this.r, 0, Math.PI * 2); dctx.fill(); dctx.restore(); }
+  update(){this.wave+=this.waveSpeed;this.x+=this.vx+Math.sin(this.wave)*this.waveAmp;this.y+=this.vy;this.life-=this.decay;if(this.life<=0||this.y<-5)this.reset(false);}
+  draw(){dctx.save();dctx.globalAlpha=Math.max(0,this.life*this.baseAlpha);dctx.fillStyle=this.color+this.baseAlpha+')';if(this.layer===2){dctx.shadowBlur=4;dctx.shadowColor=this.color+'1)';}dctx.beginPath();dctx.arc(this.x,this.y,this.r,0,Math.PI*2);dctx.fill();dctx.restore();}
 }
-const allParticles = [];
-DEPTH_LAYERS.forEach((_, li) => { for (let i = 0; i < DEPTH_LAYERS[li].count; i++) allParticles.push(new DepthParticle(li)); });
-function animDepth() { dctx.clearRect(0, 0, DW, DH); for (const p of allParticles) { p.update(); p.draw(); } requestAnimationFrame(animDepth); }
+const allParticles=[];
+DEPTH_LAYERS.forEach((_,li)=>{for(let i=0;i<DEPTH_LAYERS[li].count;i++)allParticles.push(new DepthParticle(li));});
+function animDepth(){dctx.clearRect(0,0,DW,DH);for(const p of allParticles){p.update();p.draw();}requestAnimationFrame(animDepth);}
 animDepth();
 
 /* ═══════════════════════════════════════════════
    PARALLAX
 ═══════════════════════════════════════════════ */
-let scrollY = 0, tScrollY = 0;
-window.addEventListener('scroll', () => { scrollY = window.pageYOffset; }, {passive:true});
-function parallaxTick() {
-  tScrollY += (scrollY - tScrollY) * 0.08;
-  document.querySelectorAll('[data-speed]').forEach(el => {
-    el.style.transform = `translateY(${tScrollY * parseFloat(el.dataset.speed || 0.1)}px)`;
-  });
+let scrollY=0,tScrollY=0;
+window.addEventListener('scroll',()=>{scrollY=window.pageYOffset;},{passive:true});
+function parallaxTick(){
+  tScrollY+=(scrollY-tScrollY)*0.08;
+  document.querySelectorAll('[data-speed]').forEach(el=>{el.style.transform=`translateY(${tScrollY*parseFloat(el.dataset.speed||0.1)}px)`;});
   requestAnimationFrame(parallaxTick);
 }
 parallaxTick();
 
 /* ═══════════════════════════════════════════════
-   BOOT SEQUENCE
+   BOOT
 ═══════════════════════════════════════════════ */
-const bc = document.getElementById('boot-canvas'), bx = bc.getContext('2d');
-bc.width = window.innerWidth; bc.height = window.innerHeight;
-const CHARS2 = '01アイウエオカキクケコABCDEF0123456789@#$%';
-const cols2 = Math.floor(bc.width / 20), drops2 = Array(cols2).fill(1);
-function drawMatrix2() {
-  bx.fillStyle = 'rgba(0,0,0,0.04)'; bx.fillRect(0, 0, bc.width, bc.height);
-  bx.fillStyle = '#09D8C7'; bx.font = '14px Share Tech Mono';
-  drops2.forEach((y, i) => { bx.globalAlpha = Math.random() * 0.2 + 0.03; bx.fillText(CHARS2[Math.floor(Math.random() * CHARS2.length)], i * 20, y * 20); if (y * 20 > bc.height && Math.random() > 0.975) drops2[i] = 0; drops2[i]++; });
+const bc=document.getElementById('boot-canvas'),bx=bc.getContext('2d');
+bc.width=window.innerWidth;bc.height=window.innerHeight;
+const CHARS2='01アイウエオカキクケコABCDEF0123456789@#$%';
+const cols2=Math.floor(bc.width/20),drops2=Array(cols2).fill(1);
+function drawMatrix2(){
+  bx.fillStyle='rgba(0,0,0,0.04)';bx.fillRect(0,0,bc.width,bc.height);
+  bx.fillStyle='#09D8C7';bx.font='14px Share Tech Mono';
+  drops2.forEach((y,i)=>{bx.globalAlpha=Math.random()*0.2+0.03;bx.fillText(CHARS2[Math.floor(Math.random()*CHARS2.length)],i*20,y*20);if(y*20>bc.height&&Math.random()>0.975)drops2[i]=0;drops2[i]++;});
 }
-const matrixInterval = setInterval(drawMatrix2, 50);
-const bootSeq = [
+const matrixInterval=setInterval(drawMatrix2,50);
+const bootSeq=[
   {text:'> Initializing CYBERX kernel v1.0.0...',cls:'ok',delay:350},
   {text:'> Loading security modules...',cls:'ok',delay:650},
   {text:'> Mounting encrypted filesystem...',cls:'ok',delay:900},
@@ -1311,379 +1246,292 @@ const bootSeq = [
   {text:'> No intrusions detected.',cls:'ok',delay:1900},
   {text:'> System secure. Welcome, Operator.',cls:'',delay:2150},
 ];
-const linesEl2 = document.getElementById('boot-lines');
-bootSeq.forEach(({text, cls, delay}) => {
-  setTimeout(() => {
-    const d = document.createElement('div'); d.className = 'boot-line ' + cls;
-    const label = cls === 'ok' ? ' <span>[  OK  ]</span>' : cls === 'warn' ? ' <span>[ WARN ]</span>' : '';
-    d.innerHTML = text + label; linesEl2.appendChild(d);
-  }, delay);
+const linesEl2=document.getElementById('boot-lines');
+bootSeq.forEach(({text,cls,delay})=>{
+  setTimeout(()=>{
+    const d=document.createElement('div');d.className='boot-line '+cls;
+    const label=cls==='ok'?' <span>[  OK  ]</span>':cls==='warn'?' <span>[ WARN ]</span>':'';
+    d.innerHTML=text+label;linesEl2.appendChild(d);
+  },delay);
 });
-function hideBoot() {
+function hideBoot(){
   clearInterval(matrixInterval);
-  const boot = document.getElementById('boot');
-  boot.style.transition = 'opacity 0.8s cubic-bezier(0.16,1,0.3,1)';
-  boot.style.opacity = '0';
-  setTimeout(() => { boot.style.display = 'none'; }, 800);
+  const boot=document.getElementById('boot');
+  boot.style.transition='opacity 0.8s cubic-bezier(0.16,1,0.3,1)';boot.style.opacity='0';
+  setTimeout(()=>{boot.style.display='none';},800);
 }
-setTimeout(hideBoot, 4200);
-function skipBoot() { hideBoot(); }
-document.addEventListener('keydown', e => { if (e.key === 'Enter' && document.getElementById('boot').style.display !== 'none') skipBoot(); });
+setTimeout(hideBoot,4200);
+function skipBoot(){hideBoot();}
+document.addEventListener('keydown',e=>{if(e.key==='Enter'&&document.getElementById('boot').style.display!=='none')skipBoot();});
 
 /* ═══════════════════════════════════════════════
-   CUSTOM CURSOR
+   CURSOR
 ═══════════════════════════════════════════════ */
-const cursor = document.getElementById('cursor'), ring = document.getElementById('cursor-ring');
-let mx = 0, my = 0, rx = 0, ry = 0;
-document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
-function cursorTick() { rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(cursorTick); }
+const cursor=document.getElementById('cursor'),ring=document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+function cursorTick(){rx+=(mx-rx)*0.18;ry+=(my-ry)*0.18;cursor.style.left=mx+'px';cursor.style.top=my+'px';ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(cursorTick);}
 cursorTick();
-document.querySelectorAll('a,button,.module-card,.puzzle-cell,.awareness-card,.article-card,.amt-btn,.resource-card').forEach(el => {
-  el.addEventListener('mouseenter', () => { cursor.style.transform = 'translate(-50%,-50%) scale(2.5)'; ring.style.width = '56px'; ring.style.height = '56px'; ring.style.borderColor = 'rgba(9,216,199,0.7)'; });
-  el.addEventListener('mouseleave', () => { cursor.style.transform = 'translate(-50%,-50%) scale(1)'; ring.style.width = '32px'; ring.style.height = '32px'; ring.style.borderColor = 'rgba(9,216,199,0.4)'; });
+document.querySelectorAll('a,button,.module-card,.puzzle-cell,.awareness-card,.article-card,.amt-btn,.resource-card,.media-card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='56px';ring.style.height='56px';ring.style.borderColor='rgba(9,216,199,0.7)';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='32px';ring.style.height='32px';ring.style.borderColor='rgba(9,216,199,0.4)';});
 });
-window.addEventListener('scroll', () => { document.getElementById('main-nav').classList.toggle('scrolled', window.pageYOffset > 50); }, {passive:true});
+window.addEventListener('scroll',()=>{document.getElementById('main-nav').classList.toggle('scrolled',window.pageYOffset>50);},{passive:true});
 
 /* ═══════════════════════════════════════════════
    SCROLL ANIMATIONS
 ═══════════════════════════════════════════════ */
-const revealObs = new IntersectionObserver(entries => { entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); }); }, {threshold: 0.1});
-document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
-const cardObs = new IntersectionObserver(entries => {
-  entries.forEach(e => { if (e.isIntersecting) { setTimeout(() => e.target.classList.add('visible'), parseInt(e.target.dataset.delay || 0)); cardObs.unobserve(e.target); } });
-}, {threshold: 0.07});
-document.querySelectorAll('.module-card,.awareness-card,.article-card').forEach((el, i) => { el.dataset.delay = (i % 3) * 120; cardObs.observe(el); });
-const cntObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (!entry.isIntersecting) return;
-    const el = entry.target, tgt = parseInt(el.dataset.count);
-    let cur = 0; const step = tgt / 50;
-    const t = setInterval(() => { cur = Math.min(cur + step, tgt); el.textContent = tgt === 0 ? '0' : Math.floor(cur) + (tgt === 100 ? '%' : '+'); if (cur >= tgt) { el.textContent = tgt === 0 ? '0' : tgt + (tgt === 100 ? '%' : '+'); clearInterval(t); } }, 30);
+const revealObs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+const cardObs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),parseInt(e.target.dataset.delay||0));cardObs.unobserve(e.target);}});
+},{threshold:0.07});
+document.querySelectorAll('.module-card,.awareness-card,.article-card').forEach((el,i)=>{el.dataset.delay=(i%3)*120;cardObs.observe(el);});
+const cntObs=new IntersectionObserver(entries=>{
+  entries.forEach(entry=>{
+    if(!entry.isIntersecting)return;
+    const el=entry.target,tgt=parseInt(el.dataset.count);
+    let cur=0;const step=tgt/50;
+    const t=setInterval(()=>{cur=Math.min(cur+step,tgt);el.textContent=tgt===0?'0':Math.floor(cur)+(tgt===100?'%':'+');if(cur>=tgt){el.textContent=tgt===0?'0':tgt+(tgt===100?'%':'+');clearInterval(t);}},30);
     cntObs.unobserve(el);
   });
-}, {threshold: 0.5});
-document.querySelectorAll('[data-count]').forEach(el => cntObs.observe(el));
+},{threshold:0.5});
+document.querySelectorAll('[data-count]').forEach(el=>cntObs.observe(el));
 
 /* ═══════════════════════════════════════════════
    PUZZLE GRID
 ═══════════════════════════════════════════════ */
-const syms = ['?','0','1','X','■','◆','/','\\','#','@','!','%','A','F','3','7'];
-const active = [2, 5, 8, 11];
-const pg = document.getElementById('puzzle-grid');
-syms.forEach((s, i) => {
-  const c = document.createElement('div');
-  c.className = 'puzzle-cell' + (active.includes(i) ? ' active' : '');
-  c.textContent = active.includes(i) ? s : '?';
-  c.addEventListener('click', () => { c.classList.add('glitch'); setTimeout(() => c.classList.remove('glitch'), 300); });
+const syms=['?','0','1','X','■','◆','/','\\','#','@','!','%','A','F','3','7'];
+const active=[2,5,8,11];
+const pg=document.getElementById('puzzle-grid');
+syms.forEach((s,i)=>{
+  const c=document.createElement('div');
+  c.className='puzzle-cell'+(active.includes(i)?' active':'');
+  c.textContent=active.includes(i)?s:'?';
+  c.addEventListener('click',()=>{c.classList.add('glitch');setTimeout(()=>c.classList.remove('glitch'),300);});
   pg.appendChild(c);
 });
 
 /* ═══════════════════════════════════════════════
-   DONATE BUTTONS
+   DONATE
 ═══════════════════════════════════════════════ */
-document.querySelectorAll('.amt-btn').forEach(btn => {
-  btn.addEventListener('click', () => { document.querySelectorAll('.amt-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); });
+document.querySelectorAll('.amt-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{document.querySelectorAll('.amt-btn').forEach(b=>b.classList.remove('active'));btn.classList.add('active');});
 });
 
 /* ═══════════════════════════════════════════════
    EXPERIENCE SUBMIT
 ═══════════════════════════════════════════════ */
-function submitExp() {
-  const email = document.getElementById('exp-email').value;
-  const role = document.getElementById('exp-role').value;
-  const domain = document.getElementById('exp-domain').value;
-  const text = document.getElementById('exp-text').value;
-  if (!email || !email.includes('@') || email.split('@')[1].split('.').length < 2) { alert('Please enter a valid business email.'); return; }
-  if (!text) { alert('Please share your experience.'); return; }
-  const post = document.createElement('div');
-  post.className = 'exp-post';
-  post.style.borderLeftColor = 'var(--red)';
-  post.innerHTML = `<div class="exp-post-header"><div><div class="exp-company">${domain || 'CYBERSECURITY'}</div><div class="exp-role">${role || 'Anonymous Professional'}</div></div><div class="verified-badge">✓ VERIFIED</div></div><div class="exp-text">${text}</div>`;
+function submitExp(){
+  const email=document.getElementById('exp-email').value;
+  const role=document.getElementById('exp-role').value;
+  const domain=document.getElementById('exp-domain').value;
+  const text=document.getElementById('exp-text').value;
+  if(!email||!email.includes('@')||email.split('@')[1].split('.').length<2){alert('Please enter a valid business email.');return;}
+  if(!text){alert('Please share your experience.');return;}
+  const post=document.createElement('div');
+  post.className='exp-post';post.style.borderLeftColor='var(--red)';
+  post.innerHTML=`<div class="exp-post-header"><div><div class="exp-company">${domain||'CYBERSECURITY'}</div><div class="exp-role">${role||'Anonymous Professional'}</div></div><div class="verified-badge">✓ VERIFIED</div></div><div class="exp-text">${text}</div>`;
   document.getElementById('exp-posts').prepend(post);
-  document.getElementById('exp-email').value = '';
-  document.getElementById('exp-role').value = '';
-  document.getElementById('exp-text').value = '';
-  document.getElementById('exp-domain').value = '';
+  document.getElementById('exp-email').value='';document.getElementById('exp-role').value='';
+  document.getElementById('exp-text').value='';document.getElementById('exp-domain').value='';
 }
 
 /* ═══════════════════════════════════════════════
    TERMINAL
 ═══════════════════════════════════════════════ */
-
-// Filesystem
-const FS = {
-  '/cyberx': {type:'dir', children:{
-    'red-team': {type:'dir', children:{
-      'pen-testing':       {type:'dir', moduleId:'pen-testing',       children:{}},
-      'malware-dev':       {type:'dir', moduleId:'malware-dev',       children:{}},
-      'reverse-engineering':{type:'dir', moduleId:'reverse-eng',      children:{}},
+const FS={
+  '/cyberx':{type:'dir',children:{
+    'red-team':{type:'dir',children:{
+      'pen-testing':{type:'dir',moduleId:'pen-testing',children:{}},
+      'malware-dev':{type:'dir',moduleId:'malware-dev',children:{}},
+      'reverse-engineering':{type:'dir',moduleId:'reverse-eng',children:{}},
     }},
-    'blue-team': {type:'dir', children:{
-      'soc-analysis':     {type:'dir', moduleId:'soc',               children:{}},
-      'incident-response':{type:'dir', moduleId:'ir',                children:{}},
-      'malware-analysis': {type:'dir', moduleId:'malware-analysis',  children:{}},
-      'digital-forensics':{type:'dir', moduleId:'forensics',         children:{}},
-      'threat-intel':     {type:'dir', moduleId:'threat-intel',      children:{}},
-      'threat-hunting':   {type:'dir', moduleId:'threat-hunt',       children:{}},
+    'blue-team':{type:'dir',children:{
+      'soc-analysis':{type:'dir',moduleId:'soc',children:{}},
+      'incident-response':{type:'dir',moduleId:'ir',children:{}},
+      'malware-analysis':{type:'dir',moduleId:'malware-analysis',children:{}},
+      'digital-forensics':{type:'dir',moduleId:'forensics',children:{}},
+      'threat-intel':{type:'dir',moduleId:'threat-intel',children:{}},
+      'threat-hunting':{type:'dir',moduleId:'threat-hunt',children:{}},
     }},
-    'awareness': {type:'dir', children:{}},
-    'articles':  {type:'dir', children:{}},
-    'advanced':  {type:'dir', hidden:true, children:{}},
-    'README.txt':{type:'file', color:'file-g'},
-    'MISSION.txt':{type:'file', color:'file-y'},
-    '.secret':   {type:'file', hidden:true, color:'file-r'},
+    'awareness':{type:'dir',children:{}},
+    'articles':{type:'dir',children:{}},
+    'advanced':{type:'dir',hidden:true,children:{}},
+    'README.txt':{type:'file',color:'file-g'},
+    'MISSION.txt':{type:'file',color:'file-y'},
+    '.secret':{type:'file',hidden:true,color:'file-r'},
   }}
 };
-
-let cwd = '/cyberx';
-
-function getNode(path) {
-  const norm = path.replace(/\/+$/, '') || '/cyberx';
-  if (norm === '/cyberx') return FS['/cyberx'];
-  const parts = norm.replace('/cyberx', '').split('/').filter(Boolean);
-  let node = FS['/cyberx'];
-  for (const p of parts) {
-    if (!node.children || !node.children[p]) return null;
-    node = node.children[p];
-  }
+let cwd='/cyberx';
+function getNode(path){
+  const norm=path.replace(/\/+$/,'')||'/cyberx';
+  if(norm==='/cyberx')return FS['/cyberx'];
+  const parts=norm.replace('/cyberx','').split('/').filter(Boolean);
+  let node=FS['/cyberx'];
+  for(const p of parts){if(!node.children||!node.children[p])return null;node=node.children[p];}
   return node;
 }
-
-function resolvePath(input) {
-  if (!input || input === '.') return cwd;
-  if (input === '..') {
-    const parts = cwd.replace('/cyberx', '').split('/').filter(Boolean);
-    parts.pop();
-    return parts.length ? '/cyberx/' + parts.join('/') : '/cyberx';
-  }
-  // Handle paths like red-team/pen-testing (relative, multi-segment)
-  if (!input.startsWith('/')) return (cwd.endsWith('/') ? cwd : cwd + '/') + input;
+function resolvePath(input){
+  if(!input||input==='.')return cwd;
+  if(input==='..'){{const parts=cwd.replace('/cyberx','').split('/').filter(Boolean);parts.pop();return parts.length?'/cyberx/'+parts.join('/'):'/cyberx';}}
+  if(!input.startsWith('/'))return(cwd.endsWith('/')?cwd:cwd+'/')+input;
   return input;
 }
-
-function print(html, cls = '') {
-  const d = document.createElement('div');
-  d.className = 't-line ' + cls;
-  d.innerHTML = html;
-  document.getElementById('terminal-body').appendChild(d);
-  scrollTerminal();
+function print(html,cls=''){
+  const d=document.createElement('div');d.className='t-line '+cls;d.innerHTML=html;
+  document.getElementById('terminal-body').appendChild(d);scrollTerminal();
 }
-function scrollTerminal() { const b = document.getElementById('terminal-body'); b.scrollTop = b.scrollHeight; }
+function scrollTerminal(){const b=document.getElementById('terminal-body');b.scrollTop=b.scrollHeight;}
+// function updatePrompt(){
+//   document.getElementById('t-prompt-label').textContent=`cyberx@root:${cwd}$ `;
+//   document.getElementById('t-header-path').textContent=`cyberx@terminal — bash — ${cwd}`;
+// }
 function updatePrompt() {
-  document.getElementById('t-prompt-label').textContent = `cyberx@root:${cwd}$ `;
-  document.getElementById('t-header-path').textContent = `cyberx@terminal — bash — ${cwd}`;
+const dirEl = document.getElementById('t-prompt-label');
+if (dirEl) dirEl.textContent = cwd;
+document.getElementById('t-header-path').textContent = `root@cyberx: ${cwd} — zsh`;
 }
-
-const CMD = {
-  '--help': () => {
-    print('Available commands:', 'dim');
-    print('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'dim');
-    [
-      ['ls [dir]','List directory contents'],
-      ['pwd','Print working directory'],
-      ['cd [path]','Change directory (cd into a module dir to open it)'],
-      ['cat [file]','Display file contents'],
-      ['whoami','Current user info'],
-      ['history','Command history'],
-      ['echo [text]','Print text'],
-      ['date','Current date/time'],
-      ['find [name]','Find file/dir by name'],
-      ['--modules','List all learning modules'],
-      ['--status','System status'],
-      ['--hint','Get a puzzle hint'],
-      ['--nav [page]','Navigate to page section'],
-      ['--about','About CYBERX'],
-      ['--clear','Clear terminal'],
-      ['--secret','???'],
-    ].forEach(([c, d]) => print(`  <span style="color:var(--cyan);min-width:180px;display:inline-block">${c}</span><span style="color:rgba(200,224,232,0.4)"> — ${d}</span>`));
+const CMD={
+  '--help':()=>{
+    print('Available commands:','dim');
+    print('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━','dim');
+    [['ls [dir]','List directory contents'],['pwd','Print working directory'],['cd [path]','Change directory'],['cat [file]','Display file contents'],['whoami','Current user info'],['history','Command history'],['echo [text]','Print text'],['date','Current date/time'],['find [name]','Find file/dir by name'],['--modules','List all learning modules'],['--status','System status'],['--hint','Get a puzzle hint'],['--nav [page]','Navigate to page section'],['--about','About CYBERX'],['--clear','Clear terminal'],['--secret','???']].forEach(([c,d])=>print(`  <span style="color:var(--cyan);min-width:180px;display:inline-block">${c}</span><span style="color:rgba(200,224,232,0.4)"> — ${d}</span>`));
     print(' ');
     print('<span style="color:rgba(9,216,199,0.5)">  TIP: cd red-team/pen-testing  →  opens module as full page</span>');
   },
-
-  ls: (args) => {
-    const target = args[0] ? resolvePath(args[0]) : cwd;
-    const node = getNode(target);
-    if (!node || node.type !== 'dir') { print(`ls: cannot access '${args[0] || '.'}': No such file or directory`, 'r'); return; }
-    const items = Object.entries(node.children || {});
-    if (items.length === 0) { print('(empty directory)', 'dim'); return; }
-    const row = document.createElement('div');
-    row.style.cssText = 'display:flex;flex-wrap:wrap;gap:0rem';
-    items.forEach(([name, n]) => {
-      if (n.hidden) return;
-      const sp = document.createElement('span');
-      sp.style.cssText = 'display:inline-block;margin-right:2.5rem;margin-bottom:0.2rem';
-      sp.className = 't-line ' + (n.type === 'dir' ? 'dir' : (n.color || 'file-g'));
-      const label = n.type === 'dir' ? name + '/' : name;
-      const hint = n.moduleId ? '  <span style="color:rgba(9,216,199,0.3);font-size:0.65rem">← cd to open</span>' : '';
-      sp.innerHTML = label + hint;
-      row.appendChild(sp);
+  ls:(args)=>{
+    const target=args[0]?resolvePath(args[0]):cwd;
+    const node=getNode(target);
+    if(!node||node.type!=='dir'){print(`ls: cannot access '${args[0]||'.'}': No such file or directory`,'r');return;}
+    const items=Object.entries(node.children||{});
+    if(items.length===0){print('(empty directory)','dim');return;}
+    const row=document.createElement('div');row.style.cssText='display:flex;flex-wrap:wrap;gap:0rem';
+    items.forEach(([name,n])=>{
+      if(n.hidden)return;
+      const sp=document.createElement('span');sp.style.cssText='display:inline-block;margin-right:2.5rem;margin-bottom:0.2rem';
+      sp.className='t-line '+(n.type==='dir'?'dir':(n.color||'file-g'));
+      const label=n.type==='dir'?name+'/':name;
+      const hint=n.moduleId?'  <span style="color:rgba(9,216,199,0.3);font-size:0.65rem">← cd to open</span>':'';
+      sp.innerHTML=label+hint;row.appendChild(sp);
     });
-    document.getElementById('terminal-body').appendChild(row);
-    scrollTerminal();
+    document.getElementById('terminal-body').appendChild(row);scrollTerminal();
   },
-
-  pwd: () => { print(cwd); },
-
-  cd: (args) => {
-    if (!args[0]) { cwd = '/cyberx'; updatePrompt(); return; }
-
-    const input = args[0].replace(/\/+$/, ''); // strip trailing slashes
-    const target = resolvePath(input);
-    const node = getNode(target);
-
-    if (!node) { print(`cd: ${args[0]}: No such file or directory`, 'r'); return; }
-    if (node.type !== 'dir') { print(`cd: ${args[0]}: Not a directory`, 'r'); return; }
-    if (node.hidden) { print(`cd: ${args[0]}: Permission denied  [ collect all hints first ]`, 'r'); return; }
-
-    cwd = target;
-    updatePrompt();
-
-    // If this directory is a module, launch it with cinematic transition
-    if (node.moduleId) {
-      const m = MODULES[node.moduleId];
-      if (m) {
-        const teamColor = m.color === 'red' ? 'var(--red)' : 'var(--cyan)';
-        print(`<span style="color:${teamColor}">[ ENTERING ]</span> ${target}`, '');
-        setTimeout(() => print('Mounting module filesystem...', 'dim'), 100);
-        setTimeout(() => print('Decrypting story fragments...', 'dim'), 300);
-        setTimeout(() => print('Loading challenge engine...', 'dim'), 500);
-        setTimeout(() => {
-          print(`<span style="color:${teamColor}">[ ACCESS GRANTED ]</span> Launching <span style="color:${teamColor}">${m.name}</span>...`, '');
-          setTimeout(() => {
-            closeTerminal();
-            launchModule(node.moduleId);
-          }, 400);
-        }, 800);
+  pwd:()=>{print(cwd);},
+  cd:(args)=>{
+    if(!args[0]){cwd='/cyberx';updatePrompt();return;}
+    const input=args[0].replace(/\/+$/,'');
+    const target=resolvePath(input);
+    const node=getNode(target);
+    if(!node){print(`cd: ${args[0]}: No such file or directory`,'r');return;}
+    if(node.type!=='dir'){print(`cd: ${args[0]}: Not a directory`,'r');return;}
+    if(node.hidden){print(`cd: ${args[0]}: Permission denied  [ collect all hints first ]`,'r');return;}
+    cwd=target;updatePrompt();
+    if(node.moduleId){
+      const m=MODULES[node.moduleId];
+      if(m){
+        const teamColor=m.color==='red'?'var(--red)':'var(--cyan)';
+        print(`<span style="color:${teamColor}">[ ENTERING ]</span> ${target}`,'');
+        setTimeout(()=>print('Mounting module filesystem...','dim'),100);
+        setTimeout(()=>print('Decrypting story fragments...','dim'),300);
+        setTimeout(()=>print('Loading challenge engine...','dim'),500);
+        setTimeout(()=>{
+          print(`<span style="color:${teamColor}">[ ACCESS GRANTED ]</span> Launching <span style="color:${teamColor}">${m.name}</span>...`,'');
+          setTimeout(()=>{closeTerminal();launchModule(node.moduleId);},400);
+        },800);
       }
     }
   },
-
-  cat: (args) => {
-    if (!args[0]) { print('cat: missing operand', 'r'); return; }
-    const node = getNode(resolvePath(args[0]));
-    if (!node) { print(`cat: ${args[0]}: No such file or directory`, 'r'); return; }
-    if (node.type === 'dir') { print(`cat: ${args[0]}: Is a directory`, 'r'); return; }
-    const content = {
-      'README.txt': ['Welcome to CYBERX.', 'This platform is designed for cybersecurity learning.', 'Navigate with cd, ls, and pwd to explore.', 'Find hints hidden across modules to unlock /advanced.'],
-      'MISSION.txt': ['MISSION STATEMENT:', 'Free education. Zero tracking. Maximum knowledge.', 'Cybersecurity should be accessible to everyone.', 'Join the movement. Learn. Protect. Teach.'],
-    };
-    (content[args[0]] || ['[ENCRYPTED — access denied]']).forEach(l => print(l, 'w'));
+  cat:(args)=>{
+    if(!args[0]){print('cat: missing operand','r');return;}
+    const node=getNode(resolvePath(args[0]));
+    if(!node){print(`cat: ${args[0]}: No such file or directory`,'r');return;}
+    if(node.type==='dir'){print(`cat: ${args[0]}: Is a directory`,'r');return;}
+    const content={'README.txt':['Welcome to CYBERX.','This platform is designed for cybersecurity learning.','Navigate with cd, ls, and pwd to explore.','Find hints hidden across modules to unlock /advanced.'],'MISSION.txt':['MISSION STATEMENT:','Free education. Zero tracking. Maximum knowledge.','Cybersecurity should be accessible to everyone.','Join the movement. Learn. Protect. Teach.']};
+    (content[args[0]]||['[ENCRYPTED — access denied]']).forEach(l=>print(l,'w'));
   },
-
-  whoami: () => {
-    print('cyberx@root', '');
-    print('Role: Operator (Unauthenticated)', 'dim');
-    print('Hint fragments collected: 0/9', 'dim');
-    print('Secret areas unlocked: 0/1', 'dim');
-  },
-
-  history: () => { cmdHistory.slice(-10).forEach((h, i) => print(`  ${i + 1}  ${h}`, 'dim')); },
-  echo: (args) => { print(args.join(' ') || '', 'w'); },
-  date: () => { print(new Date().toString(), 'w'); },
-
-  find: (args) => {
-    if (!args[0]) { print('find: missing argument', 'r'); return; }
-    const name = args[0];
-    function search(node, path) {
-      if (!node.children) return;
-      Object.entries(node.children).forEach(([k, v]) => {
-        if (k.toLowerCase().includes(name.toLowerCase()) && !v.hidden) print(`${path}/${k}`, v.type === 'dir' ? 'dir' : 'file-g');
-        if (v.type === 'dir') search(v, path + '/' + k);
+  whoami:()=>{print('cyberx@root','');print('Role: Operator (Unauthenticated)','dim');print('Hint fragments collected: 0/9','dim');print('Secret areas unlocked: 0/1','dim');},
+  history:()=>{cmdHistory.slice(-10).forEach((h,i)=>print(`  ${i+1}  ${h}`,'dim'));},
+  echo:(args)=>{print(args.join(' ')||'','w');},
+  date:()=>{print(new Date().toString(),'w');},
+  find:(args)=>{
+    if(!args[0]){print('find: missing argument','r');return;}
+    const name=args[0];
+    function search(node,path){
+      if(!node.children)return;
+      Object.entries(node.children).forEach(([k,v])=>{
+        if(k.toLowerCase().includes(name.toLowerCase())&&!v.hidden)print(`${path}/${k}`,v.type==='dir'?'dir':'file-g');
+        if(v.type==='dir')search(v,path+'/'+k);
       });
     }
-    search(FS['/cyberx'], '/cyberx');
+    search(FS['/cyberx'],'/cyberx');
   },
-
-  '--modules': () => {
-    print('RED TEAM:', 'r');
-    print('  cd red-team/pen-testing        → Penetration Testing', 'dim');
-    print('  cd red-team/malware-dev        → Malware Development', 'dim');
-    print('  cd red-team/reverse-engineering → Reverse Engineering', 'dim');
+  '--modules':()=>{
+    print('RED TEAM:','r');
+    print('  cd red-team/pen-testing        → Penetration Testing','dim');
+    print('  cd red-team/malware-dev        → Malware Development','dim');
+    print('  cd red-team/reverse-engineering → Reverse Engineering','dim');
     print(' ');
-    print('BLUE TEAM:', '');
-    print('  cd blue-team/soc-analysis      → SOC Analysis', 'dim');
-    print('  cd blue-team/incident-response → Incident Response', 'dim');
-    print('  cd blue-team/malware-analysis  → Malware Analysis', 'dim');
-    print('  cd blue-team/digital-forensics → Digital Forensics', 'dim');
-    print('  cd blue-team/threat-intel      → Threat Intelligence', 'dim');
-    print('  cd blue-team/threat-hunting    → Threat Hunting', 'dim');
+    print('BLUE TEAM:','');
+    print('  cd blue-team/soc-analysis      → SOC Analysis','dim');
+    print('  cd blue-team/incident-response → Incident Response','dim');
+    print('  cd blue-team/malware-analysis  → Malware Analysis','dim');
+    print('  cd blue-team/digital-forensics → Digital Forensics','dim');
+    print('  cd blue-team/threat-intel      → Threat Intelligence','dim');
+    print('  cd blue-team/threat-hunting    → Threat Hunting','dim');
   },
-
-  '--status': () => {
-    print('SYSTEM STATUS:', '');
-    [['Uptime','99.99%'],['Firewall','ACTIVE'],['Encryption','AES-256-GCM'],['Intrusions blocked','47'],['Hints collected','0/9'],['Puzzle solved','FALSE']].forEach(([k, v]) => print(`  ${k.padEnd(24)} ${v}`, 'dim'));
+  '--status':()=>{
+    print('SYSTEM STATUS:','');
+    [['Uptime','99.99%'],['Firewall','ACTIVE'],['Encryption','AES-256-GCM'],['Intrusions blocked','47'],['Hints collected','0/9'],['Puzzle solved','FALSE']].forEach(([k,v])=>print(`  ${k.padEnd(24)} ${v}`,'dim'));
   },
-
-  '--hint': () => {
-    print('HINT SYSTEM:', 'y');
-    print('  Fragment 0/9 collected.', 'dim');
-    print('  Complete a module to receive your first hint.', 'dim');
-    print('  The path to /advanced remains locked...', 'dim');
+  '--hint':()=>{print('HINT SYSTEM:','y');print('  Fragment 0/9 collected.','dim');print('  Complete a module to receive your first hint.','dim');print('  The path to /advanced remains locked...','dim');},
+  '--nav':(args)=>{
+    const pages={'home':'/','red-team':'#red-team','blue-team':'#blue-team','puzzle':'#puzzle','awareness':'#awareness','experience':'#experience','articles':'#articles','donate':'#donate'};
+    const p=args[0];
+    if(!p||!pages[p]){print(`Available: ${Object.keys(pages).join(', ')}`,'dim');return;}
+    print(`Navigating to ${pages[p]}...`,'');
+    setTimeout(()=>{const el=document.querySelector(p==='home'?'body':pages[p]);if(el)el.scrollIntoView({behavior:'smooth'});closeTerminal();},400);
   },
-
-  '--nav': (args) => {
-    const pages = {'home':'/','red-team':'#red-team','blue-team':'#blue-team','puzzle':'#puzzle','awareness':'#awareness','experience':'#experience','articles':'#articles','donate':'#donate'};
-    const p = args[0];
-    if (!p || !pages[p]) { print(`Available: ${Object.keys(pages).join(', ')}`, 'dim'); return; }
-    print(`Navigating to ${pages[p]}...`, '');
-    setTimeout(() => { const el = document.querySelector(p === 'home' ? 'body' : pages[p]); if (el) el.scrollIntoView({behavior:'smooth'}); closeTerminal(); }, 400);
-  },
-
-  '--about': () => {
-    print('CYBERX v1.0.0', '');
-    print('  Free cybersecurity learning platform.', 'dim');
-    print('  No login. No tracking. No ads. No BS.', 'dim');
-    print('  Gaming meets security education.', 'dim');
-  },
-
-  '--clear': () => { document.getElementById('terminal-body').innerHTML = ''; },
-
-  '--secret': () => {
-    print('...', 'dim');
-    setTimeout(() => { print('YOU FOUND A HIDDEN COMMAND.', 'y'); setTimeout(() => { print('But the secret is not here. Keep looking.', 'r'); }, 600); }, 700);
-  },
+  '--about':()=>{print('CYBERX v1.0.0','');print('  Free cybersecurity learning platform.','dim');print('  No login. No tracking. No ads. No BS.','dim');print('  Gaming meets security education.','dim');},
+  '--clear':()=>{document.getElementById('terminal-body').innerHTML='';},
+  '--secret':()=>{print('...','dim');setTimeout(()=>{print('YOU FOUND A HIDDEN COMMAND.','y');setTimeout(()=>{print('But the secret is not here. Keep looking.','r');},600);},700);},
 };
-
-let cmdHistory = [], histIdx = -1;
-
-document.getElementById('t-input').addEventListener('keydown', e => {
-  const input = document.getElementById('t-input');
-  if (e.key === 'ArrowUp') { e.preventDefault(); if (histIdx < cmdHistory.length - 1) { histIdx++; input.value = cmdHistory[cmdHistory.length - 1 - histIdx]; } return; }
-  if (e.key === 'ArrowDown') { e.preventDefault(); if (histIdx > 0) { histIdx--; input.value = cmdHistory[cmdHistory.length - 1 - histIdx]; } else { histIdx = -1; input.value = ''; } return; }
-  if (e.key === 'Tab') {
+let cmdHistory=[],histIdx=-1;
+document.getElementById('t-input').addEventListener('keydown',e=>{
+  const input=document.getElementById('t-input');
+  if(e.key==='ArrowUp'){e.preventDefault();if(histIdx<cmdHistory.length-1){histIdx++;input.value=cmdHistory[cmdHistory.length-1-histIdx];}return;}
+  if(e.key==='ArrowDown'){e.preventDefault();if(histIdx>0){histIdx--;input.value=cmdHistory[cmdHistory.length-1-histIdx];}else{histIdx=-1;input.value='';}return;}
+  if(e.key==='Tab'){
     e.preventDefault();
-    const val = input.value;
-    // Tab-complete command or path segment
-    const cmdMatches = Object.keys(CMD).filter(k => k.startsWith(val));
-    if (cmdMatches.length === 1) { input.value = cmdMatches[0]; return; }
-    if (cmdMatches.length > 1) { print(cmdMatches.join('  '), 'dim'); return; }
-    // Path completion
-    const parts = val.split('/');
-    const partial = parts.pop();
-    const basePath = resolvePath(parts.join('/') || '.');
-    const node = getNode(basePath);
-    if (node && node.children) {
-      const matches = Object.keys(node.children).filter(k => k.startsWith(partial) && !node.children[k].hidden);
-      if (matches.length === 1) { input.value = (parts.length ? parts.join('/') + '/' : '') + matches[0] + (node.children[matches[0]].type === 'dir' ? '/' : ''); }
-      else if (matches.length > 1) { print(matches.join('  '), 'dim'); }
+    const val=input.value;
+    const cmdMatches=Object.keys(CMD).filter(k=>k.startsWith(val));
+    if(cmdMatches.length===1){input.value=cmdMatches[0];return;}
+    if(cmdMatches.length>1){print(cmdMatches.join('  '),'dim');return;}
+    const parts=val.split('/');const partial=parts.pop();
+    const basePath=resolvePath(parts.join('/')||'.');
+    const node=getNode(basePath);
+    if(node&&node.children){
+      const matches=Object.keys(node.children).filter(k=>k.startsWith(partial)&&!node.children[k].hidden);
+      if(matches.length===1){input.value=(parts.length?parts.join('/')+'/' :'')+matches[0]+(node.children[matches[0]].type==='dir'?'/':'');}
+      else if(matches.length>1){print(matches.join('  '),'dim');}
     }
     return;
   }
-  if (e.key !== 'Enter') return;
-  const raw = input.value.trim(); if (!raw) return;
-  cmdHistory.push(raw); histIdx = -1;
-  const il = document.createElement('div'); il.className = 't-line'; il.textContent = `cyberx@root:${cwd}$ ${raw}`;
-  document.getElementById('terminal-body').appendChild(il);
-  const [cmd, ...args] = raw.split(/\s+/);
-  const handler = CMD[cmd] || CMD[cmd.toLowerCase()];
-  if (handler) handler(args); else print(`command not found: ${cmd}  — type --help`, 'r');
-  input.value = ''; scrollTerminal();
-});
+  if(e.key!=='Enter')return;
+  const raw=input.value.trim();if(!raw)return;
+  cmdHistory.push(raw);histIdx=-1;
+  const il=document.createElement('div');il.className='t-line';il.innerHTML = `<span style="color:#09D8C7">┌──(root㉿c)-[${cwd}]<br>└─# </span>${raw}`;
 
-function openTerminal() { document.getElementById('terminal-overlay').classList.add('open'); setTimeout(() => document.getElementById('t-input').focus(), 100); }
-function closeTerminal() { document.getElementById('terminal-overlay').classList.remove('open'); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeTerminal(); closeModulePage(); } });
-document.getElementById('terminal-overlay').addEventListener('click', e => { if (e.target === document.getElementById('terminal-overlay')) closeTerminal(); });
+  document.getElementById('terminal-body').appendChild(il);
+  const[cmd,...args]=raw.split(/\s+/);
+  const handler=CMD[cmd]||CMD[cmd.toLowerCase()];
+  if(handler)handler(args);else print(`command not found: ${cmd}  — type --help`,'r');
+  input.value='';scrollTerminal();
+});
+function openTerminal(){document.getElementById('terminal-overlay').classList.add('open');setTimeout(()=>document.getElementById('t-input').focus(),100);}
+function closeTerminal(){document.getElementById('terminal-overlay').classList.remove('open');}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeTerminal();closeModulePage();}});
+document.getElementById('terminal-overlay').addEventListener('click',e=>{if(e.target===document.getElementById('terminal-overlay'))closeTerminal();});
 </script>
 </body>
 </html>
