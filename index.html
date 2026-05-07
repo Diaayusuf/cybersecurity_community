@@ -794,7 +794,7 @@
 ═══════════════════════════════════════════════ */
 const MODULES = {
   'pen-testing': {
-    num:'01.01', team:'red', color:'red', icon:'🎯', name:'PENETRATION TESTING',
+    num:'01.01', team:'red', color:'red', icon:'', name:'PENETRATION TESTING',
     path:'/cyberx/red-team/pen-testing',
     tags:['RECON','EXPLOITATION','POST-EXPLOIT','OSINT','METASPLOIT'],
     cinLines:[
@@ -804,21 +804,11 @@ const MODULES = {
       {t:'Unlocking hint fragment #1...', c:'warn'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`It's 2:47 AM. You're authorized to break into one of the largest banks in the country.
+    story:`It's 2:47 AM. A bank has hired you to find what its defenders missed. You have 72 hours, a domain name, and permission to break things carefully.
 
-Not with guns. Not with masks. With a laptop, a VPN, and a Kali Linux terminal.
+OSINT exposes leaked developer details. Scanning reveals an outdated web server. One exploit becomes a shell, and that shell becomes a map of the internal network.
 
-Your client — the bank's CISO — hired you to find what their defenders missed. You have 72 hours. No internal access. No hints. Just a domain name and a scope document.
-
-Day 1: You begin with passive reconnaissance. OSINT reveals three developers who posted their work email on LinkedIn. One has a GitHub repo with a config file that still contains a test credential. You note it.
-
-Day 2: Active scanning. Nmap reveals a forgotten legacy web server running an outdated CMS. Metasploit confirms a public exploit exists. You gain a shell. From there — lateral movement. You find the internal network range.
-
-Day 3: You're inside. Domain admin. The crown jewels are within reach. But you stop. Document everything. Write the report. That's the job.
-
-The bank patches 23 vulnerabilities based on your findings. Three of them were critical. One would have allowed complete data exfiltration. You found it before the bad guys did.
-
-That's penetration testing.`,
+You stop before damage, document every step, and hand over the report. The bank patches the holes before real attackers find them.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'PTES Framework'},
       {icon:'▶', label:'VIDEO', name:'Metasploit Fundamentals'},
@@ -826,10 +816,10 @@ That's penetration testing.`,
       {icon:'📋', label:'CHECKLIST', name:'Pentest Methodology'},
     ],
     hint:'CYB',
-    challenge:'Your target has a web login form at /admin. Nmap shows port 22 (SSH) and 80 (HTTP) open. The HTTP headers reveal Apache 2.2.14. What is your first move, and why?'
+    challenge:'A target exposes SSH and an old Apache web server. What do you check first, and why?'
   },
   'malware-dev': {
-    num:'01.02', team:'red', color:'red', icon:'🦠', name:'MALWARE DEVELOPMENT',
+    num:'01.02', team:'red', color:'red', icon:'', name:'MALWARE DEVELOPMENT',
     path:'/cyberx/red-team/malware-dev',
     tags:['EVASION','PERSISTENCE','C2','SHELLCODE','PROCESS INJECTION'],
     cinLines:[
@@ -839,21 +829,11 @@ That's penetration testing.`,
       {t:'Sandbox check: PASSED', c:'ok'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`You need to understand the weapon before you can defend against it.
+    story:`To defend against malware, you need to understand how it is built.
 
-A red team operator sits down to build a payload. The goal isn't destruction — it's understanding. Every technique learned here is a technique a defender can now detect.
+A simple payload becomes harder to detect: strings are hidden, imports load dynamically, and execution moves into a trusted process.
 
-The payload starts as a simple reverse shell. 50 lines of Python. It connects back to a command-and-control server and waits for instructions.
-
-But static analysis tools catch it immediately. The operator learns: obfuscation is necessary. Strings are encrypted. Imports are loaded dynamically. The payload is injected into a legitimate process — process hollowing.
-
-Next challenge: persistence. The payload needs to survive a reboot. Registry run keys. Scheduled tasks. WMI subscriptions. Each technique leaves a different forensic footprint — each footprint is a detection opportunity for blue team.
-
-Then: evasion. Sandboxes run malware in automated VMs. The payload checks for mouse movement, screen resolution, number of running processes. If it detects a sandbox — it exits cleanly, looking benign.
-
-Understanding how attackers build this is how defenders build detections that actually work.
-
-The payload that evades detection today becomes tomorrow's YARA rule.`,
+Every trick leaves a footprint. Persistence, injection, and evasion become detections, rules, and better defenses.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'Malware Dev Concepts'},
       {icon:'▶', label:'VIDEO', name:'Process Injection Deep Dive'},
@@ -861,10 +841,10 @@ The payload that evades detection today becomes tomorrow's YARA rule.`,
       {icon:'📋', label:'CHECKLIST', name:'Evasion Techniques Map'},
     ],
     hint:'_SE',
-    challenge:'A sample uses CreateRemoteThread to inject shellcode into explorer.exe. List three forensic artifacts this technique would leave on the system, and which security tools would catch each one.'
+    challenge:'A sample injects code into explorer.exe. Name three artifacts defenders should look for.'
   },
   'reverse-eng': {
-    num:'01.03', team:'red', color:'red', icon:'🔬', name:'REVERSE ENGINEERING',
+    num:'01.03', team:'red', color:'red', icon:'', name:'REVERSE ENGINEERING',
     path:'/cyberx/red-team/reverse-engineering',
     tags:['BINARY','ASSEMBLY','GHIDRA','X64DBG','DECOMPILER'],
     cinLines:[
@@ -874,21 +854,11 @@ The payload that evades detection today becomes tomorrow's YARA rule.`,
       {t:'Symbol resolution: STRIPPED', c:'warn'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`You receive a binary. No source code. No documentation. Just a 2.4 MB executable and a question: what does this actually do?
+    story:`You receive a binary with no source code and one question: what does it do?
 
-This is reverse engineering.
+Ghidra reveals stripped functions, encoded strings, and a small XOR routine hiding network details. A mutex check hints at an infection marker.
 
-You open Ghidra. The decompiler begins reconstructing C-like pseudocode from assembly. The binary is stripped — no symbols. Function names are gone. But the logic remains.
-
-You notice a function that loops over a character array and XORs each byte with 0x41. A decryption routine. You extract the encrypted blob from the .data section and write a 3-line Python script to decode it. The output: a URL. An IP address. A second-stage payload location.
-
-You trace the execution flow. The binary checks a mutex on startup — if the mutex exists, it exits. This is the kill switch, an infection marker so it doesn't infect the same machine twice. You now know how to detect this family.
-
-A function calls VirtualAlloc, then WriteProcessMemory, then CreateThread. Classic shellcode injection. You examine the shellcode bytes and cross-reference with known shellcode databases — it matches a Cobalt Strike beacon template.
-
-You now know: who built it, how it behaves, how to detect it, and how to kill it.
-
-No source code needed. Just patience, and tools.`,
+The execution flow points to shellcode injection. With patience and tools, the unknown file becomes a behavior map.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'Ghidra Beginner Guide'},
       {icon:'▶', label:'VIDEO', name:'Assembly Fundamentals'},
@@ -896,7 +866,7 @@ No source code needed. Just patience, and tools.`,
       {icon:'📋', label:'CHECKLIST', name:'RE Analysis Workflow'},
     ],
     hint:'CUR',
-    challenge:'You find a function that takes a string input and produces a fixed-length output regardless of input length. What cryptographic primitive does this suggest? How would you confirm it in Ghidra?'
+    challenge:'A function returns fixed-length output for any input. What primitive does that suggest?'
   },
   'soc': {
     num:'02.01', team:'blue', color:'blue', icon:'📡', name:'SOC ANALYSIS',
@@ -909,25 +879,11 @@ No source code needed. Just patience, and tools.`,
       {t:'P1 ALERT DETECTED — engaging analyst mode', c:'warn'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`It's 6:43 PM on a Friday. The SOC is winding down. Most analysts are thinking about the weekend.
+    story:`Friday evening. The SIEM fires on a CFO workstation sending unusual outbound traffic.
 
-Then the SIEM fires.
+Endpoint logs show encoded PowerShell, a downloaded script, and a suspicious scheduled task. Network logs point to likely C2 infrastructure.
 
-Alert ID: CRIT-0089 — Unusual outbound traffic spike — 4.2 GB to an IP in Eastern Europe — from a workstation used by the CFO.
-
-You're the analyst on duty. The investigation begins.
-
-You pull the endpoint logs. The workstation ran a PowerShell command at 5:58 PM. Base64 encoded. You decode it — it downloads a script from a pastebin URL. The script establishes persistence through a scheduled task named "WindowsUpdateHelper." Classic.
-
-You pivot to network logs. The traffic started 3 minutes after the PowerShell execution. Destination IP resolves to a bulletproof hosting provider known for C2 infrastructure.
-
-You raise the alert to P1. Incident Response team is paged. The workstation is isolated within 11 minutes of your first click.
-
-The investigation reveals a spear-phishing email that bypassed the email gateway. The attacker had been in the environment for 47 minutes total before you cut the connection.
-
-47 minutes. Because of you, that's all they got.
-
-That's SOC Analysis.`,
+You escalate, isolate the host, and hand IR a clean timeline. The attacker had 47 minutes before the door closed.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'SIEM Alert Triage'},
       {icon:'▶', label:'VIDEO', name:'Splunk for Analysts'},
@@ -935,10 +891,10 @@ That's SOC Analysis.`,
       {icon:'📋', label:'CHECKLIST', name:'Alert Investigation Flow'},
     ],
     hint:'ERX',
-    challenge:'You receive an alert: a workstation is communicating with an external IP on port 443 every 60 seconds, exactly. The traffic is encrypted. What indicators would you look for to determine if this is C2 beaconing?'
+    challenge:'A workstation calls one external IP every 60 seconds. What signs suggest C2 beaconing?'
   },
   'ir': {
-    num:'02.02', team:'blue', color:'blue', icon:'🚨', name:'INCIDENT RESPONSE',
+    num:'02.02', team:'blue', color:'blue', icon:'', name:'INCIDENT RESPONSE',
     path:'/cyberx/blue-team/incident-response',
     tags:['CONTAIN','ERADICATE','RECOVER','NIST','RUNBOOK'],
     cinLines:[
@@ -948,25 +904,11 @@ That's SOC Analysis.`,
       {t:'Clock started — 72hr response window', c:'warn'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`3:12 AM. Your pager goes off.
+    story:`3:12 AM. A production database server starts making unexpected outbound connections.
 
-"Production database server — unexpected outbound connections — customer data may be at risk."
+EDR shows lateral movement from a compromised service account. You isolate affected systems, remove persistence, rotate credentials, and restore from clean backups.
 
-You're the incident commander. The next 6 hours will define whether this company survives intact.
-
-Phase 1 — Identification. The EDR console shows lateral movement originating from a compromised service account. Timestamps show initial access 11 days ago. The attacker has been quiet — living off the land, using legitimate tools.
-
-Phase 2 — Containment. You make the call: isolate affected systems. Yes, it will take down production for 2 hours. But leaving infected systems online risks worse. The CISO approves in under 90 seconds.
-
-Phase 3 — Eradication. You find 4 persistence mechanisms: a rogue admin account, a scheduled task, a registry run key, and a DLL hijack in a legitimate application. Each is removed and documented.
-
-Phase 4 — Recovery. Clean backups from 12 days ago. Restore in a clean environment. New credentials across the board. Hardened firewall rules.
-
-Phase 5 — Lessons Learned. The attacker entered through a phishing email. The email gateway missed it. New rule sets are deployed. Tabletop exercises are scheduled.
-
-The breach was contained. No customer data exfiltrated.
-
-2 hours of downtime instead of a headline.`,
+The breach becomes two hours of downtime instead of a public disaster.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'NIST IR Framework'},
       {icon:'▶', label:'VIDEO', name:'Containment Decision Making'},
@@ -974,10 +916,10 @@ The breach was contained. No customer data exfiltrated.
       {icon:'📋', label:'CHECKLIST', name:'IR Runbook Template'},
     ],
     hint:'ITY',
-    challenge:'You discover that a compromised host has been in your environment for 30 days. Before isolating it, what forensic artifacts would you collect, and in what order? Explain why order matters.'
+    challenge:'A host has been compromised for 30 days. What do you collect before isolation?'
   },
   'malware-analysis': {
-    num:'02.03', team:'blue', color:'blue', icon:'🧬', name:'MALWARE ANALYSIS',
+    num:'02.03', team:'blue', color:'blue', icon:'', name:'MALWARE ANALYSIS',
     path:'/cyberx/blue-team/malware-analysis',
     tags:['STATIC','DYNAMIC','SANDBOX','YARA','PE STUDIO'],
     cinLines:[
@@ -987,19 +929,11 @@ The breach was contained. No customer data exfiltrated.
       {t:'VirusTotal: 3/72 detections', c:'warn'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`The suspicious email attachment lands in your sandbox at 9:17 AM.
+    story:`A suspicious attachment lands in the sandbox. VirusTotal barely flags it, so you dig deeper.
 
-SHA-256 hash: checked against VirusTotal. 3/72 engines flag it. Interesting — not nothing, but not conclusive. You proceed.
+Static analysis shows injection APIs, high entropy, and hidden strings. Dynamic analysis reveals scheduled tasks, dropped files, DNS lookups, and C2 traffic.
 
-Static Analysis first. You open the file in PE Studio. The import table reveals suspicious API calls: VirtualAllocEx, WriteProcessMemory, CreateRemoteThread. The file has an unusually high entropy section — likely packed or encrypted code. Strings view shows a base64 blob and what appears to be an obfuscated URL.
-
-Dynamic Analysis. You detonate in a controlled VM. Procmon captures file system and registry changes. Wireshark records network traffic. Within 30 seconds: a new scheduled task is created, a DLL is dropped to %APPDATA%/Microsoft, and DNS queries are made to three domains — all registered in the last 48 hours.
-
-You extract the network traffic. The C2 communication uses HTTPS but certificate inspection shows a self-signed cert with suspicious fields. You capture the POST request body — base64 encoded system information: hostname, username, OS version, privileges.
-
-You now have: IOCs, TTPs, detection signatures, and a YARA rule.
-
-The same file hit 400 inboxes across the organization. Because of your analysis, all 400 were quarantined before execution.`,
+From one sample, you extract IOCs, TTPs, and detections that protect the whole organization.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'PE File Format Deep Dive'},
       {icon:'▶', label:'VIDEO', name:'Cuckoo Sandbox Setup'},
@@ -1007,10 +941,10 @@ The same file hit 400 inboxes across the organization. Because of your analysis,
       {icon:'📋', label:'CHECKLIST', name:'Malware Analysis Template'},
     ],
     hint:'_ZE',
-    challenge:'A sample has an entropy value of 7.8 in its .text section. What does this indicate, and what tool would you use to unpack it? What are the risks of running an unpacker against unknown malware?'
+    challenge:'A .text section has entropy 7.8. What does that suggest, and how would you handle it?'
   },
   'forensics': {
-    num:'02.04', team:'blue', color:'blue', icon:'🔍', name:'DIGITAL FORENSICS',
+    num:'02.04', team:'blue', color:'blue', icon:'', name:'DIGITAL FORENSICS',
     path:'/cyberx/blue-team/digital-forensics',
     tags:['EVIDENCE','ARTIFACTS','MEMORY','NTFS','VOLATILITY'],
     cinLines:[
@@ -1020,21 +954,11 @@ The same file hit 400 inboxes across the organization. Because of your analysis,
       {t:'Chain of custody: VERIFIED', c:'ok'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`The hard drive arrives in an evidence bag. Chain of custody paperwork. Hash verification — SHA-256 matches. You've received it intact.
+    story:`A hard drive arrives in evidence packaging. The hash matches, so the investigation begins.
 
-The case: a suspect allegedly exfiltrated confidential R&D documents before resigning. The company wants to know what was taken, when, and where it went.
+You image the drive, mount the copy, and build a timeline from NTFS artifacts, shellbags, LNK files, and USB history.
 
-You create a forensic image. Write-blocker engaged. FTK Imager creates a sector-by-sector copy. The original drive is never touched again.
-
-You mount the image. Windows NTFS. You look at the $MFT — the Master File Table. Every file that ever existed on this drive has an entry, even deleted ones. The timestamps tell a story.
-
-Between 11:45 PM and 1:22 AM on the employee's last day: 847 files accessed. PDFs, CAD drawings, database exports. All in the R&D folder. The access pattern is unusual — sequential, rapid — like a script or bulk copy operation.
-
-Shellbags reveal the user opened a portable USB drive at 11:43 PM — two minutes before the file access began. LNK files confirm files were opened from the USB drive letter.
-
-You check the Volume Shadow Copies. An earlier snapshot shows the USB drive path in the user's Recent Files. Plug History in the registry shows the USB's serial number — it was connected 14 times in the last month.
-
-You have a timeline. You have evidence. The case is built.`,
+The pattern shows rapid access to sensitive files minutes after a portable drive was connected. The evidence tells the story.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'Windows Forensics Artifacts'},
       {icon:'▶', label:'VIDEO', name:'Autopsy Forensics Tool'},
@@ -1042,10 +966,10 @@ You have a timeline. You have evidence. The case is built.`,
       {icon:'📋', label:'CHECKLIST', name:'Evidence Collection Order'},
     ],
     hint:'RO',
-    challenge:'You have a Windows memory dump from a potentially compromised host. Using Volatility, what 5 commands would you run first, and what specific IOCs are you looking for with each?'
+    challenge:'You have a Windows memory dump. Which Volatility commands do you run first?'
   },
   'threat-intel': {
-    num:'02.05', team:'blue', color:'blue', icon:'🧠', name:'THREAT INTELLIGENCE',
+    num:'02.05', team:'blue', color:'blue', icon:'', name:'THREAT INTELLIGENCE',
     path:'/cyberx/blue-team/threat-intel',
     tags:['APT','TTPs','MITRE','OSINT','MISP'],
     cinLines:[
@@ -1055,21 +979,11 @@ You have a timeline. You have evidence. The case is built.`,
       {t:'Attribution confidence: MEDIUM-HIGH', c:'warn'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`The alert comes in at 7:55 AM: a phishing email targeting finance teams across 12 companies in your industry vertical — all sent within the last 90 minutes.
+    story:`A phishing wave targets finance teams across your industry. Your job is to understand the campaign fast.
 
-You're the CTI analyst. Your job isn't to respond — it's to understand.
+Headers, domains, PowerShell, and infrastructure overlap with known threat activity. The TTPs map cleanly to MITRE ATT&CK.
 
-You pull the email headers. Sender infrastructure resolves to a hosting provider in Romania. The domain was registered 6 hours ago using privacy protection. The lure document — a fake invoice — drops a PowerShell cradle.
-
-You decode the PowerShell. It reaches out to a domain that resolves to a known IP range. You search your threat intel platform. A match: this IP cluster was previously associated with FIN7, a financially motivated threat actor.
-
-You pivot. Same TTP — spear-phishing finance teams, using invoice lures, PowerShell dropper, Carbanak family variant. The timing, targeting, and infrastructure are consistent with FIN7's known playbook.
-
-You map the campaign to MITRE ATT&CK. T1566.001 (Phishing: Spearphishing Attachment). T1059.001 (PowerShell). T1105 (Ingress Tool Transfer). You create a threat intelligence report and push IOCs to 47 partner organizations within 2 hours of the first alert.
-
-Eleven companies block the infrastructure before a single payload executes.
-
-Information shared is threat eliminated.`,
+You publish IOCs and context to partners before the payload spreads. Shared intelligence becomes shared defense.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'MITRE ATT&CK Framework'},
       {icon:'▶', label:'VIDEO', name:'OSINT Investigation Techniques'},
@@ -1077,10 +991,10 @@ Information shared is threat eliminated.`,
       {icon:'📋', label:'CHECKLIST', name:'CTI Report Template'},
     ],
     hint:'_ST',
-    challenge:'You identify a new phishing campaign. The infrastructure overlaps 30% with a known APT group. The TTPs match 4 out of 6 known behaviors. What confidence level do you assign attribution, and how do you communicate uncertainty in your report?'
+    challenge:'A campaign partly matches a known actor. How do you assign confidence without overclaiming?'
   },
   'threat-hunt': {
-    num:'02.06', team:'blue', color:'blue', icon:'🏹', name:'THREAT HUNTING',
+    num:'02.06', team:'blue', color:'blue', icon:'', name:'THREAT HUNTING',
     path:'/cyberx/blue-team/threat-hunting',
     tags:['PROACTIVE','HYPOTHESIS','KQL','EDR','LATERAL MOVEMENT'],
     cinLines:[
@@ -1090,25 +1004,11 @@ Information shared is threat eliminated.`,
       {t:'ANOMALY FOUND — 6-day-old compromise', c:'warn'},
       {t:'ACCESS GRANTED — ENTERING MODULE', c:'ok'},
     ],
-    story:`No alert triggered. No detection fired. Everything looks normal.
+    story:`No alert fired. Everything looks normal. That is exactly why you hunt.
 
-That's exactly when you start hunting.
+You test a hypothesis: attackers are using legitimate remote admin tools for lateral movement. SIEM queries reveal AnyDesk on a database server where it should not exist.
 
-Threat hunting is the art of assuming breach — assuming something is already in your environment that your tools missed — and going to find it.
-
-You start with a hypothesis: "An attacker is using legitimate remote administration tools for lateral movement to avoid detection." This is based on a threat intelligence report about a campaign targeting companies in your sector.
-
-You query your SIEM: show all executions of AnyDesk, TeamViewer, and RDP from servers — not workstations. Servers don't normally run remote admin tools. Within 3 hours of queries, you find it: a database server running AnyDesk, installed 6 days ago.
-
-You pivot. Who installed it? A service account. When did that service account last have activity? 3 weeks ago, before the install. The service account had been dormant and then suddenly woke up.
-
-You check authentication logs. The service account logged in from an internal workstation that was never associated with it. That workstation belongs to an employee in accounting.
-
-The chain: phishing → accountant workstation → service account hijack → server lateral movement → remote access tool installed.
-
-You found a 6-day-old compromise that generated zero alerts.
-
-That's threat hunting.`,
+The trail leads from a dormant service account to an accounting workstation. A six-day compromise appears without waiting for an alert.`,
     resources:[
       {icon:'📄', label:'PDF GUIDE', name:'Hypothesis-Driven Hunting'},
       {icon:'▶', label:'VIDEO', name:'KQL for Threat Hunting'},
@@ -1116,7 +1016,7 @@ That's threat hunting.`,
       {icon:'📋', label:'CHECKLIST', name:'Hunt Mission Framework'},
     ],
     hint:'ORE',
-    challenge:'Build a threat hunt hypothesis for: "An attacker is using DNS tunneling for data exfiltration." Describe your data sources, query logic, and what a positive result would look like.'
+    challenge:'Build a hunt hypothesis for DNS tunneling. What data and signals matter?'
   }
 };
 
