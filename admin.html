@@ -1,0 +1,1496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CYBERX // ADMIN PANEL</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cyan:#09D8C7; --red:#BD0927; --gold:#ffd700;
+  --bg:#080f1a; --bg2:#0a1525; --bg3:#0d1a2f;
+  --surface:#111d2e; --surface2:#17264a;
+  --border:rgba(9,216,199,0.12); --border2:rgba(9,216,199,0.22);
+  --text:#c8e0e8; --text-dim:rgba(200,224,232,0.45);
+  --glow-cyan:0 0 20px rgba(9,216,199,0.4),0 0 40px rgba(9,216,199,0.15);
+  --glow-red:0 0 20px rgba(189,9,39,0.4),0 0 40px rgba(189,9,39,0.15);
+  --glow-gold:0 0 20px rgba(255,215,0,0.3),0 0 40px rgba(255,215,0,0.1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Rajdhani',sans-serif;
+  min-height:100vh;overflow-x:hidden;
+}
+body::before{
+  content:'';position:fixed;inset:-10%;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(9,216,199,0.012) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(9,216,199,0.012) 1px,transparent 1px);
+  background-size:60px 60px;animation:gridDrift 40s linear infinite;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar{width:4px;}
+::-webkit-scrollbar-track{background:var(--bg);}
+::-webkit-scrollbar-thumb{background:rgba(9,216,199,0.25);border-radius:2px;}
+
+/* ── TOPBAR ── */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:56px;display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;
+  background:rgba(8,15,26,0.97);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+}
+.topbar-logo{
+  font-family:'Orbitron',sans-serif;font-size:1rem;font-weight:900;
+  color:var(--cyan);letter-spacing:0.25em;text-shadow:var(--glow-cyan);
+  display:flex;align-items:center;gap:0.8rem;
+}
+.topbar-logo img{width:42px;height:auto;display:block;filter:drop-shadow(0 0 12px rgba(9,216,199,0.35));}
+.topbar-logo span{color:var(--red);}
+.topbar-logo .badge{
+  font-family:'Share Tech Mono',monospace;font-size:0.52rem;
+  letter-spacing:0.2em;color:rgba(189,9,39,0.7);
+  border:1px solid rgba(189,9,39,0.3);padding:0.2rem 0.5rem;
+}
+.topbar-right{display:flex;align-items:center;gap:1rem;}
+.topbar-user{
+  font-family:'Share Tech Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;color:var(--text-dim);
+  display:flex;align-items:center;gap:0.5rem;
+}
+.user-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);
+  box-shadow:0 0 8px var(--cyan);animation:pulse 2s ease-in-out infinite;}
+.topbar-back{
+  font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;
+  color:var(--text-dim);border:1px solid rgba(200,224,232,0.1);
+  padding:0.35rem 0.8rem;text-decoration:none;transition:all 0.3s;
+}
+.topbar-back:hover{color:var(--cyan);border-color:var(--border2);}
+
+/* ── LAYOUT ── */
+.layout{display:flex;min-height:100vh;padding-top:56px;}
+
+/* ── SIDEBAR ── */
+.sidebar{
+  width:240px;flex-shrink:0;
+  background:rgba(8,15,26,0.98);
+  border-right:1px solid var(--border);
+  position:fixed;top:56px;left:0;bottom:0;
+  overflow-y:auto;z-index:100;
+  display:flex;flex-direction:column;
+}
+.sidebar-section{padding:1.2rem 0;}
+.sidebar-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.52rem;
+  letter-spacing:0.35em;color:rgba(9,216,199,0.3);
+  padding:0 1.2rem;margin-bottom:0.5rem;
+}
+.sidebar-item{
+  display:flex;align-items:center;gap:0.7rem;
+  padding:0.65rem 1.2rem;cursor:pointer;
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;
+  letter-spacing:0.1em;color:var(--text-dim);
+  transition:all 0.2s;border-left:2px solid transparent;
+  text-decoration:none;
+}
+.sidebar-item:hover{color:var(--text);background:rgba(9,216,199,0.04);}
+.sidebar-item.active{
+  color:var(--cyan);background:rgba(9,216,199,0.06);
+  border-left-color:var(--cyan);
+}
+.sidebar-item.red-item.active{
+  color:var(--red);background:rgba(189,9,39,0.05);
+  border-left-color:var(--red);
+}
+.sidebar-item .s-icon{font-size:0.9rem;width:16px;text-align:center;}
+.sidebar-divider{height:1px;background:var(--border);margin:0.5rem 1.2rem;}
+.sidebar-item .s-count{
+  margin-left:auto;font-size:0.55rem;
+  background:rgba(9,216,199,0.1);color:var(--cyan);
+  border:1px solid rgba(9,216,199,0.2);
+  padding:0.1rem 0.4rem;border-radius:2px;
+}
+.sidebar-item.red-item .s-count{
+  background:rgba(189,9,39,0.1);color:var(--red);
+  border-color:rgba(189,9,39,0.2);
+}
+
+/* ── MAIN CONTENT ── */
+.main{margin-left:240px;flex:1;padding:2rem;min-height:calc(100vh - 56px);position:relative;z-index:1;}
+.admin-footer{
+  margin-top:2rem;background:#000;border:1px solid var(--border);
+  padding:1.6rem 2rem;display:grid;grid-template-columns:1fr auto 1fr;
+  align-items:center;gap:1.5rem;font-family:'Share Tech Mono',monospace;
+  font-size:0.62rem;letter-spacing:0.15em;color:rgba(200,224,232,0.28);
+}
+.admin-footer-logo{
+  display:flex;align-items:center;justify-content:center;gap:0.6rem;
+  font-family:'Orbitron',sans-serif;font-size:0.9rem;font-weight:900;
+  color:var(--cyan);letter-spacing:0.2em;text-shadow:var(--glow-cyan);
+}
+.admin-footer-logo img{width:38px;height:auto;filter:drop-shadow(0 0 12px rgba(9,216,199,0.35));}
+.admin-footer-logo span{color:var(--red);}
+.admin-footer-links{text-align:right;}
+.admin-footer-links a{color:rgba(200,224,232,0.28);text-decoration:none;margin-left:1.2rem;transition:color 0.3s;}
+.admin-footer-links a:hover{color:var(--cyan);}
+
+/* ── PAGE HEADER ── */
+.page-header{margin-bottom:2rem;}
+.page-eyebrow{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.4em;color:rgba(9,216,199,0.4);margin-bottom:0.5rem;
+}
+.page-title{
+  font-family:'Orbitron',sans-serif;font-size:1.6rem;font-weight:900;
+  color:#fff;letter-spacing:0.05em;margin-bottom:0.4rem;
+}
+.page-desc{font-size:0.9rem;color:var(--text-dim);line-height:1.6;}
+
+/* ── STATS ROW ── */
+.stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem;}
+.stat-box{
+  background:var(--surface);border:1px solid var(--border);
+  padding:1.2rem 1.5rem;position:relative;overflow:hidden;
+}
+.stat-box::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;}
+.stat-box.sc::before{background:var(--cyan);}
+.stat-box.sr::before{background:var(--red);}
+.stat-box.sg::before{background:var(--gold);}
+.stat-box.sw::before{background:rgba(200,224,232,0.3);}
+.stat-n{
+  font-family:'Orbitron',sans-serif;font-size:2rem;font-weight:900;
+  margin-bottom:0.2rem;
+}
+.stat-box.sc .stat-n{color:var(--cyan);text-shadow:var(--glow-cyan);}
+.stat-box.sr .stat-n{color:var(--red);text-shadow:var(--glow-red);}
+.stat-box.sg .stat-n{color:var(--gold);text-shadow:var(--glow-gold);}
+.stat-box.sw .stat-n{color:#fff;}
+.stat-l{font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:0.2em;color:var(--text-dim);}
+
+/* ── SECTION BLOCK ── */
+.section-block{background:var(--surface);border:1px solid var(--border);margin-bottom:1.5rem;overflow:hidden;}
+.section-head{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1rem 1.5rem;border-bottom:1px solid var(--border);
+  background:rgba(9,216,199,0.02);
+}
+.section-head.red-head{background:rgba(189,9,39,0.02);border-bottom-color:rgba(189,9,39,0.15);}
+.section-head.gold-head{background:rgba(255,215,0,0.02);border-bottom-color:rgba(255,215,0,0.12);}
+.sh-left{display:flex;align-items:center;gap:0.8rem;}
+.sh-icon{font-size:1rem;}
+.sh-title{
+  font-family:'Share Tech Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.2em;color:var(--cyan);
+}
+.red-head .sh-title{color:var(--red);}
+.gold-head .sh-title{color:var(--gold);}
+.sh-badge{
+  font-family:'Share Tech Mono',monospace;font-size:0.55rem;
+  letter-spacing:0.15em;padding:0.2rem 0.6rem;
+  border:1px solid;
+}
+.badge-blue{color:var(--cyan);border-color:rgba(9,216,199,0.3);}
+.badge-red{color:var(--red);border-color:rgba(189,9,39,0.3);}
+.badge-gold{color:var(--gold);border-color:rgba(255,215,0,0.3);}
+.section-body{padding:1.5rem;}
+
+/* ── MODULE SELECTOR ── */
+.module-selector{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+  gap:0.5rem;margin-bottom:1.5rem;
+}
+.mod-btn{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.12em;
+  padding:0.6rem 0.8rem;background:transparent;
+  border:1px solid var(--border);color:var(--text-dim);
+  cursor:pointer;transition:all 0.2s;text-align:left;
+  display:flex;align-items:center;gap:0.5rem;
+}
+.mod-btn:hover{border-color:var(--border2);color:var(--text);}
+.mod-btn.active-mod{border-color:var(--cyan);color:var(--cyan);background:rgba(9,216,199,0.05);}
+.mod-btn.red-mod.active-mod{border-color:var(--red);color:var(--red);background:rgba(189,9,39,0.05);}
+.mod-btn .mb-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.mod-btn.red-mod .mb-dot{background:var(--red);}
+.mod-btn:not(.red-mod) .mb-dot{background:var(--cyan);}
+
+/* ── FORM ELEMENTS ── */
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem;}
+.form-row-full{margin-bottom:1rem;}
+.form-group{display:flex;flex-direction:column;gap:0.35rem;}
+.form-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.22em;color:var(--text-dim);
+}
+.form-label .req{color:var(--red);}
+.form-input,.form-select,.form-textarea{
+  background:rgba(0,0,0,0.4);border:1px solid rgba(9,216,199,0.15);
+  color:var(--text);font-family:'Rajdhani',sans-serif;font-size:0.92rem;
+  padding:0.65rem 1rem;outline:none;transition:border-color 0.3s;
+  width:100%;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{border-color:rgba(9,216,199,0.4);}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(200,224,232,0.18);}
+.form-select option{background:var(--bg3);}
+.form-textarea{resize:vertical;min-height:80px;font-family:'Rajdhani',sans-serif;}
+
+/* Type toggle */
+.type-toggle{display:flex;gap:0.5rem;margin-bottom:1rem;}
+.type-btn{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;
+  padding:0.5rem 1.2rem;background:transparent;
+  border:1px solid var(--border);color:var(--text-dim);
+  cursor:pointer;transition:all 0.2s;
+}
+.type-btn:hover{border-color:var(--border2);}
+.type-btn.active-type{border-color:var(--cyan);color:var(--cyan);background:rgba(9,216,199,0.06);}
+
+/* Action buttons */
+.btn{
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;letter-spacing:0.2em;
+  padding:0.7rem 1.5rem;border:1px solid;cursor:pointer;
+  transition:all 0.3s;clip-path:polygon(8px 0%,100% 0%,calc(100% - 8px) 100%,0% 100%);
+}
+.btn-cyan{
+  background:rgba(9,216,199,0.08);color:var(--cyan);border-color:rgba(9,216,199,0.3);
+}
+.btn-cyan:hover{background:rgba(9,216,199,0.15);box-shadow:var(--glow-cyan);}
+.btn-red{
+  background:rgba(189,9,39,0.08);color:var(--red);border-color:rgba(189,9,39,0.3);
+}
+.btn-red:hover{background:rgba(189,9,39,0.15);box-shadow:var(--glow-red);}
+.btn-gold{
+  background:rgba(255,215,0,0.06);color:var(--gold);border-color:rgba(255,215,0,0.25);
+}
+.btn-gold:hover{background:rgba(255,215,0,0.12);box-shadow:var(--glow-gold);}
+.btn-ghost{
+  background:transparent;color:var(--text-dim);border-color:rgba(200,224,232,0.12);
+}
+.btn-ghost:hover{color:var(--text);border-color:rgba(200,224,232,0.25);}
+.btn-sm{font-size:0.58rem;padding:0.4rem 0.8rem;clip-path:polygon(5px 0%,100% 0%,calc(100% - 5px) 100%,0% 100%);}
+.btn-row{display:flex;gap:0.7rem;align-items:center;flex-wrap:wrap;}
+
+/* ── MEDIA TABLE ── */
+.media-table{width:100%;border-collapse:collapse;margin-top:1rem;}
+.media-table th{
+  font-family:'Share Tech Mono',monospace;font-size:0.55rem;letter-spacing:0.25em;
+  color:rgba(9,216,199,0.4);padding:0.6rem 1rem;text-align:left;
+  border-bottom:1px solid var(--border);background:rgba(9,216,199,0.02);
+}
+.media-table td{
+  padding:0.85rem 1rem;border-bottom:1px solid rgba(9,216,199,0.05);
+  font-size:0.85rem;color:var(--text-dim);vertical-align:middle;
+}
+.media-table tr:hover td{background:rgba(9,216,199,0.02);}
+.media-table tr:last-child td{border-bottom:none;}
+.td-title{color:var(--text);font-weight:600;}
+.td-type{
+  font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:0.12em;
+  padding:0.2rem 0.5rem;border:1px solid;display:inline-block;
+}
+.type-pdf{color:var(--red);border-color:rgba(189,9,39,0.3);}
+.type-video{color:var(--cyan);border-color:rgba(9,216,199,0.3);}
+.td-module{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;letter-spacing:0.1em;
+  color:rgba(200,224,232,0.35);
+}
+.td-actions{display:flex;gap:0.4rem;}
+.no-data{
+  text-align:center;padding:3rem 1rem;
+  font-family:'Share Tech Mono',monospace;font-size:0.7rem;
+  letter-spacing:0.2em;color:rgba(200,224,232,0.15);
+  grid-column:1/-1;
+}
+.no-data span{display:block;font-size:2rem;margin-bottom:0.8rem;opacity:0.3;}
+
+/* ── PUZZLE TABLE ── */
+.puzzle-cards{display:flex;flex-direction:column;gap:0.5rem;margin-top:1rem;}
+.puzzle-card{
+  background:rgba(255,215,0,0.02);
+  border:1px solid rgba(255,215,0,0.1);
+  padding:1.2rem 1.5rem;
+  display:grid;grid-template-columns:1fr auto;
+  gap:1rem;align-items:center;
+  transition:border-color 0.3s;
+}
+.puzzle-card:hover{border-color:rgba(255,215,0,0.2);}
+.pc-top{display:flex;align-items:center;gap:1rem;margin-bottom:0.4rem;flex-wrap:wrap;}
+.pc-title{font-size:0.95rem;font-weight:600;color:#fff;}
+.pc-flag{
+  font-family:'Share Tech Mono',monospace;font-size:0.65rem;
+  letter-spacing:0.15em;color:var(--gold);
+  background:rgba(255,215,0,0.06);border:1px solid rgba(255,215,0,0.18);
+  padding:0.2rem 0.6rem;
+}
+.pc-desc{font-size:0.82rem;color:var(--text-dim);line-height:1.6;}
+.pc-meta{
+  display:flex;gap:1rem;margin-top:0.5rem;flex-wrap:wrap;
+}
+.pc-meta-item{
+  font-family:'Share Tech Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.1em;color:rgba(200,224,232,0.3);
+  display:flex;align-items:center;gap:0.3rem;
+}
+.pc-meta-item span{color:rgba(9,216,199,0.5);}
+
+/* ── TOAST ── */
+.toast-container{position:fixed;bottom:2rem;right:2rem;z-index:9999;display:flex;flex-direction:column;gap:0.5rem;}
+.toast{
+  font-family:'Share Tech Mono',monospace;font-size:0.68rem;letter-spacing:0.15em;
+  padding:0.8rem 1.2rem;border:1px solid;
+  display:flex;align-items:center;gap:0.6rem;
+  animation:toastIn 0.3s ease;min-width:260px;
+}
+.toast.success{background:rgba(9,216,199,0.1);border-color:rgba(9,216,199,0.3);color:var(--cyan);}
+.toast.error{background:rgba(189,9,39,0.1);border-color:rgba(189,9,39,0.3);color:var(--red);}
+.toast.warning{background:rgba(255,215,0,0.08);border-color:rgba(255,215,0,0.25);color:var(--gold);}
+.toast.fade-out{animation:toastOut 0.3s ease forwards;}
+
+/* ── MODAL ── */
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(0,0,0,0.8);
+  z-index:500;display:none;align-items:center;justify-content:center;
+  backdrop-filter:blur(8px);
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--bg3);border:1px solid var(--border2);
+  width:min(560px,92vw);max-height:85vh;overflow-y:auto;
+  animation:modalIn 0.3s cubic-bezier(0.16,1,0.3,1);
+}
+.modal-header{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:1.2rem 1.5rem;border-bottom:1px solid var(--border);
+  background:rgba(9,216,199,0.03);
+}
+.modal-title{
+  font-family:'Share Tech Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.2em;color:var(--cyan);
+}
+.modal-close{
+  background:none;border:none;color:var(--text-dim);cursor:pointer;
+  font-size:1.2rem;transition:color 0.2s;padding:0.2rem 0.4rem;
+}
+.modal-close:hover{color:var(--red);}
+.modal-body{padding:1.5rem;}
+.modal-footer{
+  padding:1rem 1.5rem;border-top:1px solid var(--border);
+  display:flex;gap:0.7rem;justify-content:flex-end;
+  background:rgba(0,0,0,0.2);
+}
+
+/* ── DANGER ZONE ── */
+.danger-zone{
+  background:rgba(189,9,39,0.03);border:1px solid rgba(189,9,39,0.15);
+  padding:1.5rem;position:relative;margin-top:1rem;
+}
+.danger-zone::before{
+  content:'⚠ DANGER ZONE';position:absolute;top:-0.65rem;left:1rem;
+  background:var(--bg3);padding:0 0.5rem;
+  font-family:'Share Tech Mono',monospace;font-size:0.52rem;letter-spacing:0.2em;
+  color:rgba(189,9,39,0.5);
+}
+
+/* ── TABS ── */
+.tabs{display:flex;border-bottom:1px solid var(--border);margin-bottom:1.5rem;}
+.tab-btn{
+  font-family:'Share Tech Mono',monospace;font-size:0.62rem;letter-spacing:0.18em;
+  padding:0.8rem 1.2rem;background:transparent;
+  border:none;border-bottom:2px solid transparent;
+  color:var(--text-dim);cursor:pointer;transition:all 0.2s;
+  margin-bottom:-1px;
+}
+.tab-btn:hover{color:var(--text);}
+.tab-btn.active-tab{color:var(--cyan);border-bottom-color:var(--cyan);}
+.tab-panel{display:none;}
+.tab-panel.active-panel{display:block;}
+
+/* ── PASSWORD GATE ── */
+#password-gate{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--bg);display:flex;align-items:center;justify-content:center;
+}
+.gate-box{
+  background:var(--surface);border:1px solid var(--border);
+  padding:3rem;width:min(420px,90vw);text-align:center;
+}
+.gate-logo{
+  font-family:'Orbitron',sans-serif;font-size:1.5rem;font-weight:900;
+  color:var(--cyan);letter-spacing:0.2em;text-shadow:var(--glow-cyan);
+  margin-bottom:0.4rem;display:flex;align-items:center;justify-content:center;gap:0.6rem;
+}
+.gate-logo img{width:48px;height:auto;filter:drop-shadow(0 0 12px rgba(9,216,199,0.35));}
+.gate-logo span{color:var(--red);}
+.gate-sub{
+  font-family:'Share Tech Mono',monospace;font-size:0.58rem;
+  letter-spacing:0.3em;color:rgba(189,9,39,0.5);margin-bottom:2rem;
+}
+.gate-label{
+  font-family:'Share Tech Mono',monospace;font-size:0.6rem;
+  letter-spacing:0.25em;color:var(--text-dim);
+  display:block;text-align:left;margin-bottom:0.4rem;
+}
+.gate-input{
+  width:100%;background:rgba(0,0,0,0.5);border:1px solid rgba(9,216,199,0.2);
+  color:var(--cyan);font-family:'Share Tech Mono',monospace;
+  font-size:1rem;letter-spacing:0.25em;padding:0.8rem 1rem;
+  outline:none;transition:border-color 0.3s;margin-bottom:1rem;
+  text-align:center;
+}
+.gate-input:focus{border-color:rgba(9,216,199,0.5);}
+.gate-input.wrong{border-color:var(--red)!important;animation:shake 0.4s ease;}
+.gate-btn{
+  width:100%;font-family:'Share Tech Mono',monospace;font-size:0.72rem;
+  letter-spacing:0.25em;padding:0.9rem;background:rgba(9,216,199,0.08);
+  border:1px solid rgba(9,216,199,0.3);color:var(--cyan);cursor:pointer;
+  transition:all 0.3s;
+}
+.gate-btn:hover{background:rgba(9,216,199,0.15);box-shadow:var(--glow-cyan);}
+.gate-err{
+  font-family:'Share Tech Mono',monospace;font-size:0.62rem;
+  letter-spacing:0.15em;color:var(--red);margin-top:0.7rem;
+  min-height:1.2rem;
+}
+.gate-hint{
+  font-family:'Share Tech Mono',monospace;font-size:0.55rem;
+  letter-spacing:0.15em;color:rgba(200,224,232,0.15);
+  margin-top:1.5rem;line-height:1.8;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes gridDrift{from{transform:translate(0,0)}to{transform:translate(60px,60px)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+@keyframes toastIn{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}
+@keyframes toastOut{from{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(20px)}}
+@keyframes modalIn{from{opacity:0;transform:translateY(-20px) scale(0.97)}to{opacity:1;transform:none}}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* Pages hidden by default */
+.page{display:none;animation:fadeIn 0.3s ease;}
+.page.active-page{display:block;}
+
+/* ── RESPONSIVE ── */
+@media(max-width:900px){
+  .sidebar{width:200px;}
+  .main{margin-left:200px;}
+  .stats-row{grid-template-columns:1fr 1fr;}
+  .solver-row{grid-template-columns:40px 1fr 80px;}
+}
+@media(max-width:680px){
+  .sidebar{display:none;}
+  .main{margin-left:0;}
+  .form-row,.form-row-3{grid-template-columns:1fr;}
+  .admin-footer{grid-template-columns:1fr;text-align:center;}
+  .admin-footer-links{text-align:center;}
+  .admin-footer-links a{margin:0 0.6rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ PASSWORD GATE ══ -->
+<div id="password-gate">
+  <div class="gate-box">
+    <div class="gate-logo"><img src="image/CYBERX-LOGO.png" alt="CYBERX Logo">CYBER<span>X</span></div>
+    <div class="gate-sub">// ADMIN ACCESS REQUIRED //</div>
+    <label class="gate-label">ADMIN PASSWORD</label>
+    <input class="gate-input" id="gate-input" type="password"
+      placeholder="••••••••" autocomplete="off">
+    <button class="gate-btn" onclick="checkPassword()">⚡ AUTHENTICATE</button>
+    <div class="gate-err" id="gate-err"></div>
+    <div class="gate-hint">
+      Default password: <span style="color:rgba(9,216,199,0.35)">cyberx2025</span><br>
+      Change it inside the panel → Settings
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOAST CONTAINER ══ -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- ══ DELETE MODAL ══ -->
+<div class="modal-overlay" id="delete-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <span class="modal-title" style="color:var(--red)">⚠ CONFIRM DELETE</span>
+      <button class="modal-close" onclick="closeModal('delete-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-size:0.88rem;color:var(--text-dim);line-height:1.8;">
+        Are you sure you want to delete <strong style="color:#fff" id="delete-target-name"></strong>?<br>
+        This action cannot be undone.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" onclick="closeModal('delete-modal')">CANCEL</button>
+      <button class="btn btn-red btn-sm" id="confirm-delete-btn">DELETE</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ TOPBAR ══ -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <img src="image/CYBERX-LOGO.png" alt="CYBERX Logo">CYBER<span>X</span>
+    <span class="badge">ADMIN</span>
+  </div>
+  <div class="topbar-right">
+    <div class="topbar-user"><span class="user-dot"></span>ROOT ACCESS</div>
+    <a class="topbar-back" href="index.html">← MAIN SITE</a>
+  </div>
+</div>
+
+<!-- ══ LAYOUT ══ -->
+<div class="layout">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="sidebar-section">
+      <div class="sidebar-label">OVERVIEW</div>
+      <div class="sidebar-item active" onclick="showPage('dashboard',this)">
+        <span class="s-icon">📊</span> DASHBOARD
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">CONTENT</div>
+      <div class="sidebar-item" onclick="showPage('media',this)">
+        <span class="s-icon">📁</span> MEDIA LIBRARY
+        <span class="s-count" id="sidebar-media-count">0</span>
+      </div>
+      <div class="sidebar-item" onclick="showPage('add-media',this)">
+        <span class="s-icon">➕</span> ADD PDF / VIDEO
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">PUZZLE</div>
+      <div class="sidebar-item" onclick="showPage('puzzles',this)" style="--red:#BD0927">
+        <span class="s-icon">🧩</span> PUZZLES
+        <span class="s-count" id="sidebar-puzzle-count">0</span>
+      </div>
+      <div class="sidebar-item" onclick="showPage('add-puzzle',this)">
+        <span class="s-icon">➕</span> ADD PUZZLE
+      </div>
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-section">
+      <div class="sidebar-label">SYSTEM</div>
+      <div class="sidebar-item" onclick="showPage('settings',this)">
+        <span class="s-icon">⚙</span> SETTINGS
+      </div>
+      <div class="sidebar-item" onclick="showPage('export',this)">
+        <span class="s-icon">💾</span> EXPORT DATA
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <!-- ══ DASHBOARD ══ -->
+    <div class="page active-page" id="page-dashboard">
+      <div class="page-header">
+        <div class="page-eyebrow">// MISSION CONTROL //</div>
+        <div class="page-title">DASHBOARD</div>
+        <div class="page-desc">Overview of all CYBERX content — media, puzzles, and system status.</div>
+      </div>
+
+      <div class="stats-row">
+        <div class="stat-box sc">
+          <div class="stat-n" id="stat-total-media">0</div>
+          <div class="stat-l">TOTAL MEDIA FILES</div>
+        </div>
+        <div class="stat-box sr">
+          <div class="stat-n" id="stat-total-pdf">0</div>
+          <div class="stat-l">PDF GUIDES</div>
+        </div>
+        <div class="stat-box sw">
+          <div class="stat-n" id="stat-total-video">0</div>
+          <div class="stat-l">VIDEO LESSONS</div>
+        </div>
+        <div class="stat-box sg">
+          <div class="stat-n" id="stat-total-puzzle">0</div>
+          <div class="stat-l">ACTIVE PUZZLES</div>
+        </div>
+      </div>
+
+      <!-- Recent Media -->
+      <div class="section-block">
+        <div class="section-head">
+          <div class="sh-left">
+            <span class="sh-icon">📁</span>
+            <span class="sh-title">// RECENT MEDIA</span>
+          </div>
+          <button class="btn btn-cyan btn-sm" onclick="showPage('add-media',document.querySelector('[onclick*=add-media]'))">+ ADD NEW</button>
+        </div>
+        <div class="section-body">
+          <table class="media-table">
+            <thead>
+              <tr>
+                <th>TYPE</th><th>TITLE</th><th>MODULE</th><th>LINK</th><th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="recent-media-tbody"></tbody>
+          </table>
+          <div id="recent-media-empty" class="no-data" style="display:none">
+            <span>📁</span>NO MEDIA FILES YET. ADD YOUR FIRST PDF OR VIDEO.
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Puzzles -->
+      <div class="section-block">
+        <div class="section-head gold-head">
+          <div class="sh-left">
+            <span class="sh-icon">🧩</span>
+            <span class="sh-title">// ACTIVE PUZZLES</span>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="showPage('add-puzzle',document.querySelector('[onclick*=add-puzzle]'))">+ ADD NEW</button>
+        </div>
+        <div class="section-body">
+          <div class="puzzle-cards" id="dashboard-puzzles"></div>
+          <div id="dashboard-puzzles-empty" class="no-data" style="display:none">
+            <span>🧩</span>NO PUZZLES YET. CREATE YOUR FIRST PUZZLE.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MEDIA LIBRARY ══ -->
+    <div class="page" id="page-media">
+      <div class="page-header">
+        <div class="page-eyebrow">// CONTENT MANAGEMENT //</div>
+        <div class="page-title">MEDIA LIBRARY</div>
+        <div class="page-desc">All PDFs and videos assigned to modules.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <div class="sh-left">
+            <span class="sh-icon">📁</span>
+            <span class="sh-title">// ALL MEDIA FILES</span>
+            <span class="sh-badge badge-blue" id="media-lib-count">0 FILES</span>
+          </div>
+          <div class="btn-row">
+            <select class="form-select" id="filter-module" style="width:180px;font-family:'Share Tech Mono',monospace;font-size:0.65rem;" onchange="renderMediaTable()">
+              <option value="">ALL MODULES</option>
+            </select>
+            <select class="form-select" id="filter-type" style="width:140px;font-family:'Share Tech Mono',monospace;font-size:0.65rem;" onchange="renderMediaTable()">
+              <option value="">ALL TYPES</option>
+              <option value="pdf">PDF ONLY</option>
+              <option value="video">VIDEO ONLY</option>
+            </select>
+          </div>
+        </div>
+        <div class="section-body">
+          <table class="media-table">
+            <thead>
+              <tr>
+                <th>TYPE</th><th>TITLE</th><th>MODULE</th><th>DESCRIPTION</th><th>META</th><th>ACTIONS</th>
+              </tr>
+            </thead>
+            <tbody id="media-lib-tbody"></tbody>
+          </table>
+          <div id="media-lib-empty" class="no-data" style="display:none">
+            <span>📁</span>NO MEDIA FILES FOUND.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ADD MEDIA ══ -->
+    <div class="page" id="page-add-media">
+      <div class="page-header">
+        <div class="page-eyebrow">// CONTENT UPLOAD //</div>
+        <div class="page-title">ADD PDF / VIDEO</div>
+        <div class="page-desc">Attach a PDF guide or video lesson to any module.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <div class="sh-left">
+            <span class="sh-icon">📎</span>
+            <span class="sh-title">// MEDIA TYPE</span>
+          </div>
+        </div>
+        <div class="section-body">
+          <div class="type-toggle">
+            <button class="type-btn active-type" id="type-pdf-btn" onclick="setType('pdf')">📄 PDF GUIDE</button>
+            <button class="type-btn" id="type-video-btn" onclick="setType('video')">▶ VIDEO LESSON</button>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">TARGET MODULE <span class="req">*</span></label>
+              <select class="form-select" id="media-module">
+                <option value="">Select module...</option>
+                <optgroup label="── RED TEAM ──">
+                  <option value="pen-testing">Penetration Testing</option>
+                  <option value="malware-dev">Malware Development</option>
+                  <option value="reverse-eng">Reverse Engineering</option>
+                </optgroup>
+                <optgroup label="── BLUE TEAM ──">
+                  <option value="soc">SOC Analysis</option>
+                  <option value="ir">Incident Response</option>
+                  <option value="malware-analysis">Malware Analysis</option>
+                  <option value="forensics">Digital Forensics</option>
+                  <option value="threat-intel">Threat Intelligence</option>
+                  <option value="threat-hunt">Threat Hunting</option>
+                </optgroup>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">TITLE <span class="req">*</span></label>
+              <input class="form-input" id="media-title" type="text" placeholder="e.g. Metasploit Framework Guide">
+            </div>
+          </div>
+
+          <div class="form-row-full form-group">
+            <label class="form-label">DESCRIPTION</label>
+            <input class="form-input" id="media-desc" type="text" placeholder="Brief description of this resource...">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">URL / LINK <span class="req">*</span></label>
+              <input class="form-input" id="media-url" type="text" placeholder="https://...">
+            </div>
+            <div class="form-group" id="meta-field">
+              <label class="form-label" id="meta-label">FILE SIZE (PDF)</label>
+              <input class="form-input" id="media-meta" type="text" placeholder="e.g. 2.4 MB">
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:1rem;">
+            <button class="btn btn-cyan" onclick="saveMedia()">⚡ SAVE MEDIA</button>
+            <button class="btn btn-ghost" onclick="clearMediaForm()">CLEAR</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview -->
+      <div class="section-block" id="media-preview-block" style="display:none">
+        <div class="section-head">
+          <div class="sh-left"><span class="sh-icon">👁</span><span class="sh-title">// PREVIEW</span></div>
+        </div>
+        <div class="section-body" id="media-preview-body"></div>
+      </div>
+    </div>
+
+    <!-- ══ PUZZLES LIST ══ -->
+    <div class="page" id="page-puzzles">
+      <div class="page-header">
+        <div class="page-eyebrow">// PUZZLE MANAGEMENT //</div>
+        <div class="page-title">ALL PUZZLES</div>
+        <div class="page-desc">Manage all hidden puzzles and their flags.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head gold-head">
+          <div class="sh-left">
+            <span class="sh-icon">🧩</span>
+            <span class="sh-title">// PUZZLE ARCHIVE</span>
+            <span class="sh-badge badge-gold" id="puzzles-count-badge">0 PUZZLES</span>
+          </div>
+          <button class="btn btn-gold btn-sm" onclick="showPage('add-puzzle',document.querySelector('[onclick*=add-puzzle]'))">+ NEW PUZZLE</button>
+        </div>
+        <div class="section-body">
+          <div class="puzzle-cards" id="puzzles-list"></div>
+          <div id="puzzles-empty" class="no-data" style="display:none">
+            <span>🧩</span>NO PUZZLES YET. CREATE YOUR FIRST ONE.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ ADD PUZZLE ══ -->
+    <div class="page" id="page-add-puzzle">
+      <div class="page-header">
+        <div class="page-eyebrow">// CREATE PUZZLE //</div>
+        <div class="page-title">ADD PUZZLE</div>
+        <div class="page-desc">Create a new puzzle with title, description, hints, and the correct flag.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head gold-head">
+          <div class="sh-left"><span class="sh-icon">🧩</span><span class="sh-title">// PUZZLE CONFIG</span></div>
+        </div>
+        <div class="section-body">
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">PUZZLE TITLE <span class="req">*</span></label>
+              <input class="form-input" id="puz-title" type="text" placeholder="e.g. Shadow Protocol">
+            </div>
+            <div class="form-group">
+              <label class="form-label">DIFFICULTY</label>
+              <select class="form-select" id="puz-difficulty">
+                <option value="EASY">EASY</option>
+                <option value="MEDIUM" selected>MEDIUM</option>
+                <option value="HARD">HARD</option>
+                <option value="EXPERT">EXPERT</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row-full form-group">
+            <label class="form-label">DESCRIPTION / LORE <span class="req">*</span></label>
+            <textarea class="form-textarea" id="puz-desc" placeholder="Write the puzzle narrative — what must the player discover?"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">CORRECT FLAG <span class="req">*</span></label>
+              <input class="form-input" id="puz-flag" type="text" placeholder="e.g. SHADOW_PROTOCOL" style="font-family:'Share Tech Mono',monospace;letter-spacing:0.1em;color:var(--gold);">
+            </div>
+            <div class="form-group">
+              <label class="form-label">LINKED PAGE / URL</label>
+              <input class="form-input" id="puz-url" type="text" placeholder="e.g. puzzle.html or leave blank">
+            </div>
+          </div>
+
+          <div class="section-block" style="margin-top:1rem;border-color:rgba(255,215,0,0.1);">
+            <div class="section-head gold-head" style="padding:0.8rem 1rem;">
+              <div class="sh-left"><span class="sh-icon">💡</span><span class="sh-title">// HINTS (optional)</span></div>
+              <button class="btn btn-gold btn-sm" onclick="addHintRow()">+ ADD HINT</button>
+            </div>
+            <div class="section-body" style="padding:1rem;">
+              <div id="hints-container">
+                <div class="no-data" id="hints-empty" style="padding:1.5rem">
+                  <span>💡</span>NO HINTS ADDED YET.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row" style="margin-top:1rem;">
+            <div class="form-group">
+              <label class="form-label">LAYERS / ENCODING</label>
+              <input class="form-input" id="puz-layers" type="text" placeholder="e.g. Binary → Base64 → ROT13 → XOR">
+            </div>
+            <div class="form-group">
+              <label class="form-label">ASSOCIATED MODULE</label>
+              <select class="form-select" id="puz-module">
+                <option value="">None (standalone)</option>
+                <optgroup label="── RED TEAM ──">
+                  <option value="pen-testing">Penetration Testing</option>
+                  <option value="malware-dev">Malware Development</option>
+                  <option value="reverse-eng">Reverse Engineering</option>
+                </optgroup>
+                <optgroup label="── BLUE TEAM ──">
+                  <option value="soc">SOC Analysis</option>
+                  <option value="ir">Incident Response</option>
+                  <option value="malware-analysis">Malware Analysis</option>
+                  <option value="forensics">Digital Forensics</option>
+                  <option value="threat-intel">Threat Intelligence</option>
+                  <option value="threat-hunt">Threat Hunting</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <div class="btn-row" style="margin-top:1rem;">
+            <button class="btn btn-gold" onclick="savePuzzle()">⚡ SAVE PUZZLE</button>
+            <button class="btn btn-ghost" onclick="clearPuzzleForm()">CLEAR</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ SETTINGS ══ -->
+    <div class="page" id="page-settings">
+      <div class="page-header">
+        <div class="page-eyebrow">// SYSTEM CONFIG //</div>
+        <div class="page-title">SETTINGS</div>
+        <div class="page-desc">Admin password and system preferences.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <div class="sh-left"><span class="sh-icon">🔐</span><span class="sh-title">// CHANGE PASSWORD</span></div>
+        </div>
+        <div class="section-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">CURRENT PASSWORD</label>
+              <input class="form-input" id="pwd-current" type="password" placeholder="••••••••">
+            </div>
+            <div class="form-group">
+              <label class="form-label">NEW PASSWORD</label>
+              <input class="form-input" id="pwd-new" type="password" placeholder="••••••••">
+            </div>
+          </div>
+          <div class="form-row-full form-group">
+            <label class="form-label">CONFIRM NEW PASSWORD</label>
+            <input class="form-input" id="pwd-confirm" type="password" placeholder="••••••••">
+          </div>
+          <div class="btn-row" style="margin-top:0.5rem;">
+            <button class="btn btn-cyan" onclick="changePassword()">UPDATE PASSWORD</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="danger-zone">
+        <p style="font-size:0.85rem;color:var(--text-dim);margin-bottom:1rem;line-height:1.7;">
+          These actions are irreversible. Proceed with extreme caution.
+        </p>
+        <div class="btn-row">
+          <button class="btn btn-red btn-sm" onclick="confirmDeleteAll('media')">🗑 DELETE ALL MEDIA</button>
+          <button class="btn btn-red btn-sm" onclick="confirmDeleteAll('puzzles')">🗑 DELETE ALL PUZZLES</button>
+          <button class="btn btn-red btn-sm" onclick="confirmDeleteAll('all')">☠ WIPE ALL DATA</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ EXPORT ══ -->
+    <div class="page" id="page-export">
+      <div class="page-header">
+        <div class="page-eyebrow">// DATA EXPORT //</div>
+        <div class="page-title">EXPORT DATA</div>
+        <div class="page-desc">Export all media and puzzle data as JSON to integrate into your site.</div>
+      </div>
+
+      <div class="section-block">
+        <div class="section-head">
+          <div class="sh-left"><span class="sh-icon">💾</span><span class="sh-title">// JSON EXPORT</span></div>
+        </div>
+        <div class="section-body">
+          <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1.5rem;">
+            Export your data as JSON. Paste the <strong style="color:var(--cyan)">media</strong> array into the
+            <code style="color:var(--cyan);background:rgba(9,216,199,0.08);padding:0.1rem 0.4rem;">MODULES[id].media</code>
+            arrays in your <code style="color:var(--cyan);background:rgba(9,216,199,0.08);padding:0.1rem 0.4rem;">index.html</code>.
+          </p>
+          <div class="btn-row" style="margin-bottom:1rem;">
+            <button class="btn btn-cyan btn-sm" onclick="exportData('media')">EXPORT MEDIA JSON</button>
+            <button class="btn btn-gold btn-sm" onclick="exportData('puzzles')">EXPORT PUZZLES JSON</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportData('all')">EXPORT ALL</button>
+          </div>
+          <div style="position:relative;">
+            <pre id="export-output" style="
+              background:rgba(0,0,0,0.5);border:1px solid var(--border);
+              padding:1.2rem;font-family:'Share Tech Mono',monospace;font-size:0.68rem;
+              color:rgba(9,216,199,0.7);line-height:1.8;overflow-x:auto;
+              max-height:400px;overflow-y:auto;white-space:pre-wrap;word-break:break-all;
+            ">// Click an export button above to generate JSON output...</pre>
+            <button class="btn btn-ghost btn-sm"
+              style="position:absolute;top:0.6rem;right:0.6rem;"
+              onclick="copyExport()">COPY</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="admin-footer">
+      <div>© 2026 CYBERX · ADMIN PANEL</div>
+      <div class="admin-footer-logo"><img src="image/CYBERX-LOGO.png" alt="CYBERX Logo">CYBER<span>X</span></div>
+      <div class="admin-footer-links"><a href="index.html">MAIN SITE</a><a href="#dashboard" onclick="showPage('dashboard')">DASHBOARD</a></div>
+    </footer>
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+/* ═══════════════════════════════════════
+   STORAGE KEYS
+═══════════════════════════════════════ */
+const MEDIA_KEY   = 'cyberx_admin_media_v1';
+const PUZZLES_KEY = 'cyberx_admin_puzzles_v1';
+const PWD_KEY     = 'cyberx_admin_pwd_v1';
+
+const MODULE_NAMES = {
+  'pen-testing':'Penetration Testing','malware-dev':'Malware Dev',
+  'reverse-eng':'Reverse Engineering','soc':'SOC Analysis',
+  'ir':'Incident Response','malware-analysis':'Malware Analysis',
+  'forensics':'Digital Forensics','threat-intel':'Threat Intelligence',
+  'threat-hunt':'Threat Hunting'
+};
+
+/* ═══════════════════════════════════════
+   PASSWORD GATE
+═══════════════════════════════════════ */
+const DEFAULT_PWD = 'cyberx2025';
+function getPassword(){ return localStorage.getItem(PWD_KEY)||DEFAULT_PWD; }
+
+document.getElementById('gate-input').addEventListener('keydown',e=>{
+  if(e.key==='Enter') checkPassword();
+});
+
+function checkPassword(){
+  const val = document.getElementById('gate-input').value;
+  const errEl = document.getElementById('gate-err');
+  if(val === getPassword()){
+    document.getElementById('password-gate').style.display='none';
+    init();
+  } else {
+    const inp = document.getElementById('gate-input');
+    inp.classList.add('wrong');
+    errEl.textContent = '✗ INCORRECT PASSWORD — ACCESS DENIED';
+    setTimeout(()=>inp.classList.remove('wrong'),500);
+    inp.value='';
+  }
+}
+
+/* ═══════════════════════════════════════
+   INIT
+═══════════════════════════════════════ */
+function init(){
+  populateModuleFilters();
+  renderAll();
+}
+
+function loadMedia(){ try{return JSON.parse(localStorage.getItem(MEDIA_KEY)||'[]');}catch{return[];} }
+function saveMedia2(arr){ localStorage.setItem(MEDIA_KEY,JSON.stringify(arr)); }
+function loadPuzzles(){ try{return JSON.parse(localStorage.getItem(PUZZLES_KEY)||'[]');}catch{return[];} }
+function savePuzzles(arr){ localStorage.setItem(PUZZLES_KEY,JSON.stringify(arr)); }
+
+function renderAll(){
+  updateStats();
+  renderMediaTable();
+  renderPuzzles();
+  renderDashboard();
+}
+
+/* ═══════════════════════════════════════
+   STATS
+═══════════════════════════════════════ */
+function updateStats(){
+  const media   = loadMedia();
+  const puzzles = loadPuzzles();
+  const pdfs    = media.filter(m=>m.type==='pdf').length;
+  const videos  = media.filter(m=>m.type==='video').length;
+
+  document.getElementById('stat-total-media').textContent  = media.length;
+  document.getElementById('stat-total-pdf').textContent    = pdfs;
+  document.getElementById('stat-total-video').textContent  = videos;
+  document.getElementById('stat-total-puzzle').textContent = puzzles.length;
+  document.getElementById('sidebar-media-count').textContent   = media.length;
+  document.getElementById('sidebar-puzzle-count').textContent  = puzzles.length;
+  document.getElementById('media-lib-count').textContent   = media.length+' FILES';
+  document.getElementById('puzzles-count-badge').textContent   = puzzles.length+' PUZZLES';
+}
+
+/* ═══════════════════════════════════════
+   PAGE NAVIGATION
+═══════════════════════════════════════ */
+function showPage(id, clickedItem){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active-page'));
+  document.getElementById('page-'+id).classList.add('active-page');
+  document.querySelectorAll('.sidebar-item').forEach(i=>i.classList.remove('active'));
+  if(clickedItem) clickedItem.classList.add('active');
+  window.scrollTo(0,0);
+}
+
+/* ═══════════════════════════════════════
+   MEDIA TYPE TOGGLE
+═══════════════════════════════════════ */
+let currentType = 'pdf';
+function setType(t){
+  currentType = t;
+  document.getElementById('type-pdf-btn').classList.toggle('active-type', t==='pdf');
+  document.getElementById('type-video-btn').classList.toggle('active-type', t==='video');
+  document.getElementById('meta-label').textContent = t==='pdf' ? 'FILE SIZE (PDF)' : 'DURATION';
+  document.getElementById('media-meta').placeholder = t==='pdf' ? 'e.g. 2.4 MB' : 'e.g. 45 min';
+  updateMediaPreview();
+}
+
+/* ═══════════════════════════════════════
+   SAVE MEDIA
+═══════════════════════════════════════ */
+function saveMedia(){
+  const module = document.getElementById('media-module').value;
+  const title  = document.getElementById('media-title').value.trim();
+  const desc   = document.getElementById('media-desc').value.trim();
+  const url    = document.getElementById('media-url').value.trim();
+  const meta   = document.getElementById('media-meta').value.trim();
+
+  if(!module){ toast('Select a module first','error'); return; }
+  if(!title){  toast('Title is required','error'); return; }
+  if(!url){    toast('URL is required','error'); return; }
+
+  const item = {
+    id: Date.now().toString(),
+    type: currentType,
+    module, title, desc, url,
+    [currentType==='pdf'?'size':'duration']: meta||'—',
+    created: new Date().toISOString().slice(0,10)
+  };
+
+  const all = loadMedia();
+  all.push(item);
+  saveMedia2(all);
+  clearMediaForm();
+  renderAll();
+  toast('Media saved successfully ✓','success');
+  document.getElementById('media-preview-block').style.display='none';
+}
+
+function clearMediaForm(){
+  ['media-module','media-title','media-desc','media-url','media-meta'].forEach(id=>{
+    const el = document.getElementById(id);
+    if(el.tagName==='SELECT') el.value=''; else el.value='';
+  });
+  document.getElementById('media-preview-block').style.display='none';
+}
+
+/* Live preview */
+['media-title','media-desc','media-url','media-meta','media-module'].forEach(id=>{
+  document.getElementById(id).addEventListener('input', updateMediaPreview);
+});
+
+function updateMediaPreview(){
+  const title = document.getElementById('media-title').value.trim();
+  if(!title){ document.getElementById('media-preview-block').style.display='none'; return; }
+  const desc  = document.getElementById('media-desc').value.trim();
+  const meta  = document.getElementById('media-meta').value.trim();
+  const t     = currentType;
+  document.getElementById('media-preview-block').style.display='block';
+  document.getElementById('media-preview-body').innerHTML = `
+    <div style="background:var(--bg3);border:1px solid var(--border);padding:1rem 1.2rem;
+      display:flex;align-items:center;gap:1rem;max-width:400px;">
+      <div style="font-size:1.6rem">${t==='pdf'?'📄':'▶'}</div>
+      <div>
+        <div style="font-family:'Share Tech Mono',monospace;font-size:0.58rem;
+          letter-spacing:0.2em;margin-bottom:0.3rem;color:${t==='pdf'?'var(--red)':'var(--cyan)'}">
+          ${t.toUpperCase()}
+        </div>
+        <div style="font-size:0.9rem;font-weight:700;color:#fff;margin-bottom:0.2rem">${esc(title)}</div>
+        ${desc?`<div style="font-size:0.75rem;color:var(--text-dim)">${esc(desc)}</div>`:''}
+        ${meta?`<div style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;
+          color:rgba(200,224,232,0.3);margin-top:0.2rem">${esc(meta)}</div>`:''}
+      </div>
+    </div>
+  `;
+}
+
+/* ═══════════════════════════════════════
+   RENDER MEDIA TABLE
+═══════════════════════════════════════ */
+function populateModuleFilters(){
+  const sel = document.getElementById('filter-module');
+  Object.entries(MODULE_NAMES).forEach(([v,l])=>{
+    const o = document.createElement('option'); o.value=v; o.textContent=l;
+    sel.appendChild(o);
+  });
+}
+
+function renderMediaTable(){
+  const all     = loadMedia();
+  const fModule = document.getElementById('filter-module')?.value||'';
+  const fType   = document.getElementById('filter-type')?.value||'';
+
+  const filtered = all.filter(m=>{
+    if(fModule && m.module!==fModule) return false;
+    if(fType   && m.type!==fType)     return false;
+    return true;
+  });
+
+  const tbody = document.getElementById('media-lib-tbody');
+  const empty = document.getElementById('media-lib-empty');
+
+  if(filtered.length===0){
+    tbody.innerHTML=''; empty.style.display='block'; return;
+  }
+  empty.style.display='none';
+
+  tbody.innerHTML = filtered.map(m=>`
+    <tr>
+      <td><span class="td-type type-${m.type}">${m.type.toUpperCase()}</span></td>
+      <td class="td-title">${esc(m.title)}</td>
+      <td class="td-module">${MODULE_NAMES[m.module]||m.module}</td>
+      <td style="max-width:180px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+        ${esc(m.desc||'—')}
+      </td>
+      <td style="font-family:'Share Tech Mono',monospace;font-size:0.62rem;color:var(--text-dim)">
+        ${esc(m.size||m.duration||'—')}
+      </td>
+      <td><div class="td-actions">
+        <a href="${esc(m.url)}" target="_blank" class="btn btn-ghost btn-sm">↗ OPEN</a>
+        <button class="btn btn-red btn-sm" onclick="deleteMedia('${m.id}','${esc(m.title)}')">✕ DEL</button>
+      </div></td>
+    </tr>
+  `).join('');
+}
+
+function deleteMedia(id, name){
+  openDeleteModal(name, ()=>{
+    const all = loadMedia().filter(m=>m.id!==id);
+    saveMedia2(all);
+    renderAll();
+    toast('Media deleted','warning');
+  });
+}
+
+/* ═══════════════════════════════════════
+   RENDER DASHBOARD RECENT
+═══════════════════════════════════════ */
+function renderDashboard(){
+  const media   = loadMedia().slice(-5).reverse();
+  const puzzles = loadPuzzles();
+  const tbody   = document.getElementById('recent-media-tbody');
+  const empty   = document.getElementById('recent-media-empty');
+  const pCards  = document.getElementById('dashboard-puzzles');
+  const pEmpty  = document.getElementById('dashboard-puzzles-empty');
+
+  if(media.length===0){ tbody.innerHTML=''; empty.style.display='block'; }
+  else {
+    empty.style.display='none';
+    tbody.innerHTML = media.map(m=>`
+      <tr>
+        <td><span class="td-type type-${m.type}">${m.type.toUpperCase()}</span></td>
+        <td class="td-title">${esc(m.title)}</td>
+        <td class="td-module">${MODULE_NAMES[m.module]||m.module}</td>
+        <td style="font-family:'Share Tech Mono',monospace;font-size:0.6rem;color:var(--text-dim)">
+          <a href="${esc(m.url)}" target="_blank" style="color:var(--cyan)">↗ LINK</a>
+        </td>
+        <td><button class="btn btn-red btn-sm" onclick="deleteMedia('${m.id}','${esc(m.title)}')">✕</button></td>
+      </tr>
+    `).join('');
+  }
+
+  if(puzzles.length===0){ pCards.innerHTML=''; pEmpty.style.display='block'; }
+  else {
+    pEmpty.style.display='none';
+    pCards.innerHTML = puzzles.slice(0,3).map(p=>puzzleCardHTML(p,true)).join('');
+  }
+}
+
+/* ═══════════════════════════════════════
+   PUZZLES
+═══════════════════════════════════════ */
+let hintCount = 0;
+
+function addHintRow(value=''){
+  hintCount++;
+  const empty = document.getElementById('hints-empty');
+  if(empty) empty.style.display='none';
+  const container = document.getElementById('hints-container');
+  const div = document.createElement('div');
+  div.style.cssText='display:flex;gap:0.5rem;margin-bottom:0.5rem;';
+  div.innerHTML = `
+    <input class="form-input hint-input" type="text" placeholder="Hint #${hintCount} — clue for the player..." value="${esc(value)}">
+    <button class="btn btn-ghost btn-sm" onclick="this.parentElement.remove()" style="flex-shrink:0">✕</button>
+  `;
+  container.appendChild(div);
+}
+
+function getHints(){
+  return [...document.querySelectorAll('.hint-input')]
+    .map(i=>i.value.trim()).filter(Boolean);
+}
+
+function savePuzzle(){
+  const title  = document.getElementById('puz-title').value.trim();
+  const desc   = document.getElementById('puz-desc').value.trim();
+  const flag   = document.getElementById('puz-flag').value.trim().toUpperCase();
+  const diff   = document.getElementById('puz-difficulty').value;
+  const layers = document.getElementById('puz-layers').value.trim();
+  const module = document.getElementById('puz-module').value;
+  const url    = document.getElementById('puz-url').value.trim();
+  const hints  = getHints();
+
+  if(!title){ toast('Puzzle title is required','error'); return; }
+  if(!desc){  toast('Description is required','error'); return; }
+  if(!flag){  toast('Flag is required','error'); return; }
+
+  const item = {
+    id: Date.now().toString(),
+    title, desc, flag, difficulty:diff,
+    layers, module, url, hints,
+    created: new Date().toISOString().slice(0,10),
+    solvers: 0
+  };
+
+  const all = loadPuzzles();
+  all.push(item);
+  savePuzzles(all);
+  clearPuzzleForm();
+  renderAll();
+  toast('Puzzle saved ✓','success');
+}
+
+function clearPuzzleForm(){
+  ['puz-title','puz-desc','puz-flag','puz-layers','puz-url'].forEach(id=>{
+    document.getElementById(id).value='';
+  });
+  document.getElementById('puz-difficulty').value='MEDIUM';
+  document.getElementById('puz-module').value='';
+  document.getElementById('hints-container').innerHTML=`<div class="no-data" id="hints-empty" style="padding:1.5rem"><span>💡</span>NO HINTS ADDED YET.</div>`;
+  hintCount=0;
+}
+
+function renderPuzzles(){
+  const puzzles = loadPuzzles();
+  const el  = document.getElementById('puzzles-list');
+  const emp = document.getElementById('puzzles-empty');
+  const dash = document.getElementById('dashboard-puzzles');
+  const dashEmp = document.getElementById('dashboard-puzzles-empty');
+
+  if(puzzles.length===0){
+    el.innerHTML=''; emp.style.display='block';
+    if(dash){ dash.innerHTML=''; dashEmp.style.display='block'; }
+  } else {
+    emp.style.display='none';
+    el.innerHTML = puzzles.map(p=>puzzleCardHTML(p,false)).join('');
+    if(dash){
+      dashEmp.style.display='none';
+      dash.innerHTML = puzzles.slice(0,3).map(p=>puzzleCardHTML(p,true)).join('');
+    }
+  }
+  updateStats();
+}
+
+function puzzleCardHTML(p, compact){
+  const diffColor = {EASY:'var(--cyan)',MEDIUM:'var(--gold)',HARD:'var(--red)',EXPERT:'#ff4444'}[p.difficulty]||'var(--text)';
+  return `
+    <div class="puzzle-card">
+      <div>
+        <div class="pc-top">
+          <span class="pc-title">${esc(p.title)}</span>
+          <span class="pc-flag">${esc(p.flag)}</span>
+          <span style="font-family:'Share Tech Mono',monospace;font-size:0.58rem;letter-spacing:0.15em;color:${diffColor};border:1px solid ${diffColor};padding:0.15rem 0.4rem;opacity:0.8">${p.difficulty}</span>
+        </div>
+        ${!compact?`<div class="pc-desc">${esc(p.desc).substring(0,120)}${p.desc.length>120?'...':''}</div>`:''}
+        <div class="pc-meta">
+          ${p.module?`<div class="pc-meta-item">🎯 <span>${MODULE_NAMES[p.module]||p.module}</span></div>`:''}
+          ${p.hints?.length?`<div class="pc-meta-item">💡 <span>${p.hints.length} HINT${p.hints.length!==1?'S':''}</span></div>`:''}
+          ${p.layers?`<div class="pc-meta-item">🔗 <span>${esc(p.layers)}</span></div>`:''}
+          <div class="pc-meta-item">📅 <span>${p.created||'—'}</span></div>
+        </div>
+      </div>
+      ${!compact?`<div class="td-actions" style="flex-direction:column;gap:0.4rem;">
+        <button class="btn btn-red btn-sm" onclick="deletePuzzle('${p.id}','${esc(p.title)}')">✕ DELETE</button>
+        ${p.url?`<a href="${esc(p.url)}" target="_blank" class="btn btn-gold btn-sm" style="text-decoration:none">↗ VIEW</a>`:''}
+      </div>`:''}
+    </div>
+  `;
+}
+
+function deletePuzzle(id, name){
+  openDeleteModal(name, ()=>{
+    const all = loadPuzzles().filter(p=>p.id!==id);
+    savePuzzles(all);
+    renderAll();
+    toast('Puzzle deleted','warning');
+  });
+}
+
+/* ═══════════════════════════════════════
+   DELETE MODAL
+═══════════════════════════════════════ */
+let _deleteCallback = null;
+function openDeleteModal(name, cb){
+  _deleteCallback = cb;
+  document.getElementById('delete-target-name').textContent = name;
+  document.getElementById('delete-modal').classList.add('open');
+}
+function closeModal(id){
+  document.getElementById(id).classList.remove('open');
+  _deleteCallback = null;
+}
+document.getElementById('confirm-delete-btn').addEventListener('click',()=>{
+  if(_deleteCallback){ _deleteCallback(); }
+  closeModal('delete-modal');
+});
+document.getElementById('delete-modal').addEventListener('click',e=>{
+  if(e.target===document.getElementById('delete-modal')) closeModal('delete-modal');
+});
+
+/* ═══════════════════════════════════════
+   DELETE ALL
+═══════════════════════════════════════ */
+function confirmDeleteAll(type){
+  const labels={media:'ALL MEDIA',puzzles:'ALL PUZZLES',all:'ALL DATA'};
+  openDeleteModal(labels[type], ()=>{
+    if(type==='media'||type==='all') saveMedia2([]);
+    if(type==='puzzles'||type==='all') savePuzzles([]);
+    renderAll();
+    toast((labels[type])+' DELETED','warning');
+  });
+}
+
+/* ═══════════════════════════════════════
+   CHANGE PASSWORD
+═══════════════════════════════════════ */
+function changePassword(){
+  const cur = document.getElementById('pwd-current').value;
+  const nw  = document.getElementById('pwd-new').value;
+  const cf  = document.getElementById('pwd-confirm').value;
+  if(cur !== getPassword()){ toast('Current password is incorrect','error'); return; }
+  if(!nw){ toast('New password cannot be empty','error'); return; }
+  if(nw !== cf){ toast('Passwords do not match','error'); return; }
+  localStorage.setItem(PWD_KEY, nw);
+  document.getElementById('pwd-current').value='';
+  document.getElementById('pwd-new').value='';
+  document.getElementById('pwd-confirm').value='';
+  toast('Password updated successfully ✓','success');
+}
+
+/* ═══════════════════════════════════════
+   EXPORT
+═══════════════════════════════════════ */
+function exportData(type){
+  const media   = loadMedia();
+  const puzzles = loadPuzzles();
+  let out = {};
+  if(type==='media')   out = { media };
+  if(type==='puzzles') out = { puzzles };
+  if(type==='all')     out = { media, puzzles };
+
+  /* Group media by module for easy copy-paste */
+  if(type==='media'||type==='all'){
+    const grouped = {};
+    media.forEach(m=>{
+      if(!grouped[m.module]) grouped[m.module]=[];
+      grouped[m.module].push({
+        type:m.type, title:m.title, desc:m.desc,
+        url:m.url,
+        ...(m.type==='pdf'?{size:m.size}:{duration:m.duration})
+      });
+    });
+    out.mediaByModule = grouped;
+  }
+
+  document.getElementById('export-output').textContent = JSON.stringify(out, null, 2);
+  toast('Export generated — click COPY to clipboard','success');
+}
+
+function copyExport(){
+  const text = document.getElementById('export-output').textContent;
+  navigator.clipboard.writeText(text).then(()=>toast('Copied to clipboard ✓','success'));
+}
+
+/* ═══════════════════════════════════════
+   TOAST
+═══════════════════════════════════════ */
+function toast(msg, type='success'){
+  const el = document.createElement('div');
+  el.className = `toast ${type}`;
+  el.innerHTML = `<span>${type==='success'?'✓':type==='error'?'✗':'⚠'}</span> ${msg}`;
+  document.getElementById('toast-container').appendChild(el);
+  setTimeout(()=>{
+    el.classList.add('fade-out');
+    setTimeout(()=>el.remove(),300);
+  },3000);
+}
+
+/* ═══════════════════════════════════════
+   UTILS
+═══════════════════════════════════════ */
+function esc(str){
+  return String(str||'')
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+/* Enter key on gate */
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') document.querySelectorAll('.modal-overlay.open').forEach(m=>m.classList.remove('open'));
+});
+</script>
+</body>
+</html>
