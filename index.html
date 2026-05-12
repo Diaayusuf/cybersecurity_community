@@ -1029,12 +1029,13 @@ function initScrollReveal() {
     '.donate-section .section-eyebrow',
     '.sr',
   ];
-  const elements = document.querySelectorAll(targets.join(','));
+  const elements = Array.from(document.querySelectorAll(targets.join(',')));
   elements.forEach((el, index) => {
     el.classList.add('scroll-reveal');
     if (el.classList.contains('puzzle-text')) el.classList.add('reveal-left');
     if (el.classList.contains('puzzle-visual')) el.classList.add('reveal-right');
-    el.style.transitionDelay = `${Math.min(index % 6, 5) * 70}ms`;
+    const delay = window.innerWidth <= 768 ? Math.min(index % 3, 2) * 45 : Math.min(index % 6, 5) * 70;
+    el.style.transitionDelay = `${delay}ms`;
   });
 
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -1042,15 +1043,34 @@ function initScrollReveal() {
     return;
   }
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.classList.add('reveal-visible');
-      observer.unobserve(entry.target);
+  const revealIfVisible = () => {
+    const triggerLine = window.innerHeight * .92;
+    elements.forEach(el => {
+      if (el.classList.contains('reveal-visible')) return;
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= triggerLine && rect.bottom >= 0) {
+        el.classList.add('reveal-visible');
+      }
     });
-  }, { threshold:.12, rootMargin:'0px 0px -8% 0px' });
+  };
 
-  elements.forEach(el => observer.observe(el));
+  if ('IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('reveal-visible');
+        observer.unobserve(entry.target);
+      });
+    }, { threshold:.04, rootMargin:'0px 0px -24px 0px' });
+
+    elements.forEach(el => observer.observe(el));
+  }
+
+  revealIfVisible();
+  window.addEventListener('scroll', revealIfVisible, { passive:true });
+  window.addEventListener('resize', revealIfVisible, { passive:true });
+  window.addEventListener('orientationchange', () => setTimeout(revealIfVisible, 250), { passive:true });
+  window.addEventListener('load', revealIfVisible, { once:true });
 }
 
 let cinCanvas, cinCtx, cinAnimId;
