@@ -501,7 +501,7 @@ body::before{
     <label class="gate-label">ADMIN PASSWORD</label>
     <input class="gate-input" id="gate-input" type="password"
       placeholder="••••••••" autocomplete="off">
-    <button class="gate-btn" onclick="checkPassword()">⚡ AUTHENTICATE</button>
+    <button class="gate-btn" onclick="checkPassword()"> AUTHENTICATE</button>
     <div class="gate-err" id="gate-err"></div>
     <div class="gate-hint">
       Default password: <span style="color:rgba(9,216,199,0.35)">cyberx2025</span><br>
@@ -553,39 +553,39 @@ body::before{
     <div class="sidebar-section">
       <div class="sidebar-label">OVERVIEW</div>
       <div class="sidebar-item active" onclick="showPage('dashboard',this)">
-        <span class="s-icon">📊</span> DASHBOARD
+        <span class="s-icon"></span> DASHBOARD
       </div>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
       <div class="sidebar-label">CONTENT</div>
       <div class="sidebar-item" onclick="showPage('media',this)">
-        <span class="s-icon">📁</span> MEDIA LIBRARY
+        <span class="s-icon"></span> MEDIA LIBRARY
         <span class="s-count" id="sidebar-media-count">0</span>
       </div>
       <div class="sidebar-item" onclick="showPage('add-media',this)">
-        <span class="s-icon">➕</span> ADD PDF / VIDEO
+        <span class="s-icon"></span> ADD PDF / VIDEO
       </div>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
       <div class="sidebar-label">PUZZLE</div>
       <div class="sidebar-item" onclick="showPage('puzzles',this)" style="--red:#BD0927">
-        <span class="s-icon">🧩</span> PUZZLES
+        <span class="s-icon"></span> PUZZLES
         <span class="s-count" id="sidebar-puzzle-count">0</span>
       </div>
       <div class="sidebar-item" onclick="showPage('add-puzzle',this)">
-        <span class="s-icon">➕</span> ADD PUZZLE
+        <span class="s-icon"></span> ADD PUZZLE
       </div>
     </div>
     <div class="sidebar-divider"></div>
     <div class="sidebar-section">
       <div class="sidebar-label">SYSTEM</div>
       <div class="sidebar-item" onclick="showPage('settings',this)">
-        <span class="s-icon">⚙</span> SETTINGS
+        <span class="s-icon"></span> SETTINGS
       </div>
       <div class="sidebar-item" onclick="showPage('export',this)">
-        <span class="s-icon">💾</span> EXPORT DATA
+        <span class="s-icon"></span> EXPORT DATA
       </div>
     </div>
   </div>
@@ -624,7 +624,7 @@ body::before{
       <div class="section-block">
         <div class="section-head">
           <div class="sh-left">
-            <span class="sh-icon">📁</span>
+            <span class="sh-icon"></span>
             <span class="sh-title">// RECENT MEDIA</span>
           </div>
           <button class="btn btn-cyan btn-sm" onclick="showPage('add-media',document.querySelector('[onclick*=add-media]'))">+ ADD NEW</button>
@@ -639,7 +639,7 @@ body::before{
             <tbody id="recent-media-tbody"></tbody>
           </table>
           <div id="recent-media-empty" class="no-data" style="display:none">
-            <span>📁</span>NO MEDIA FILES YET. ADD YOUR FIRST PDF OR VIDEO.
+            <span></span>NO MEDIA FILES YET. ADD YOUR FIRST PDF OR VIDEO.
           </div>
         </div>
       </div>
@@ -648,7 +648,7 @@ body::before{
       <div class="section-block">
         <div class="section-head gold-head">
           <div class="sh-left">
-            <span class="sh-icon">🧩</span>
+            <span class="sh-icon"></span>
             <span class="sh-title">// ACTIVE PUZZLES</span>
           </div>
           <button class="btn btn-gold btn-sm" onclick="showPage('add-puzzle',document.querySelector('[onclick*=add-puzzle]'))">+ ADD NEW</button>
@@ -656,7 +656,7 @@ body::before{
         <div class="section-body">
           <div class="puzzle-cards" id="dashboard-puzzles"></div>
           <div id="dashboard-puzzles-empty" class="no-data" style="display:none">
-            <span>🧩</span>NO PUZZLES YET. CREATE YOUR FIRST PUZZLE.
+            <span></span>NO PUZZLES YET. CREATE YOUR FIRST PUZZLE.
           </div>
         </div>
       </div>
@@ -673,7 +673,7 @@ body::before{
       <div class="section-block">
         <div class="section-head">
           <div class="sh-left">
-            <span class="sh-icon">📁</span>
+            <span class="sh-icon"></span>
             <span class="sh-title">// ALL MEDIA FILES</span>
             <span class="sh-badge badge-blue" id="media-lib-count">0 FILES</span>
           </div>
@@ -698,7 +698,7 @@ body::before{
             <tbody id="media-lib-tbody"></tbody>
           </table>
           <div id="media-lib-empty" class="no-data" style="display:none">
-            <span>📁</span>NO MEDIA FILES FOUND.
+            <span></span>NO MEDIA FILES FOUND.
           </div>
         </div>
       </div>
@@ -721,7 +721,7 @@ body::before{
         </div>
         <div class="section-body">
           <div class="type-toggle">
-            <button class="type-btn active-type" id="type-pdf-btn" onclick="setType('pdf')">📄 PDF GUIDE</button>
+            <button class="type-btn active-type" id="type-pdf-btn" onclick="setType('pdf')"> PDF GUIDE</button>
             <button class="type-btn" id="type-video-btn" onclick="setType('video')">▶ VIDEO LESSON</button>
           </div>
 
@@ -794,7 +794,7 @@ body::before{
       <div class="section-block">
         <div class="section-head gold-head">
           <div class="sh-left">
-            <span class="sh-icon">🧩</span>
+            <span class="sh-icon"></span>
             <span class="sh-title">// PUZZLE ARCHIVE</span>
             <span class="sh-badge badge-gold" id="puzzles-count-badge">0 PUZZLES</span>
           </div>
@@ -803,7 +803,7 @@ body::before{
         <div class="section-body">
           <div class="puzzle-cards" id="puzzles-list"></div>
           <div id="puzzles-empty" class="no-data" style="display:none">
-            <span>🧩</span>NO PUZZLES YET. CREATE YOUR FIRST ONE.
+            <span></span>NO PUZZLES YET. CREATE YOUR FIRST ONE.
           </div>
         </div>
       </div>
@@ -819,7 +819,7 @@ body::before{
 
       <div class="section-block">
         <div class="section-head gold-head">
-          <div class="sh-left"><span class="sh-icon">🧩</span><span class="sh-title">// PUZZLE CONFIG</span></div>
+          <div class="sh-left"><span class="sh-icon"></span><span class="sh-title">// PUZZLE CONFIG</span></div>
         </div>
         <div class="section-body">
 
@@ -857,13 +857,13 @@ body::before{
 
           <div class="section-block" style="margin-top:1rem;border-color:rgba(255,215,0,0.1);">
             <div class="section-head gold-head" style="padding:0.8rem 1rem;">
-              <div class="sh-left"><span class="sh-icon">💡</span><span class="sh-title">// HINTS (optional)</span></div>
+              <div class="sh-left"><span class="sh-icon"></span><span class="sh-title">// HINTS (optional)</span></div>
               <button class="btn btn-gold btn-sm" onclick="addHintRow()">+ ADD HINT</button>
             </div>
             <div class="section-body" style="padding:1rem;">
               <div id="hints-container">
                 <div class="no-data" id="hints-empty" style="padding:1.5rem">
-                  <span>💡</span>NO HINTS ADDED YET.
+                  <span></span>NO HINTS ADDED YET.
                 </div>
               </div>
             </div>
@@ -896,7 +896,7 @@ body::before{
           </div>
 
           <div class="btn-row" style="margin-top:1rem;">
-            <button class="btn btn-gold" onclick="savePuzzle()">⚡ SAVE PUZZLE</button>
+            <button class="btn btn-gold" onclick="savePuzzle()"> SAVE PUZZLE</button>
             <button class="btn btn-ghost" onclick="clearPuzzleForm()">CLEAR</button>
           </div>
         </div>
@@ -913,7 +913,7 @@ body::before{
 
       <div class="section-block">
         <div class="section-head">
-          <div class="sh-left"><span class="sh-icon">🔐</span><span class="sh-title">// CHANGE PASSWORD</span></div>
+          <div class="sh-left"><span class="sh-icon"></span><span class="sh-title">// CHANGE PASSWORD</span></div>
         </div>
         <div class="section-body">
           <div class="form-row">
@@ -958,7 +958,7 @@ body::before{
 
       <div class="section-block">
         <div class="section-head">
-          <div class="sh-left"><span class="sh-icon">💾</span><span class="sh-title">// JSON EXPORT</span></div>
+          <div class="sh-left"><span class="sh-icon"></span><span class="sh-title">// JSON EXPORT</span></div>
         </div>
         <div class="section-body">
           <p style="font-size:0.85rem;color:var(--text-dim);line-height:1.8;margin-bottom:1.5rem;">
@@ -1319,7 +1319,7 @@ function clearPuzzleForm(){
   });
   document.getElementById('puz-difficulty').value='MEDIUM';
   document.getElementById('puz-module').value='';
-  document.getElementById('hints-container').innerHTML=`<div class="no-data" id="hints-empty" style="padding:1.5rem"><span>💡</span>NO HINTS ADDED YET.</div>`;
+  document.getElementById('hints-container').innerHTML=`<div class="no-data" id="hints-empty" style="padding:1.5rem">NO HINTS ADDED YET.</div>`;
   hintCount=0;
 }
 
@@ -1356,10 +1356,10 @@ function puzzleCardHTML(p, compact){
         </div>
         ${!compact?`<div class="pc-desc">${esc(p.desc).substring(0,120)}${p.desc.length>120?'...':''}</div>`:''}
         <div class="pc-meta">
-          ${p.module?`<div class="pc-meta-item">🎯 <span>${MODULE_NAMES[p.module]||p.module}</span></div>`:''}
-          ${p.hints?.length?`<div class="pc-meta-item">💡 <span>${p.hints.length} HINT${p.hints.length!==1?'S':''}</span></div>`:''}
-          ${p.layers?`<div class="pc-meta-item">🔗 <span>${esc(p.layers)}</span></div>`:''}
-          <div class="pc-meta-item">📅 <span>${p.created||'—'}</span></div>
+          ${p.module?`<div class="pc-meta-item"> <span>${MODULE_NAMES[p.module]||p.module}</span></div>`:''}
+          ${p.hints?.length?`<div class="pc-meta-item"> <span>${p.hints.length} HINT${p.hints.length!==1?'S':''}</span></div>`:''}
+          ${p.layers?`<div class="pc-meta-item"> <span>${esc(p.layers)}</span></div>`:''}
+          <div class="pc-meta-item"> <span>${p.created||'—'}</span></div>
         </div>
       </div>
       ${!compact?`<div class="td-actions" style="flex-direction:column;gap:0.4rem;">

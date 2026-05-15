@@ -92,7 +92,8 @@ section{padding:8rem 2rem;position:relative;z-index:1}
 .module-card.red:hover{border-color:rgba(189,9,39,.4);background:rgba(189,9,39,.04)}
 .module-card.blue:hover{border-color:rgba(9,216,199,.35);background:rgba(9,216,199,.035)}
 .module-num{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;color:rgba(200,224,232,.25);margin-bottom:1.4rem}
-.module-icon{font-size:2.2rem;margin-bottom:1.2rem;filter:drop-shadow(0 0 12px rgba(9,216,199,.25))}
+/* Module icon as image */
+.module-icon{width:48px;height:48px;margin-bottom:1.2rem;object-fit:contain;filter:drop-shadow(0 0 12px rgba(9,216,199,.25))}
 .module-name{font-family:var(--pixel);font-size:.85rem;line-height:1.5;margin-bottom:.8rem}
 .module-card.red .module-name{color:var(--red)}
 .module-card.blue .module-name{color:var(--cyan)}
@@ -111,7 +112,8 @@ section{padding:8rem 2rem;position:relative;z-index:1}
 .hint-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
 .hint-list li{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;color:rgba(200,224,232,.45);padding:.8rem 1rem;border-left:2px solid rgba(9,216,199,.3);background:rgba(9,216,199,.03);display:flex;align-items:center;gap:.8rem;transition:border-color .3s,background .3s}
 .hint-list li:hover{border-color:var(--cyan);background:rgba(9,216,199,.07)}
-.hint-list li .hi{color:var(--cyan)}
+/* hint icons as images */
+.hint-list li .hi{width:22px;height:22px;object-fit:contain;flex-shrink:0}
 .puzzle-visual{position:relative;display:flex;align-items:center;justify-content:center}
 .puzzle-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;width:280px}
 .puzzle-cell{aspect-ratio:1;background:rgba(9,216,199,.04);border:1px solid rgba(9,216,199,.1);display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.68rem;color:rgba(9,216,199,.3);transition:all .4s;cursor:pointer}
@@ -336,7 +338,8 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 .hero-right.blue .hero-ring{border-color:rgba(9,216,199,.15)}
 .hero-ring::before{content:'';position:absolute;inset:30px;border-radius:50%;border:1px dashed rgba(9,216,199,.1)}
 .hero-ring::after{content:'';position:absolute;inset:70px;border-radius:50%;border:2px solid rgba(189,9,39,.12)}
-.hero-icon-big{position:relative;z-index:2;font-size:8rem;line-height:1;filter:drop-shadow(0 0 30px rgba(189,9,39,.5));animation:float 6s ease-in-out infinite}
+/* Hero icon as image */
+.hero-icon-big{position:relative;z-index:2;width:120px;height:120px;object-fit:contain;filter:drop-shadow(0 0 30px rgba(189,9,39,.5));animation:float 6s ease-in-out infinite}
 .crosshair{position:absolute;width:24px;height:24px;border-color:rgba(9,216,199,.3);border-style:solid;border-width:0}
 .crosshair.tl{top:20px;left:20px;border-top-width:2px;border-left-width:2px}.crosshair.tr{top:20px;right:20px;border-top-width:2px;border-right-width:2px}.crosshair.bl{bottom:20px;left:20px;border-bottom-width:2px;border-left-width:2px}.crosshair.br{bottom:20px;right:20px;border-bottom-width:2px;border-right-width:2px}
 .story-section{position:relative;background:var(--dark);overflow:hidden}
@@ -372,7 +375,8 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 .pdf-stripe{height:4px;background:linear-gradient(90deg,var(--red),var(--maroon));flex-shrink:0;transition:height .4s}
 .pdf-card:hover .pdf-stripe{height:6px}
 .pdf-card-body{flex:1;padding:2rem 1.8rem;display:flex;flex-direction:column;position:relative;z-index:1}
-.pdf-icon-big{font-size:3.5rem;margin-bottom:1.5rem;filter:drop-shadow(0 0 12px rgba(189,9,39,.4));transition:transform .4s}
+/* PDF icon as image */
+.pdf-icon-big{width:56px;height:56px;object-fit:contain;margin-bottom:1.5rem;filter:drop-shadow(0 0 12px rgba(189,9,39,.4));transition:transform .4s}
 .pdf-card:hover .pdf-icon-big{transform:scale(1.15) rotate(-5deg)}
 .pdf-type-label{font-family:var(--mono);font-size:.55rem;letter-spacing:.3em;color:rgba(189,9,39,.6);margin-bottom:.6rem}
 .pdf-card-name{font-family:var(--head);font-size:1.1rem;font-weight:600;letter-spacing:.03em;color:#fff;line-height:1.35;margin-bottom:auto}
@@ -403,7 +407,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 .video-card.featured .video-name{font-size:1.2rem}
 .video-card.featured::after{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--red);box-shadow:var(--glow-r);z-index:4}
 .challenge-section{position:relative;background:var(--plum);padding:5rem 0;overflow:hidden;clip-path:polygon(0 6%,100% 0,100% 94%,0 100%);margin:-2rem 0}
-.challenge-section::before{content:'⚔';position:absolute;right:5%;top:50%;transform:translateY(-50%);font-size:18vw;opacity:.04;pointer-events:none}
+.challenge-section::before{content:'';position:absolute;right:5%;top:50%;transform:translateY(-50%);font-size:18vw;opacity:.04;pointer-events:none}
 .challenge-inner{max-width:1200px;margin:0 auto;padding:0 4rem;display:grid;grid-template-columns:1fr 2fr;gap:4rem;align-items:center}
 .challenge-label-big{font-family:var(--display);font-size:clamp(3rem,6vw,5rem);line-height:.9;letter-spacing:.02em;color:transparent;-webkit-text-stroke:1.5px rgba(189,9,39,.5)}
 .challenge-label-big span{display:block}
@@ -425,7 +429,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
   .home-title{font-size:2.5rem}.stat-item{border-right:none;padding:1rem 2rem}
   .poster-hero{grid-template-columns:1fr;min-height:auto}.hero-left{clip-path:none;padding:5rem 2rem 3rem}.hero-right{min-height:40vh}
   .story-inner{grid-template-columns:1fr;gap:2rem}.story-label-col{position:static}.story-big-label{writing-mode:horizontal-tb;transform:none;height:auto;font-size:2rem}
-  .pdf-grid{grid-template-columns:1fr}.pdf-card{aspect-ratio:auto;min-height:220px}.pdf-card-body{flex-direction:row;align-items:center;gap:1.5rem}.pdf-icon-big{font-size:2.5rem;margin-bottom:0}
+  .pdf-grid{grid-template-columns:1fr}.pdf-card{aspect-ratio:auto;min-height:220px}.pdf-card-body{flex-direction:row;align-items:center;gap:1.5rem}.pdf-icon-big{margin-bottom:0}
   .video-grid{grid-template-columns:1fr}.video-card.featured{grid-column:1;aspect-ratio:16/9}
   .challenge-inner{grid-template-columns:1fr;gap:2rem}.story-inner,.pdf-inner,.video-inner,.challenge-inner{padding-left:1.5rem;padding-right:1.5rem}
   .hint-frame{padding:2.5rem 2rem}.poster-heading{margin-bottom:2rem}
@@ -434,7 +438,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
   #terminal-overlay{padding:1rem}
   .terminal-input-row{align-items:flex-start;flex-direction:column}
   .footer-top{grid-template-columns:1fr;text-align:center}
-  .footer-right{text-align:center}
+  .footer-right{text-align:right}
   .footer-right a{margin:0 .7rem}
 }
 </style>
@@ -558,7 +562,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
         <h2 class="section-title" style="color:var(--cyan)">BLUE TEAM</h2>
         <p style="color:rgba(200,224,232,.48);font-size:1rem;max-width:430px;line-height:1.75">You are the defender. Detect threats. Respond fast. Protect the network. Be the last line of defense.</p>
       </div>
-      <div class="team-badge blue">DEFENSIVE OPS<br><span style="color:rgba(200,224,232,.4)">Protect & respond</span></div>
+      <div class="team-badge blue">DEFENSIVE OPS<br><span style="color:rgba(200,224,232,.4)">Protect &amp; respond</span></div>
     </div>
     <div class="modules-grid" id="blue-modules"></div>
   </div>
@@ -572,10 +576,10 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
         <h2 class="section-title">THE PUZZLE<br>AWAITS YOU</h2>
         <p class="puzzle-desc">Hidden inside every module are clues. Collect them all. Solve the puzzle. Unlock secret areas no one has entered before.</p>
         <ul class="hint-list">
-          <li><span class="hi">&#128272;</span> Complete a module &rarr; receive a hint fragment</li>
-          <li><span class="hi">&#129513;</span> Combine fragments to decode the location</li>
-          <li><span class="hi">&#128682;</span> Unlock /advanced - Kernel, Binary, Zero-Day</li>
-          <li><span class="hi">&#9888;</span> Only those who learn can enter</li>
+          <li>- Complete a module &rarr; receive a hint fragment</li>
+          <li>- Combine fragments to decode the location</li>
+          <li>- Unlock /advanced - Kernel, Binary, Zero-Day</li>
+          <li>- Only those who learn can enter</li>
         </ul>
         <div style="margin-top:2rem">
           <a href="puzzle.html" style="display:inline-flex;align-items:center;gap:.6rem;font-family:var(--mono);font-size:.75rem;letter-spacing:.2em;color:var(--cyan);border:1px solid rgba(9,216,199,.3);padding:.8rem 1.6rem;text-decoration:none;transition:all .3s;background:rgba(9,216,199,.03)">&#128065; ENTER PUZZLE PAGE &rarr;</a>
@@ -680,6 +684,38 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 </footer>
 
 <script>
+// ─── IMAGE MAP ───────────────────────────────────────────────────────────────
+// Maps every logical icon key to a path inside image/.
+// Add your PNG files to the image/ folder using these exact names.
+const IMG = {
+  // Module icons (48×48 recommended)
+  'icon-pen-testing':       'image/pn2.png',
+  'icon-malware-dev':       'image/mal_dev2.png',
+  'icon-reverse-eng':       'image/rev2.png',
+  'icon-soc':               'image/soc2.png',
+  'icon-ir':                'image/ir2.png',
+  'icon-malware-analysis':  'image/mal_ana2.png',
+  'icon-forensics':         'image/df2.png',
+  'icon-threat-intel':      'image/ti2.png',
+  'icon-threat-hunt':       'image/th2.png',
+
+  // PDF card icons (56×56 recommended)
+  'pdf-doc':    'image/pdf2.png',
+  'pdf-ref':    'image/pdf2.png',
+  'pdf-cheat':  'image/pdf2.png',
+  'pdf-lab':    'image/pdf2.png',
+  'pdf-tool':   'image/pdf2.png',
+  'pdf-link':   'image/pdf2.png',
+  'pdf-query':  'image/pdf2.png',
+  'pdf-memory': 'image/pdf2.png',
+  'pdf-guide':  'image/pdf2.png',
+};
+
+function icon(key, cls, alt) {
+  return `<img src="${IMG[key]}" class="${cls}" alt="${alt || key}" loading="lazy">`;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function initBootVerifier() {
   const boot = document.getElementById('boot');
   const canvas = document.getElementById('boot-noise');
@@ -688,21 +724,11 @@ function initBootVerifier() {
   if (!boot || !canvas || !fill || !status) return;
 
   const ctx = canvas.getContext('2d');
-  let width;
-  let height;
-  let imageData;
-  let data;
-  let intensity = 1;
-  let targetIntensity = 1;
-  let stopped = false;
+  let width, height, imageData, data;
+  let intensity = 1, targetIntensity = 1, stopped = false;
 
   const noiseColors = [
-    [13,26,47],
-    [23,54,79],
-    [65,30,58],
-    [189,9,39],
-    [80,10,31],
-    [9,216,199],
+    [13,26,47],[23,54,79],[65,30,58],[189,9,39],[80,10,31],[9,216,199],
   ];
 
   function resizeBootNoise() {
@@ -716,34 +742,15 @@ function initBootVerifier() {
     if (stopped) return;
     intensity += (targetIntensity - intensity) * .018;
     const alpha = intensity * 255 | 0;
-
-    if (alpha < 3) {
-      canvas.style.opacity = '0';
-      stopped = true;
-      return;
-    }
-
+    if (alpha < 3) { canvas.style.opacity = '0'; stopped = true; return; }
     for (let i = 0; i < data.length; i += 4) {
       const r = Math.random();
       let c;
-      if (r < .003) {
-        c = noiseColors[5];
-      } else if (r < .04) {
-        c = noiseColors[Math.floor(Math.random() * 5)];
-      } else {
-        const v = Math.random() * 30 | 0;
-        data[i] = v;
-        data[i + 1] = v;
-        data[i + 2] = v;
-        data[i + 3] = alpha;
-        continue;
-      }
-      data[i] = c[0];
-      data[i + 1] = c[1];
-      data[i + 2] = c[2];
-      data[i + 3] = alpha;
+      if (r < .003) { c = noiseColors[5]; }
+      else if (r < .04) { c = noiseColors[Math.floor(Math.random() * 5)]; }
+      else { const v = Math.random() * 30 | 0; data[i]=v; data[i+1]=v; data[i+2]=v; data[i+3]=alpha; continue; }
+      data[i]=c[0]; data[i+1]=c[1]; data[i+2]=c[2]; data[i+3]=alpha;
     }
-
     ctx.putImageData(imageData, 0, 0);
     requestAnimationFrame(drawBootNoise);
   }
@@ -759,24 +766,20 @@ function initBootVerifier() {
   window.addEventListener('resize', resizeBootNoise);
   drawBootNoise();
   steps.forEach(({ at, pct, text }) => {
-    setTimeout(() => {
-      fill.style.width = pct + '%';
-      status.textContent = text;
-    }, at);
+    setTimeout(() => { fill.style.width = pct + '%'; status.textContent = text; }, at);
   });
   setTimeout(() => { targetIntensity = 0; }, 1000);
   setTimeout(() => {
     boot.classList.add('boot-hide');
-    setTimeout(() => {
-      boot.style.display = 'none';
-      window.removeEventListener('resize', resizeBootNoise);
-    }, 850);
+    setTimeout(() => { boot.style.display = 'none'; window.removeEventListener('resize', resizeBootNoise); }, 850);
   }, 3700);
 }
 
+// ─── MODULES DATA ─────────────────────────────────────────────────────────────
+// icon field now holds the image key instead of an emoji
 const MODULES = {
   'pen-testing': {
-    num:'01.01', team:'red', color:'red', icon:'🎯', name:'PENETRATION TESTING',
+    num:'01.01', team:'red', color:'red', iconKey:'icon-pen-testing', name:'PENETRATION TESTING',
     path:'/cyberx/red-team/pen-testing',
     desc:'Think like the enemy. Break systems with permission. Document everything. Leave no stone unturned.',
     tags:['RECON','EXPLOITATION','POST-EXPLOIT','OSINT','METASPLOIT'],
@@ -787,9 +790,9 @@ const MODULES = {
     ],
     quote:`The best pentesters don't just find vulnerabilities. They think like the attacker who has been watching for months.`,
     pdfs:[
-      {icon:'📄',label:'METHODOLOGY PDF',name:'PTES Framework Guide',meta:'2.4 MB · REFERENCE',url:'https://www.pentest-standard.org/'},
-      {icon:'📋',label:'REFERENCE PDF',name:'OWASP Testing Guide v4',meta:'8.1 MB · COMPREHENSIVE',url:'https://owasp.org/www-project-web-security-testing-guide/'},
-      {icon:'⚡',label:'CHEATSHEET PDF',name:'Metasploit Cheatsheet',meta:'0.9 MB · QUICK REF',url:'https://github.com/rapid7/metasploit-framework'}
+      {iconKey:'pdf-doc',label:'METHODOLOGY PDF',name:'PTES Framework Guide',meta:'2.4 MB · REFERENCE',url:'https://www.pentest-standard.org/'},
+      {iconKey:'pdf-ref',label:'REFERENCE PDF',name:'OWASP Testing Guide v4',meta:'8.1 MB · COMPREHENSIVE',url:'https://owasp.org/www-project-web-security-testing-guide/'},
+      {iconKey:'pdf-cheat',label:'CHEATSHEET PDF',name:'Metasploit Cheatsheet',meta:'0.9 MB · QUICK REF',url:'https://github.com/rapid7/metasploit-framework'}
     ],
     videos:[
       {platform:'YouTube · TCM Security',name:'Full Pentest Lab Walkthrough — From Zero to Shell',duration:'2:14:33',url:'https://www.youtube.com/watch?v=3FNYvj2U0HM'},
@@ -800,7 +803,7 @@ const MODULES = {
     challenge:'A target exposes <strong>SSH</strong> and an old <strong>Apache web server</strong>.<br>What do you check first, and why?<br><br>Think about version enumeration, CVE databases, and what an attacker would prioritize.'
   },
   'malware-dev': {
-    num:'01.02', team:'red', color:'red', icon:'🧬', name:'MALWARE DEVELOPMENT',
+    num:'01.02', team:'red', color:'red', iconKey:'icon-malware-dev', name:'MALWARE DEVELOPMENT',
     path:'/cyberx/red-team/malware-dev',
     desc:'Understand payloads, evasion, persistence, and command channels so you can detect them better.',
     tags:['EVASION','PERSISTENCE','C2','SHELLCODE','INJECTION'],
@@ -811,9 +814,9 @@ const MODULES = {
     ],
     quote:`Offensive knowledge becomes defensive power when you can name the footprint.`,
     pdfs:[
-      {icon:'📄',label:'CONCEPT PDF',name:'Malware Dev Concepts',meta:'3.1 MB · GUIDE',url:'https://attack.mitre.org/'},
-      {icon:'📋',label:'REFERENCE PDF',name:'Evasion Techniques Map',meta:'0.9 MB · QUICK REF',url:'https://attack.mitre.org/techniques/enterprise/'},
-      {icon:'🧪',label:'LAB PDF',name:'YARA Rule Writing',meta:'1.2 MB · DETECTION',url:'https://yara.readthedocs.io/'}
+      {iconKey:'pdf-doc',label:'CONCEPT PDF',name:'Malware Dev Concepts',meta:'3.1 MB · GUIDE',url:'https://attack.mitre.org/'},
+      {iconKey:'pdf-ref',label:'REFERENCE PDF',name:'Evasion Techniques Map',meta:'0.9 MB · QUICK REF',url:'https://attack.mitre.org/techniques/enterprise/'},
+      {iconKey:'pdf-lab',label:'LAB PDF',name:'YARA Rule Writing',meta:'1.2 MB · DETECTION',url:'https://yara.readthedocs.io/'}
     ],
     videos:[
       {platform:'Training · Malware Concepts',name:'Process Injection Deep Dive',duration:'51:00',url:'https://www.youtube.com/results?search_query=process+injection+malware+analysis'},
@@ -824,7 +827,7 @@ const MODULES = {
     challenge:'A sample injects code into <strong>explorer.exe</strong>. Name three artifacts defenders should look for.'
   },
   'reverse-eng': {
-    num:'01.03', team:'red', color:'red', icon:'🔎', name:'REVERSE ENGINEERING',
+    num:'01.03', team:'red', color:'red', iconKey:'icon-reverse-eng', name:'REVERSE ENGINEERING',
     path:'/cyberx/red-team/reverse-engineering',
     desc:'Tear apart binaries, read assembly, uncover hidden logic, and understand software without source code.',
     tags:['BINARY','ASSEMBLY','GHIDRA','X64DBG','DECOMPILER'],
@@ -835,9 +838,9 @@ const MODULES = {
     ],
     quote:`Reverse engineering turns mystery into evidence, one instruction at a time.`,
     pdfs:[
-      {icon:'📄',label:'GUIDE PDF',name:'Ghidra Beginner Guide',meta:'2.7 MB · GUIDE',url:'https://ghidra-sre.org/'},
-      {icon:'📋',label:'CHEATSHEET PDF',name:'x86 Assembly Cheatsheet',meta:'0.5 MB · QUICK REF',url:'https://www.felixcloutier.com/x86/'},
-      {icon:'⚙',label:'TOOL PDF',name:'x64dbg Workflow',meta:'1.4 MB · TOOLING',url:'https://x64dbg.com/'}
+      {iconKey:'pdf-guide',label:'GUIDE PDF',name:'Ghidra Beginner Guide',meta:'2.7 MB · GUIDE',url:'https://ghidra-sre.org/'},
+      {iconKey:'pdf-cheat',label:'CHEATSHEET PDF',name:'x86 Assembly Cheatsheet',meta:'0.5 MB · QUICK REF',url:'https://www.felixcloutier.com/x86/'},
+      {iconKey:'pdf-tool',label:'TOOL PDF',name:'x64dbg Workflow',meta:'1.4 MB · TOOLING',url:'https://x64dbg.com/'}
     ],
     videos:[
       {platform:'Training · RE',name:'Assembly Fundamentals',duration:'47:00',url:'https://www.youtube.com/results?search_query=assembly+fundamentals+reverse+engineering'},
@@ -848,7 +851,7 @@ const MODULES = {
     challenge:'A function returns fixed-length output for any input. What primitive does that suggest?'
   },
   'soc': {
-    num:'02.01', team:'blue', color:'blue', icon:'🖥️', name:'SOC ANALYSIS',
+    num:'02.01', team:'blue', color:'blue', iconKey:'icon-soc', name:'SOC ANALYSIS',
     path:'/cyberx/blue-team/soc-analysis',
     desc:'Live inside the alert stream. Triage, investigate, escalate, and turn noisy signals into clear action.',
     tags:['SIEM','ALERTS','TRIAGE','SPLUNK','ELK'],
@@ -859,9 +862,9 @@ const MODULES = {
     ],
     quote:`A good analyst does not just read alerts. They reconstruct intent.`,
     pdfs:[
-      {icon:'📄',label:'TRIAGE PDF',name:'SIEM Alert Triage Guide',meta:'1.8 MB · RUNBOOK',url:'https://www.splunk.com/en_us/resources.html'},
-      {icon:'📋',label:'PLAYBOOK PDF',name:'SOC Analyst Playbook',meta:'2.2 MB · WORKFLOW',url:'https://attack.mitre.org/'},
-      {icon:'🧭',label:'REFERENCE PDF',name:'Alert Investigation Flow',meta:'0.8 MB · CHECKLIST',url:'https://www.elastic.co/security'}
+      {iconKey:'pdf-doc',label:'TRIAGE PDF',name:'SIEM Alert Triage Guide',meta:'1.8 MB · RUNBOOK',url:'https://www.splunk.com/en_us/resources.html'},
+      {iconKey:'pdf-ref',label:'PLAYBOOK PDF',name:'SOC Analyst Playbook',meta:'2.2 MB · WORKFLOW',url:'https://attack.mitre.org/'},
+      {iconKey:'pdf-query',label:'REFERENCE PDF',name:'Alert Investigation Flow',meta:'0.8 MB · CHECKLIST',url:'https://www.elastic.co/security'}
     ],
     videos:[
       {platform:'Training · Splunk',name:'Splunk for SOC Analysts',duration:'55:00',url:'https://www.youtube.com/results?search_query=splunk+for+soc+analysts'},
@@ -872,7 +875,7 @@ const MODULES = {
     challenge:'A workstation calls one external IP every <strong>60 seconds</strong>. What signs suggest C2 beaconing?'
   },
   'ir': {
-    num:'02.02', team:'blue', color:'blue', icon:'🚨', name:'INCIDENT RESPONSE',
+    num:'02.02', team:'blue', color:'blue', iconKey:'icon-ir', name:'INCIDENT RESPONSE',
     path:'/cyberx/blue-team/incident-response',
     desc:'The breach happened. Contain, eradicate, recover, and communicate before damage spreads.',
     tags:['CONTAIN','ERADICATE','RECOVER','NIST','RUNBOOK'],
@@ -883,9 +886,9 @@ const MODULES = {
     ],
     quote:`Incident response is calm under pressure, written down before pressure arrives.`,
     pdfs:[
-      {icon:'📄',label:'FRAMEWORK PDF',name:'NIST IR Framework',meta:'1.5 MB · STANDARD',url:'https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final'},
-      {icon:'📋',label:'RUNBOOK PDF',name:'IR Runbook Template',meta:'0.8 MB · TEMPLATE',url:'https://www.cisa.gov/resources-tools'},
-      {icon:'🧰',label:'TOOL PDF',name:'Velociraptor for IR',meta:'1.9 MB · TOOLING',url:'https://docs.velociraptor.app/'}
+      {iconKey:'pdf-doc',label:'FRAMEWORK PDF',name:'NIST IR Framework',meta:'1.5 MB · STANDARD',url:'https://csrc.nist.gov/publications/detail/sp/800-61/rev-2/final'},
+      {iconKey:'pdf-ref',label:'RUNBOOK PDF',name:'IR Runbook Template',meta:'0.8 MB · TEMPLATE',url:'https://www.cisa.gov/resources-tools'},
+      {iconKey:'pdf-tool',label:'TOOL PDF',name:'Velociraptor for IR',meta:'1.9 MB · TOOLING',url:'https://docs.velociraptor.app/'}
     ],
     videos:[
       {platform:'Training · IR',name:'Containment Decision Making',duration:'38:00',url:'https://www.youtube.com/results?search_query=incident+response+containment+decision+making'},
@@ -896,7 +899,7 @@ const MODULES = {
     challenge:'A host has been compromised for <strong>30 days</strong>. What do you collect before isolation?'
   },
   'malware-analysis': {
-    num:'02.03', team:'blue', color:'blue', icon:'🧫', name:'MALWARE ANALYSIS',
+    num:'02.03', team:'blue', color:'blue', iconKey:'icon-malware-analysis', name:'MALWARE ANALYSIS',
     path:'/cyberx/blue-team/malware-analysis',
     desc:'Dissect suspicious files safely. Extract behavior, indicators, detections, and defensive lessons.',
     tags:['STATIC','DYNAMIC','SANDBOX','YARA','PE STUDIO'],
@@ -907,9 +910,9 @@ const MODULES = {
     ],
     quote:`One sample can become a wall of detections when the analysis is careful.`,
     pdfs:[
-      {icon:'📄',label:'FORMAT PDF',name:'PE File Format Deep Dive',meta:'2.0 MB · REFERENCE',url:'https://learn.microsoft.com/en-us/windows/win32/debug/pe-format'},
-      {icon:'📋',label:'TEMPLATE PDF',name:'Malware Analysis Template',meta:'0.6 MB · REPORTING',url:'https://www.cisa.gov/resources-tools'},
-      {icon:'🧪',label:'LAB PDF',name:'Static Analysis Workflow',meta:'1.3 MB · LAB',url:'https://yara.readthedocs.io/'}
+      {iconKey:'pdf-doc',label:'FORMAT PDF',name:'PE File Format Deep Dive',meta:'2.0 MB · REFERENCE',url:'https://learn.microsoft.com/en-us/windows/win32/debug/pe-format'},
+      {iconKey:'pdf-ref',label:'TEMPLATE PDF',name:'Malware Analysis Template',meta:'0.6 MB · REPORTING',url:'https://www.cisa.gov/resources-tools'},
+      {iconKey:'pdf-lab',label:'LAB PDF',name:'Static Analysis Workflow',meta:'1.3 MB · LAB',url:'https://yara.readthedocs.io/'}
     ],
     videos:[
       {platform:'Training · Sandbox',name:'Cuckoo Sandbox Setup',duration:'44:00',url:'https://www.youtube.com/results?search_query=cuckoo+sandbox+setup+malware+analysis'},
@@ -920,7 +923,7 @@ const MODULES = {
     challenge:'A <strong>.text</strong> section has entropy 7.8. What does that suggest, and how would you handle it?'
   },
   'forensics': {
-    num:'02.04', team:'blue', color:'blue', icon:'💾', name:'DIGITAL FORENSICS',
+    num:'02.04', team:'blue', color:'blue', iconKey:'icon-forensics', name:'DIGITAL FORENSICS',
     path:'/cyberx/blue-team/digital-forensics',
     desc:'Preserve evidence, recover artifacts, build timelines, and let the data tell the story.',
     tags:['EVIDENCE','ARTIFACTS','MEMORY','NTFS','VOLATILITY'],
@@ -931,9 +934,9 @@ const MODULES = {
     ],
     quote:`Forensics rewards patience. The machine remembers what people forget.`,
     pdfs:[
-      {icon:'📄',label:'ARTIFACT PDF',name:'Windows Forensics Artifacts',meta:'3.3 MB · REFERENCE',url:'https://www.sans.org/posters/windows-forensic-analysis/'},
-      {icon:'📋',label:'CHECKLIST PDF',name:'Evidence Collection Order',meta:'0.7 MB · CHECKLIST',url:'https://www.nist.gov/itl/ssd/software-quality-group/computer-forensics-tool-testing-program-cftt'},
-      {icon:'🧠',label:'MEMORY PDF',name:'Volatility First Steps',meta:'1.1 MB · MEMORY',url:'https://volatilityfoundation.org/'}
+      {iconKey:'pdf-doc',label:'ARTIFACT PDF',name:'Windows Forensics Artifacts',meta:'3.3 MB · REFERENCE',url:'https://www.sans.org/posters/windows-forensic-analysis/'},
+      {iconKey:'pdf-ref',label:'CHECKLIST PDF',name:'Evidence Collection Order',meta:'0.7 MB · CHECKLIST',url:'https://www.nist.gov/itl/ssd/software-quality-group/computer-forensics-tool-testing-program-cftt'},
+      {iconKey:'pdf-memory',label:'MEMORY PDF',name:'Volatility First Steps',meta:'1.1 MB · MEMORY',url:'https://volatilityfoundation.org/'}
     ],
     videos:[
       {platform:'Training · Disk',name:'Autopsy Forensics Tool',duration:'52:00',url:'https://www.youtube.com/results?search_query=autopsy+forensics+tool+tutorial'},
@@ -944,7 +947,7 @@ const MODULES = {
     challenge:'You have a Windows memory dump. Which <strong>Volatility</strong> commands do you run first?'
   },
   'threat-intel': {
-    num:'02.05', team:'blue', color:'blue', icon:'🛰️', name:'THREAT INTELLIGENCE',
+    num:'02.05', team:'blue', color:'blue', iconKey:'icon-threat-intel', name:'THREAT INTELLIGENCE',
     path:'/cyberx/blue-team/threat-intel',
     desc:'Track adversaries, map TTPs, enrich indicators, and turn raw data into useful context.',
     tags:['APT','TTPs','MITRE','OSINT','MISP'],
@@ -955,9 +958,9 @@ const MODULES = {
     ],
     quote:`Good intelligence says what is known, what is uncertain, and what to do next.`,
     pdfs:[
-      {icon:'📄',label:'FRAMEWORK PDF',name:'MITRE ATT&CK Handbook',meta:'4.1 MB · MATRIX',url:'https://attack.mitre.org/'},
-      {icon:'📋',label:'REPORT PDF',name:'CTI Report Template',meta:'0.9 MB · TEMPLATE',url:'https://www.cisa.gov/resources-tools'},
-      {icon:'🔗',label:'PLATFORM PDF',name:'MISP Sharing Guide',meta:'1.4 MB · SHARING',url:'https://www.misp-project.org/'}
+      {iconKey:'pdf-doc',label:'FRAMEWORK PDF',name:'MITRE ATT&CK Handbook',meta:'4.1 MB · MATRIX',url:'https://attack.mitre.org/'},
+      {iconKey:'pdf-ref',label:'REPORT PDF',name:'CTI Report Template',meta:'0.9 MB · TEMPLATE',url:'https://www.cisa.gov/resources-tools'},
+      {iconKey:'pdf-link',label:'PLATFORM PDF',name:'MISP Sharing Guide',meta:'1.4 MB · SHARING',url:'https://www.misp-project.org/'}
     ],
     videos:[
       {platform:'Training · OSINT',name:'OSINT Investigation Techniques',duration:'48:00',url:'https://www.youtube.com/results?search_query=threat+intelligence+osint+investigation'},
@@ -968,7 +971,7 @@ const MODULES = {
     challenge:'A campaign partly matches a known actor. How do you assign confidence without overclaiming?'
   },
   'threat-hunt': {
-    num:'02.06', team:'blue', color:'blue', icon:'🧭', name:'THREAT HUNTING',
+    num:'02.06', team:'blue', color:'blue', iconKey:'icon-threat-hunt', name:'THREAT HUNTING',
     path:'/cyberx/blue-team/threat-hunting',
     desc:'Do not wait for alerts. Build hypotheses and proactively search for hidden threats.',
     tags:['PROACTIVE','HYPOTHESIS','KQL','EDR','LATERAL MOVEMENT'],
@@ -979,9 +982,9 @@ const MODULES = {
     ],
     quote:`Threat hunting starts with a question strong enough to survive the data.`,
     pdfs:[
-      {icon:'📄',label:'GUIDE PDF',name:'Hypothesis-Driven Hunting',meta:'1.6 MB · GUIDE',url:'https://attack.mitre.org/'},
-      {icon:'📋',label:'MISSION PDF',name:'Hunt Mission Framework',meta:'0.8 MB · TEMPLATE',url:'https://www.cisa.gov/resources-tools'},
-      {icon:'🔍',label:'QUERY PDF',name:'KQL Hunting Notes',meta:'1.2 MB · QUERIES',url:'https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/'}
+      {iconKey:'pdf-guide',label:'GUIDE PDF',name:'Hypothesis-Driven Hunting',meta:'1.6 MB · GUIDE',url:'https://attack.mitre.org/'},
+      {iconKey:'pdf-ref',label:'MISSION PDF',name:'Hunt Mission Framework',meta:'0.8 MB · TEMPLATE',url:'https://www.cisa.gov/resources-tools'},
+      {iconKey:'pdf-query',label:'QUERY PDF',name:'KQL Hunting Notes',meta:'1.2 MB · QUERIES',url:'https://learn.microsoft.com/en-us/azure/data-explorer/kusto/query/'}
     ],
     videos:[
       {platform:'Training · KQL',name:'KQL for Threat Hunting',duration:'45:00',url:'https://www.youtube.com/results?search_query=KQL+for+threat+hunting'},
@@ -996,7 +999,7 @@ const MODULES = {
 function renderModuleCards() {
   const red = document.getElementById('red-modules');
   const blue = document.getElementById('blue-modules');
-  Object.entries(MODULES).forEach(([id,m]) => {
+  Object.entries(MODULES).forEach(([id, m]) => {
     const card = document.createElement('div');
     card.className = `module-card ${m.color}`;
     card.tabIndex = 0;
@@ -1004,7 +1007,7 @@ function renderModuleCards() {
     card.onkeydown = e => { if (e.key === 'Enter') launchModule(id); };
     card.innerHTML = `
       <div class="module-num">MODULE // ${m.num}</div>
-      <div class="module-icon">${m.icon}</div>
+      ${icon(m.iconKey, 'module-icon', m.name)}
       <div class="module-name">${m.name}</div>
       <div class="module-desc">${m.desc}</div>
       <div class="module-tags">${m.tags.slice(0,3).map(t => `<span class="tag">${t}</span>`).join('')}</div>
@@ -1016,18 +1019,10 @@ function renderModuleCards() {
 
 function initScrollReveal() {
   const targets = [
-    '.team-header',
-    '.module-card',
-    '.puzzle-text',
-    '.puzzle-visual',
-    '.simple-card',
-    '.exp-form',
-    '.exp-post',
-    '.article-card',
-    '.donate-amount',
-    '.donate-section .section-title',
-    '.donate-section .section-eyebrow',
-    '.sr',
+    '.team-header','.module-card','.puzzle-text','.puzzle-visual',
+    '.simple-card','.exp-form','.exp-post','.article-card',
+    '.donate-amount','.donate-section .section-title',
+    '.donate-section .section-eyebrow','.sr',
   ];
   const elements = Array.from(document.querySelectorAll(targets.join(',')));
   elements.forEach((el, index) => {
@@ -1048,9 +1043,7 @@ function initScrollReveal() {
     elements.forEach(el => {
       if (el.classList.contains('reveal-visible')) return;
       const rect = el.getBoundingClientRect();
-      if (rect.top <= triggerLine && rect.bottom >= 0) {
-        el.classList.add('reveal-visible');
-      }
+      if (rect.top <= triggerLine && rect.bottom >= 0) el.classList.add('reveal-visible');
     });
   };
 
@@ -1062,7 +1055,6 @@ function initScrollReveal() {
         observer.unobserve(entry.target);
       });
     }, { threshold:.04, rootMargin:'0px 0px -24px 0px' });
-
     elements.forEach(el => observer.observe(el));
   }
 
@@ -1077,19 +1069,8 @@ let cinCanvas, cinCtx, cinAnimId;
 function startCinMatrix(canvas) {
   cinCanvas = canvas;
   cinCtx = canvas.getContext('2d');
-  let imageData;
-  let data;
-  let intensity = 1;
-  let targetIntensity = 1;
-  let stopped = false;
-  const noiseColors = [
-    [13,26,47],
-    [23,54,79],
-    [65,30,58],
-    [189,9,39],
-    [80,10,31],
-    [9,216,199],
-  ];
+  let imageData, data, intensity = 1, targetIntensity = 1, stopped = false;
+  const noiseColors = [[13,26,47],[23,54,79],[65,30,58],[189,9,39],[80,10,31],[9,216,199]];
   function resize() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -1100,30 +1081,13 @@ function startCinMatrix(canvas) {
     if (stopped) return;
     intensity += (targetIntensity - intensity) * .018;
     const alpha = intensity * 255 | 0;
-    if (alpha < 3) {
-      canvas.style.opacity = '0';
-      stopped = true;
-      return;
-    }
+    if (alpha < 3) { canvas.style.opacity = '0'; stopped = true; return; }
     for (let i = 0; i < data.length; i += 4) {
-      const r = Math.random();
-      let c;
-      if (r < .003) {
-        c = noiseColors[5];
-      } else if (r < .04) {
-        c = noiseColors[Math.floor(Math.random() * 5)];
-      } else {
-        const v = Math.random() * 30 | 0;
-        data[i] = v;
-        data[i + 1] = v;
-        data[i + 2] = v;
-        data[i + 3] = alpha;
-        continue;
-      }
-      data[i] = c[0];
-      data[i + 1] = c[1];
-      data[i + 2] = c[2];
-      data[i + 3] = alpha;
+      const r = Math.random(); let c;
+      if (r < .003) { c = noiseColors[5]; }
+      else if (r < .04) { c = noiseColors[Math.floor(Math.random() * 5)]; }
+      else { const v = Math.random() * 30 | 0; data[i]=v; data[i+1]=v; data[i+2]=v; data[i+3]=alpha; continue; }
+      data[i]=c[0]; data[i+1]=c[1]; data[i+2]=c[2]; data[i+3]=alpha;
     }
     cinCtx.putImageData(imageData, 0, 0);
     cinAnimId = requestAnimationFrame(draw);
@@ -1136,8 +1100,9 @@ function startCinMatrix(canvas) {
 }
 function stopCinMatrix() {
   if (cinAnimId) cancelAnimationFrame(cinAnimId);
-  if (cinCtx && cinCanvas) cinCtx.clearRect(0,0,cinCanvas.width,cinCanvas.height);
+  if (cinCtx && cinCanvas) cinCtx.clearRect(0, 0, cinCanvas.width, cinCanvas.height);
 }
+
 function launchModule(id) {
   const m = MODULES[id];
   if (!m) return;
@@ -1162,10 +1127,7 @@ function launchModule(id) {
     { at:2000, pct:75, text:'loading challenge_' },
     { at:2900, pct:100, text:'access granted_' },
   ].forEach(({ at, pct, text }) => {
-    setTimeout(() => {
-      barEl.style.width = pct + '%';
-      label.textContent = text;
-    }, at);
+    setTimeout(() => { barEl.style.width = pct + '%'; label.textContent = text; }, at);
   });
   setTimeout(() => {
     overlay.style.transition = 'opacity .8s cubic-bezier(.4,0,.2,1)';
@@ -1185,13 +1147,14 @@ function splitTitle(name) {
   if (words.length === 1) return `${words[0]}<br><span class="accent">MODULE</span>`;
   return `${words.slice(0,-1).join('<br>')}<br><span class="accent">${words.at(-1)}</span>`;
 }
+
 function pdfCards(m) {
   return m.pdfs.map(item => `
     <a class="pdf-card" href="${item.url}" target="_blank" rel="noopener">
       <div class="pdf-card-bg"></div>
       <div class="pdf-stripe"></div>
       <div class="pdf-card-body">
-        <div class="pdf-icon-big">${item.icon}</div>
+        ${icon(item.iconKey, 'pdf-icon-big', item.label)}
         <div>
           <div class="pdf-type-label">${item.label}</div>
           <div class="pdf-card-name">${item.name}</div>
@@ -1202,8 +1165,9 @@ function pdfCards(m) {
     </a>
   `).join('');
 }
+
 function videoCards(m) {
-  return m.videos.map((item,i) => `
+  return m.videos.map((item, i) => `
     <a class="video-card ${i === 0 ? 'featured' : ''}" href="${item.url}" target="_blank" rel="noopener">
       <div class="video-corners"></div>
       <div class="video-thumb"><div class="video-play">▶</div></div>
@@ -1215,20 +1179,22 @@ function videoCards(m) {
     </a>
   `).join('');
 }
+
 function storyHTML(m) {
-  const blocks = m.story.map((p,i) => `
+  return m.story.map((p, i) => `
     <div class="story-para">
       <span class="para-num">[ ${String(i + 1).padStart(2,'0')} ]</span>
       <p>${p}</p>
     </div>
     ${i === 0 ? `<div class="pull-quote"><p>"${m.quote}"</p></div>` : ''}
   `).join('');
-  return blocks;
 }
+
 function openModulePage(id) {
   const m = MODULES[id];
   if (!m) return;
-  document.getElementById('module-nav-path').innerHTML = `/cyberx / ${m.team}-team / <span style="color:var(--cyan)">${id}</span>`;
+  document.getElementById('module-nav-path').innerHTML =
+    `/cyberx / ${m.team}-team / <span style="color:var(--cyan)">${id}</span>`;
   document.getElementById('module-poster-root').innerHTML = `
     <article class="module-poster">
       <section class="poster-hero">
@@ -1240,9 +1206,10 @@ function openModulePage(id) {
           <div class="tags-row">${m.tags.map(t => `<span class="htag">${t}</span>`).join('')}</div>
         </div>
         <div class="hero-right ${m.color === 'blue' ? 'blue' : ''}">
-          <div class="crosshair tl"></div><div class="crosshair tr"></div><div class="crosshair bl"></div><div class="crosshair br"></div>
+          <div class="crosshair tl"></div><div class="crosshair tr"></div>
+          <div class="crosshair bl"></div><div class="crosshair br"></div>
           <div class="hero-ring"></div>
-          <div class="hero-icon-big">${m.icon}</div>
+          ${icon(m.iconKey, 'hero-icon-big', m.name)}
         </div>
       </section>
       <section class="story-section">
@@ -1291,12 +1258,12 @@ function openModulePage(id) {
   `;
   const page = document.getElementById('module-page');
   page.classList.add('open');
-  page.scrollTo(0,0);
+  page.scrollTo(0, 0);
   document.body.style.overflow = 'hidden';
 }
+
 function closeModulePage() {
-  const page = document.getElementById('module-page');
-  page.classList.remove('open');
+  document.getElementById('module-page').classList.remove('open');
   document.body.style.overflow = '';
 }
 
@@ -1313,13 +1280,19 @@ function submitExp() {
     alert('Please enter a valid business email.');
     return;
   }
-  if (!text.trim()) {
-    alert('Please share your experience.');
-    return;
-  }
+  if (!text.trim()) { alert('Please share your experience.'); return; }
   const post = document.createElement('div');
   post.className = 'exp-post';
-  post.innerHTML = `<div class="exp-post-header"><div><div class="exp-company">${domain || 'CYBERSECURITY'}</div><div class="exp-role">${role || 'Anonymous Professional'}</div></div><div class="verified-badge">✓ VERIFIED</div></div><div class="exp-text">${text}</div>`;
+  post.innerHTML = `
+    <div class="exp-post-header">
+      <div>
+        <div class="exp-company">${domain || 'CYBERSECURITY'}</div>
+        <div class="exp-role">${role || 'Anonymous Professional'}</div>
+      </div>
+      <div class="verified-badge">✓ VERIFIED</div>
+    </div>
+    <div class="exp-text">${text}</div>
+  `;
   document.getElementById('exp-posts').prepend(post);
   document.getElementById('exp-email').value = '';
   document.getElementById('exp-role').value = '';
@@ -1356,6 +1329,7 @@ function initPuzzleGrid() {
   });
 }
 
+// ─── TERMINAL ─────────────────────────────────────────────────────────────────
 const FS = {
   '/cyberx': { type:'dir', children:{
     'red-team': { type:'dir', children:{
@@ -1436,38 +1410,23 @@ const CMD = {
     print('Available commands:', 'dim');
     print('━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━', 'dim');
     [
-      ['ls [dir]', 'List directory contents'],
-      ['pwd', 'Print working directory'],
-      ['cd [path]', 'Change directory'],
-      ['cat [file]', 'Display file contents'],
-      ['whoami', 'Current user info'],
-      ['history', 'Command history'],
-      ['echo [text]', 'Print text'],
-      ['date', 'Current date/time'],
-      ['find [name]', 'Find file/dir by name'],
-      ['puzzle', 'Open the hidden puzzle section'],
-      ['--modules', 'List all learning modules'],
-      ['--status', 'System status'],
-      ['--hint', 'Get a puzzle hint'],
-      ['--nav [page]', 'Navigate to page section'],
-      ['--about', 'About CYBERX'],
-      ['--clear', 'Clear terminal'],
-      ['--secret', '???'],
+      ['ls [dir]','List directory contents'],['pwd','Print working directory'],
+      ['cd [path]','Change directory'],['cat [file]','Display file contents'],
+      ['whoami','Current user info'],['history','Command history'],
+      ['echo [text]','Print text'],['date','Current date/time'],
+      ['find [name]','Find file/dir by name'],['puzzle','Open the hidden puzzle section'],
+      ['--modules','List all learning modules'],['--status','System status'],
+      ['--hint','Get a puzzle hint'],['--nav [page]','Navigate to page section'],
+      ['--about','About CYBERX'],['--clear','Clear terminal'],['--secret','???'],
     ].forEach(([c,d]) => print(`  <span style="color:var(--cyan);min-width:180px;display:inline-block">${c}</span><span style="color:rgba(200,224,232,.4)"> — ${d}</span>`));
   },
   ls: args => {
     const target = args[0] ? resolvePath(args[0]) : cwd;
     const node = getNode(target);
-    if (!node || node.type !== 'dir') {
-      print(`ls: cannot access '${args[0] || '.'}': No such file or directory`, 'r');
-      return;
-    }
+    if (!node || node.type !== 'dir') { print(`ls: cannot access '${args[0] || '.'}': No such file or directory`, 'r'); return; }
     const items = Object.entries(node.children || {}).filter(([,n]) => !n.hidden);
-    if (!items.length) {
-      print('(empty directory)', 'dim');
-      return;
-    }
-    items.forEach(([name,n]) => {
+    if (!items.length) { print('(empty directory)', 'dim'); return; }
+    items.forEach(([name, n]) => {
       const label = n.type === 'dir' ? `${name}/` : name;
       const hint = n.moduleId || n.url ? '  <span style="color:rgba(9,216,199,.3);font-size:.65rem">← cd to open</span>' : '';
       print(label + hint, n.type === 'dir' ? 'dir' : (n.color || 'file-g'));
@@ -1475,33 +1434,17 @@ const CMD = {
   },
   pwd: () => print(cwd),
   cd: args => {
-    if (!args[0]) {
-      cwd = '/cyberx';
-      updatePrompt();
-      return;
-    }
+    if (!args[0]) { cwd = '/cyberx'; updatePrompt(); return; }
     const target = resolvePath(args[0].replace(/\/+$/, ''));
     const node = getNode(target);
-    if (!node) {
-      print(`cd: ${args[0]}: No such file or directory`, 'r');
-      return;
-    }
-    if (node.type !== 'dir') {
-      print(`cd: ${args[0]}: Not a directory`, 'r');
-      return;
-    }
-    if (node.hidden) {
-      print(`cd: ${args[0]}: Permission denied  [ collect all hints first ]`, 'r');
-      return;
-    }
+    if (!node) { print(`cd: ${args[0]}: No such file or directory`, 'r'); return; }
+    if (node.type !== 'dir') { print(`cd: ${args[0]}: Not a directory`, 'r'); return; }
+    if (node.hidden) { print(`cd: ${args[0]}: Permission denied  [ collect all hints first ]`, 'r'); return; }
     cwd = target;
     updatePrompt();
     if (node.moduleId) {
       print(`<span style="color:var(--cyan)">[ ACCESS GRANTED ]</span> Launching ${MODULES[node.moduleId].name}...`);
-      setTimeout(() => {
-        closeTerminal();
-        launchModule(node.moduleId);
-      }, 450);
+      setTimeout(() => { closeTerminal(); launchModule(node.moduleId); }, 450);
       return;
     }
     if (node.url) {
@@ -1511,36 +1454,22 @@ const CMD = {
         if (node.url.startsWith('#')) {
           const el = document.querySelector(node.url);
           if (el) el.scrollIntoView({ behavior:'smooth' });
-        } else {
-          window.location.href = node.url;
-        }
+        } else { window.location.href = node.url; }
       }, 350);
     }
   },
   puzzle: () => {
     print('<span style="color:var(--cyan)">[ UNLOCKED ]</span> Redirecting to puzzle.html...');
-    setTimeout(() => {
-      closeTerminal();
-      window.location.href = 'puzzle.html';
-    }, 700);
+    setTimeout(() => { closeTerminal(); window.location.href = 'puzzle.html'; }, 700);
   },
   cat: args => {
-    if (!args[0]) {
-      print('cat: missing operand', 'r');
-      return;
-    }
+    if (!args[0]) { print('cat: missing operand', 'r'); return; }
     const node = getNode(resolvePath(args[0]));
-    if (!node) {
-      print(`cat: ${args[0]}: No such file or directory`, 'r');
-      return;
-    }
-    if (node.type === 'dir') {
-      print(`cat: ${args[0]}: Is a directory`, 'r');
-      return;
-    }
+    if (!node) { print(`cat: ${args[0]}: No such file or directory`, 'r'); return; }
+    if (node.type === 'dir') { print(`cat: ${args[0]}: Is a directory`, 'r'); return; }
     const content = {
-      'README.txt': ['Welcome to CYBERX.', 'Navigate with cd, ls, and pwd to explore.', 'Find hints hidden across modules to unlock /advanced.'],
-      'MISSION.txt': ['MISSION STATEMENT:', 'Free education. Zero tracking. Maximum knowledge.', 'Cybersecurity should be accessible to everyone.'],
+      'README.txt': ['Welcome to CYBERX.','Navigate with cd, ls, and pwd to explore.','Find hints hidden across modules to unlock /advanced.'],
+      'MISSION.txt': ['MISSION STATEMENT:','Free education. Zero tracking. Maximum knowledge.','Cybersecurity should be accessible to everyone.'],
     };
     (content[args[0]] || ['[ENCRYPTED — access denied]']).forEach(line => print(line, 'w'));
   },
@@ -1549,18 +1478,15 @@ const CMD = {
     print('Role: Operator (Unauthenticated)', 'dim');
     print('Hint fragments collected: 0/9', 'dim');
   },
-  history: () => cmdHistory.slice(-10).forEach((h,i) => print(`  ${i + 1}  ${h}`, 'dim')),
+  history: () => cmdHistory.slice(-10).forEach((h, i) => print(`  ${i + 1}  ${h}`, 'dim')),
   echo: args => print(args.join(' ') || '', 'w'),
   date: () => print(new Date().toString(), 'w'),
   find: args => {
-    if (!args[0]) {
-      print('find: missing argument', 'r');
-      return;
-    }
+    if (!args[0]) { print('find: missing argument', 'r'); return; }
     const needle = args[0].toLowerCase();
-    function search(node,path) {
+    function search(node, path) {
       if (!node.children) return;
-      Object.entries(node.children).forEach(([k,v]) => {
+      Object.entries(node.children).forEach(([k, v]) => {
         if (k.toLowerCase().includes(needle) && !v.hidden) print(`${path}/${k}`, v.type === 'dir' ? 'dir' : 'file-g');
         if (v.type === 'dir') search(v, `${path}/${k}`);
       });
@@ -1569,39 +1495,32 @@ const CMD = {
   },
   '--modules': () => {
     print('RED TEAM:', 'r');
-    print('  cd red-team/pen-testing        → Penetration Testing', 'dim');
-    print('  cd red-team/malware-dev        → Malware Development', 'dim');
+    print('  cd red-team/pen-testing         → Penetration Testing', 'dim');
+    print('  cd red-team/malware-dev         → Malware Development', 'dim');
     print('  cd red-team/reverse-engineering → Reverse Engineering', 'dim');
     print('BLUE TEAM:');
-    print('  cd blue-team/soc-analysis      → SOC Analysis', 'dim');
-    print('  cd blue-team/incident-response → Incident Response', 'dim');
-    print('  cd blue-team/malware-analysis  → Malware Analysis', 'dim');
-    print('  cd blue-team/digital-forensics → Digital Forensics', 'dim');
-    print('  cd blue-team/threat-intel      → Threat Intelligence', 'dim');
-    print('  cd blue-team/threat-hunting    → Threat Hunting', 'dim');
+    print('  cd blue-team/soc-analysis       → SOC Analysis', 'dim');
+    print('  cd blue-team/incident-response  → Incident Response', 'dim');
+    print('  cd blue-team/malware-analysis   → Malware Analysis', 'dim');
+    print('  cd blue-team/digital-forensics  → Digital Forensics', 'dim');
+    print('  cd blue-team/threat-intel       → Threat Intelligence', 'dim');
+    print('  cd blue-team/threat-hunting     → Threat Hunting', 'dim');
   },
   '--status': () => {
-    [['Uptime','99.99%'],['Firewall','ACTIVE'],['Encryption','AES-256-GCM'],['Hints collected','0/9'],['Puzzle solved','FALSE']].forEach(([k,v]) => print(`  ${k.padEnd(20)} ${v}`, 'dim'));
+    [['Uptime','99.99%'],['Firewall','ACTIVE'],['Encryption','AES-256-GCM'],['Hints collected','0/9'],['Puzzle solved','FALSE']]
+      .forEach(([k,v]) => print(`  ${k.padEnd(20)} ${v}`, 'dim'));
   },
-  '--hint': () => {
-    print('HINT SYSTEM:', 'y');
-    print('Complete a module to receive your first hint.', 'dim');
-  },
+  '--hint': () => { print('HINT SYSTEM:', 'y'); print('Complete a module to receive your first hint.', 'dim'); },
   '--nav': args => {
-    const pages = { home:'#home', 'red-team':'#red-team', 'blue-team':'#blue-team', puzzle:'puzzle.html', awareness:'awareness.html', experience:'#experience', articles:'#articles', donate:'#donate' };
+    const pages = { home:'#home','red-team':'#red-team','blue-team':'#blue-team',puzzle:'puzzle.html',awareness:'awareness.html',experience:'#experience',articles:'#articles',donate:'#donate' };
     const target = pages[args[0]];
-    if (!target) {
-      print(`Available: ${Object.keys(pages).join(', ')}`, 'dim');
-      return;
-    }
+    if (!target) { print(`Available: ${Object.keys(pages).join(', ')}`, 'dim'); return; }
     print(`Navigating to ${target}...`);
     setTimeout(() => {
       if (target.startsWith('#')) {
         const el = document.querySelector(target);
         if (el) el.scrollIntoView({ behavior:'smooth' });
-      } else {
-        window.location.href = target;
-      }
+      } else { window.location.href = target; }
       closeTerminal();
     }, 350);
   },
@@ -1611,35 +1530,21 @@ const CMD = {
     print('Gaming meets security education.', 'dim');
   },
   '--clear': () => { document.getElementById('terminal-body').innerHTML = ''; },
-  '--secret': () => {
-    print('YOU FOUND A HIDDEN COMMAND.', 'y');
-    print('The puzzle page holds the real secret. Try: puzzle', 'r');
-  },
-  '--admin': () => {
-    print('Redirecting to admin panel...', 'y');
-    setTimeout(() => { window.location.href = 'admin.html'; }, 800);
-  },
+  '--secret': () => { print('YOU FOUND A HIDDEN COMMAND.', 'y'); print('The puzzle page holds the real secret. Try: puzzle', 'r'); },
+  '--admin': () => { print('Redirecting to admin panel...', 'y'); setTimeout(() => { window.location.href = 'admin.html'; }, 800); },
 };
 
 document.getElementById('t-input').addEventListener('keydown', e => {
   const input = document.getElementById('t-input');
   if (e.key === 'ArrowUp') {
     e.preventDefault();
-    if (histIdx < cmdHistory.length - 1) {
-      histIdx++;
-      input.value = cmdHistory[cmdHistory.length - 1 - histIdx];
-    }
+    if (histIdx < cmdHistory.length - 1) { histIdx++; input.value = cmdHistory[cmdHistory.length - 1 - histIdx]; }
     return;
   }
   if (e.key === 'ArrowDown') {
     e.preventDefault();
-    if (histIdx > 0) {
-      histIdx--;
-      input.value = cmdHistory[cmdHistory.length - 1 - histIdx];
-    } else {
-      histIdx = -1;
-      input.value = '';
-    }
+    if (histIdx > 0) { histIdx--; input.value = cmdHistory[cmdHistory.length - 1 - histIdx]; }
+    else { histIdx = -1; input.value = ''; }
     return;
   }
   if (e.key !== 'Enter') return;
@@ -1659,11 +1564,9 @@ document.getElementById('terminal-overlay').addEventListener('click', e => {
   if (e.target === document.getElementById('terminal-overlay')) closeTerminal();
 });
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    closeTerminal();
-    closeModulePage();
-  }
+  if (e.key === 'Escape') { closeTerminal(); closeModulePage(); }
 });
+
 initBootVerifier();
 renderModuleCards();
 initPuzzleGrid();
