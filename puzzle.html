@@ -586,7 +586,7 @@
   </div>
 
   <!-- Leaderboard -->
-  <div class="hof-board">
+  <div class="hof-board" id="hof-board">
     <div class="hof-board-head">
       <span class="hof-board-label">// VERIFIED OPERATORS</span>
       <span class="hof-board-count" id="hof-board-count">0 ENTRIES</span>
@@ -622,80 +622,192 @@
   ╚══════════════════════════════════════════════╝
 -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ══ CONFIG ══ */
 const CORRECT_FLAG = 'SHADOW_PROTOCOL';
-const STORAGE_KEY  = 'cyberx_hof_v1';
+const SUPABASE_URL = 'YOUR_SUPABASE_PROJECT_URL';
+const SUPABASE_PUBLISHABLE_KEY = 'YOUR_SUPABASE_PUBLISHABLE_KEY';
 
-/* ══ STORAGE ══ */
-function loadSolvers(){
-  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)||'[]'); }
-  catch{ return []; }
-}
-function saveSolvers(arr){
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+const { createClient } = supabase;
+const supabaseClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+const TABLE_NAME = 'puzzle_players';
+
+let solverState = [];
+let realtimeChannel = null;
+
+/* ══ UTILITIES ══ */
+function esc(str){
+  return String(str ?? '')
+    .replace(/&/g,'&amp;')
+    .replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;')
+    .replace(/'/g,'&#39;');
 }
 
-/* ══ RENDER ══ */
-const RANK_ICONS   = ['🥇','🥈','🥉'];
-const RANK_CLASSES = ['rank-1','rank-2','rank-3'];
+function normalizeSolver(record){
+  if(!record || !record.id) return null;
+  const name = String(record.name ?? '').trim();
+  const domain = String(record.domain ?? '').trim();
+  return {
+    id: record.id,
+    name,
+    domain,
+    created_at: record.created_at || new Date().toISOString(),
+    date: record.created_at ? new Date(record.created_at).toISOString().slice(0,10) : '—'
+  };
+}
+
+function sortSolvers(list){
+  return [...list].sort((a, b) => new Date(a.created_at) - new Date(b.created_at));
+}
+
+function showHofLoading(message = 'LOADING VERIFIED OPERATORS...'){
+  const list = document.getElementById('hof-list');
+  if(!list) return;
+  list.innerHTML = `<div class="hof-empty"><span>◌</span>${message}</div>`;
+}
 
 function renderHOF(){
-  const solvers = loadSolvers();
-  document.getElementById('hof-total').textContent =
-    solvers.length + ' OPERATOR' + (solvers.length !== 1 ? 'S' : '') + ' VERIFIED';
-  document.getElementById('hof-board-count').textContent =
-    solvers.length + (solvers.length !== 1 ? ' ENTRIES' : ' ENTRY');
-
+  const solvers = sortSolvers(solverState);
+  const totalEl = document.getElementById('hof-total');
+  const countEl = document.getElementById('hof-board-count');
   const list = document.getElementById('hof-list');
 
+  if(totalEl){
+    totalEl.textContent = solvers.length + ' OPERATOR' + (solvers.length !== 1 ? 'S' : '') + ' VERIFIED';
+  }
+  if(countEl){
+    countEl.textContent = solvers.length + (solvers.length !== 1 ? ' ENTRIES' : ' ENTRY');
+  }
+
+  if(!list) return;
+
   if(solvers.length === 0){
-    list.innerHTML = `<div class="hof-empty"><span>👁</span>NO SOLVERS YET.<br>WILL YOU BE THE FIRST?</div>`;
+    list.innerHTML = '<div class="hof-empty"><span>👁</span>NO SOLVERS YET.<br>WILL YOU BE THE FIRST?</div>';
     return;
   }
 
+  const RANK_ICONS = ['🥇','🥈','🥉'];
+  const RANK_CLASSES = ['rank-1','rank-2','rank-3'];
+
   list.innerHTML = solvers.map((s, i) => {
     const rClass = i < 3 ? RANK_CLASSES[i] : '';
-    const rIcon  = i < 3 ? RANK_ICONS[i]   : '#'+(i+1);
-    const badge  = i === 0
-      ? `<span class="solver-badge badge-first">FIRST BLOOD</span>`
+    const rIcon = i < 3 ? RANK_ICONS[i] : '#'+(i+1);
+    const badge = i === 0
+      ? '<span class="solver-badge badge-first">FIRST BLOOD</span>'
       : i < 3
-        ? `<span class="solver-badge badge-elite">ELITE</span>`
-        : `<span class="solver-badge badge-solver">SOLVER</span>`;
+        ? '<span class="solver-badge badge-elite">ELITE</span>'
+        : '<span class="solver-badge badge-solver">SOLVER</span>';
+
     return `
       <div class="solver-row ${rClass}" style="animation-delay:${i*0.06}s">
         <div class="solver-rank">${rIcon}</div>
         <div class="solver-name">${esc(s.name)} ${badge}</div>
-        <div class="solver-domain">${esc(s.domain||'—')}</div>
-        <div class="solver-date">${s.date}</div>
+        <div class="solver-domain">${esc(s.domain || '—')}</div>
+        <div class="solver-date">${esc(s.date || '—')}</div>
       </div>`;
   }).join('');
 }
 
+/* ══ DATA FETCH ══ */
+async function loadSolvers(){
+  showHofLoading();
+
+  const { data, error } = await supabaseClient
+    .from(TABLE_NAME)
+    .select('*')
+    .order('created_at', { ascending: true });
+
+  if(error){
+    const list = document.getElementById('hof-list');
+    if(list){
+      list.innerHTML = '<div class="hof-empty"><span>⚠</span>HALL OF FAME UNAVAILABLE.<br>CHECK THE SIGNAL LINK.</div>';
+    }
+    return [];
+  }
+
+  solverState = (data || [])
+    .map(normalizeSolver)
+    .filter(Boolean);
+
+  renderHOF();
+  return solverState;
+}
+
+function addSolverToState(rawSolver){
+  const normalized = normalizeSolver(rawSolver);
+  if(!normalized) return;
+
+  const duplicate = solverState.some(s => s.id === normalized.id);
+  if(duplicate) return;
+
+  solverState.push(normalized);
+  solverState = sortSolvers(solverState);
+  renderHOF();
+}
+
+/* ══ REALTIME ══ */
+function subscribeToRealtime(){
+  if(realtimeChannel) return;
+
+  realtimeChannel = supabaseClient.channel('puzzle_players_changes')
+    .on('postgres_changes', {
+      event: 'INSERT',
+      schema: 'public',
+      table: TABLE_NAME
+    }, payload => {
+      addSolverToState(payload.new);
+    })
+    .subscribe(status => {
+      if(status === 'CHANNEL_ERROR' || status === 'TIMED_OUT'){
+        const list = document.getElementById('hof-list');
+        if(list && solverState.length === 0){
+          list.innerHTML = '<div class="hof-empty"><span>⚠</span>REALTIME LINK LOST.<br>SUBSCRIBING AGAIN...</div>';
+        }
+      }
+    });
+}
+
 /* ══ SUBMIT ══ */
-function submitSolver(){
-  const nameEl  = document.getElementById('hof-name');
-  const domEl   = document.getElementById('hof-domain');
-  const flagEl  = document.getElementById('hof-flag');
-  const msgEl   = document.getElementById('hof-msg');
+async function submitSolver(){
+  const nameEl = document.getElementById('hof-name');
+  const domEl = document.getElementById('hof-domain');
+  const flagEl = document.getElementById('hof-flag');
+  const msgEl = document.getElementById('hof-msg');
 
-  const name   = nameEl.value.trim();
+  const name = nameEl.value.trim();
   const domain = domEl.value.trim();
-  const flag   = flagEl.value.trim().toUpperCase();
+  const flag = flagEl.value.trim().toUpperCase();
 
-  flagEl.classList.remove('correct','wrong');
+  flagEl.classList.remove('correct', 'wrong');
   msgEl.className = 'hof-msg';
   msgEl.textContent = '';
 
   if(!name){
     msgEl.textContent = '✗ OPERATOR NAME REQUIRED';
     msgEl.className = 'hof-msg err';
-    nameEl.focus(); return;
+    nameEl.focus();
+    return;
+  }
+  if(name.length > 40){
+    msgEl.textContent = '✗ OPERATOR NAME EXCEEDS 40 CHARACTERS';
+    msgEl.className = 'hof-msg err';
+    nameEl.focus();
+    return;
+  }
+  if(domain.length > 40){
+    msgEl.textContent = '✗ DOMAIN EXCEEDS 40 CHARACTERS';
+    msgEl.className = 'hof-msg err';
+    domEl.focus();
+    return;
   }
   if(!flag){
     msgEl.textContent = '✗ FLAG REQUIRED — SOLVE THE PUZZLE FIRST';
     msgEl.className = 'hof-msg err';
-    flagEl.focus(); return;
+    flagEl.focus();
+    return;
   }
   if(flag !== CORRECT_FLAG){
     flagEl.classList.add('wrong');
@@ -704,48 +816,81 @@ function submitSolver(){
     return;
   }
 
-  /* Correct */
   flagEl.classList.add('correct');
-  const solvers = loadSolvers();
 
-  if(solvers.some(s => s.name.toLowerCase() === name.toLowerCase())){
-    msgEl.textContent = '⚠ OPERATOR "'+name.toUpperCase()+'" ALREADY IMMORTALIZED.';
-    msgEl.className = 'hof-msg ok'; return;
+  try{
+    const { data: existingRows, error: duplicateCheckError } = await supabaseClient
+      .from(TABLE_NAME)
+      .select('id, name');
+
+    if(duplicateCheckError){
+      throw duplicateCheckError;
+    }
+
+    const alreadyExists = (existingRows || []).some(row => {
+      const candidate = String(row.name ?? '').trim().toLowerCase();
+      return candidate === name.toLowerCase();
+    });
+
+    if(alreadyExists){
+      msgEl.textContent = '⚠ OPERATOR "' + name.toUpperCase() + '" ALREADY IMMORTALIZED.';
+      msgEl.className = 'hof-msg ok';
+      return;
+    }
+
+    const { data, error } = await supabaseClient
+      .from(TABLE_NAME)
+      .insert([
+        { name, domain: domain || null }
+      ])
+      .select();
+
+    if(error){
+      if(error.code === '23505' || /duplicate|already exists/i.test(error.message || '')){
+        msgEl.textContent = '⚠ OPERATOR "' + name.toUpperCase() + '" ALREADY IMMORTALIZED.';
+        msgEl.className = 'hof-msg ok';
+        return;
+      }
+      throw error;
+    }
+
+    const inserted = Array.isArray(data) && data[0] ? data[0] : null;
+    if(inserted){
+      addSolverToState(inserted);
+    }
+
+    const isFirst = solverState.length === 1;
+    msgEl.textContent = isFirst
+      ? '🥇 FIRST BLOOD — ' + name.toUpperCase() + ' HAS BEEN IMMORTALIZED.'
+      : '✓ ACCESS GRANTED — WELCOME TO THE HALL, ' + name.toUpperCase() + '.';
+    msgEl.className = 'hof-msg ok';
+
+    nameEl.value = '';
+    domEl.value = '';
+    flagEl.value = '';
+    flagEl.classList.remove('correct');
+
+    setTimeout(() => {
+      document.querySelector('.hof-board').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 700);
+  } catch (error) {
+    msgEl.textContent = '✗ HALL OF FAME ERROR — TRY AGAIN LATER';
+    msgEl.className = 'hof-msg err';
+    console.error('Supabase submission failed:', error);
   }
-
-  const dateStr = new Date().toISOString().slice(0,10);
-  solvers.push({ name, domain, date: dateStr });
-  saveSolvers(solvers);
-
-  const isFirst = solvers.length === 1;
-  msgEl.textContent = isFirst
-    ? '🥇 FIRST BLOOD — '+name.toUpperCase()+' HAS BEEN IMMORTALIZED.'
-    : '✓ ACCESS GRANTED — WELCOME TO THE HALL, '+name.toUpperCase()+'.';
-  msgEl.className = 'hof-msg ok';
-
-  nameEl.value = ''; domEl.value = ''; flagEl.value = '';
-  flagEl.classList.remove('correct');
-  renderHOF();
-
-  setTimeout(()=>{
-    document.getElementById('hof-board').scrollIntoView({behavior:'smooth',block:'start'});
-  }, 700);
-}
-
-/* ══ UTILS ══ */
-function esc(str){
-  return String(str)
-    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
-    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
 /* Enter to submit */
-document.getElementById('hof-flag').addEventListener('keydown', e=>{
-  if(e.key==='Enter') submitSolver();
+document.getElementById('hof-flag').addEventListener('keydown', e => {
+  if(e.key === 'Enter'){
+    submitSolver();
+  }
 });
 
 /* Init */
-renderHOF();
+showHofLoading();
+loadSolvers();
+subscribeToRealtime();
 </script>
 </body>
 </html>
