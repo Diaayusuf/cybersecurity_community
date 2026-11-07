@@ -1,0 +1,15 @@
+{
+  "name": "cyberx-static-site",
+  "private": true,
+  "scripts": {
+    "test": "playwright test",
+    "test:e2e": "playwright test",
+    "test:admin": "playwright test tests/admin",
+    "test:headed": "playwright test --headed",
+    "test:report": "playwright show-report --host 127.0.0.1",
+    "test:m6": "node --test tests/puzzle/submit-puzzle.test.mjs && playwright test tests/m6-puzzle-frontend.spec.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0"
+  }
+}

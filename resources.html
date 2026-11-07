@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberX | Resources</title>
+    <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="CyberX home">
+          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
+          <span class="brand-word">CYBER<span>X</span></span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="learning.html">Learning</a>
+          <a href="leaderboard.html">Leaderboard</a>
+          <a href="community.html">Community</a>
+          <a href="resources.html" class="active">Resources</a>
+          <a href="assistant.html">AI Assistant</a>
+          <a href="profile.html" class="nav-cta">Profile</a>
+        </nav>
+        <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="learning.html">Learning</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="community.html">Community</a>
+        <a href="resources.html">Resources</a>
+        <a href="assistant.html">AI Assistant</a>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="page-header compact">
+        <div class="kicker">Resource library</div>
+        <h1>Security references and practical tools</h1>
+        <p>Use reputable, public resources. These are sample links and should be checked against publisher guidance before use in production.</p>
+      </section>
+
+      <div class="resource-toolbar">
+        <div class="filter-row">
+          <button class="filter-pill active" data-filter-group="resource" data-filter>All</button>
+          <button class="filter-pill" data-filter-group="resource" data-filter>Documentation</button>
+          <button class="filter-pill" data-filter-group="resource" data-filter>Courses</button>
+          <button class="filter-pill" data-filter-group="resource" data-filter>Tools</button>
+          <button class="filter-pill" data-filter-group="resource" data-filter>Labs</button>
+        </div>
+        <div class="resource-search">
+          <input class="search-input" type="search" data-resource-search placeholder="Search resources..." />
+        </div>
+      </div>
+
+      <div class="resource-grid">
+        <article class="resource-card" data-resource-card>
+          <div class="resource-meta"><span>Documentation</span><span>Beginner</span></div>
+          <h3>OWASP Top 10</h3>
+          <p>Core web application risks and common controls documented by OWASP.</p>
+          <div class="tag-group"><span class="tag-chip">Web</span><span class="tag-chip">Security</span></div>
+        </article>
+        <article class="resource-card" data-resource-card>
+          <div class="resource-meta"><span>Courses</span><span>Intermediate</span></div>
+          <h3>Google Cybersecurity Certificate</h3>
+          <p>Structured beginner-friendly content covering network, endpoint, and governance topics.</p>
+          <div class="tag-group"><span class="tag-chip">Learning</span><span class="tag-chip">Career</span></div>
+        </article>
+        <article class="resource-card" data-resource-card>
+          <div class="resource-meta"><span>Tools</span><span>Advanced</span></div>
+          <h3>Zeek</h3>
+          <p>Open-source network security monitoring for protocol and traffic visibility.</p>
+          <div class="tag-group"><span class="tag-chip">Network</span><span class="tag-chip">SIEM</span></div>
+        </article>
+        <article class="resource-card" data-resource-card>
+          <div class="resource-meta"><span>Labs</span><span>Intermediate</span></div>
+          <h3>TryHackMe</h3>
+          <p>Short-circuit labs and guided simulations for security practitioners.</p>
+          <div class="tag-group"><span class="tag-chip">Hands-on</span><span class="tag-chip">Practice</span></div>
+        </article>
+        <article class="resource-card" data-resource-card>
+          <div class="resource-meta"><span>Research Papers</span><span>Advanced</span></div>
+          <h3>MITRE ATT&amp;CK</h3>
+          <p>Framework for mapping adversary tactics, techniques, and procedures.</p>
+          <div class="tag-group"><span class="tag-chip">Threat Intel</span></div>
+        </article>
+        <article class="resource-card" data-resource-card>
+          <div class="resource-meta"><span>Cheat Sheets</span><span>Beginner</span></div>
+          <h3>Nmap Quick Reference</h3>
+          <p>Practical scanning reference and common command examples for discovery work.</p>
+          <div class="tag-chip">Recon</div>
+        </article>
+      </div>
+    </main>
+
+    <script src="assets/js/cyberx-app.js"></script>
+  </body>
+</html>

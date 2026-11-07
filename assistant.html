@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberX | AI Assistant</title>
+    <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="CyberX home">
+          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
+          <span class="brand-word">CYBER<span>X</span></span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="learning.html">Learning</a>
+          <a href="leaderboard.html">Leaderboard</a>
+          <a href="community.html">Community</a>
+          <a href="resources.html">Resources</a>
+          <a href="assistant.html" class="active">AI Assistant</a>
+          <a href="profile.html" class="nav-cta">Profile</a>
+        </nav>
+        <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="learning.html">Learning</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="community.html">Community</a>
+        <a href="resources.html">Resources</a>
+        <a href="assistant.html">AI Assistant</a>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="page-header compact">
+        <div class="kicker">AI-ready workspace</div>
+        <h1>Practice guidance and reasoning support</h1>
+        <p>Use the AI assistant only as a teaching aid in demo mode. It does not replace validated challenge-solving or production security controls.</p>
+      </section>
+
+      <div class="assistant-shell">
+        <aside class="assistant-panel">
+          <div class="section-heading">
+            <h2>Suggested prompts</h2>
+            <button class="btn btn-secondary" type="button" data-clear-chat>Clear</button>
+          </div>
+          <div class="prompt-grid">
+            <button class="prompt-item" type="button">Summarize the OWASP Top 10 for a beginner</button>
+            <button class="prompt-item" type="button">Explain how threat intel complements SIEM alerts</button>
+            <button class="prompt-item" type="button">What should I review before a phishing drill?</button>
+            <button class="prompt-item" type="button">Help me plan a 30-day security learning path</button>
+          </div>
+        </aside>
+
+        <div class="assistant-panel">
+          <div class="chat-history" data-chat-history>
+            <div class="assistant-message assistant">
+              <strong>AI demo</strong>
+              <span>Ask about tactics, tool selection, or a learning plan. The result shown here is a front-end demo and not a connected AI service.</span>
+            </div>
+          </div>
+          <form class="chat-form" data-chat-form>
+            <input type="text" data-chat-input placeholder="Ask for best practices or a study plan..." />
+            <button class="btn btn-primary" type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="assets/js/cyberx-app.js"></script>
+  </body>
+</html>
