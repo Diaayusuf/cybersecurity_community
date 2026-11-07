@@ -48,6 +48,18 @@ nav#main-nav.scrolled{background:rgba(13,26,47,.92);border-bottom-color:rgba(9,2
 .nav-links a:hover::after{width:100%}
 .terminal-btn{font-family:var(--mono);font-size:.75rem;letter-spacing:.15em;color:var(--cyan);border:1px solid rgba(9,216,199,.3);background:transparent;padding:.5rem 1.1rem;cursor:pointer;transition:all .3s}
 .terminal-btn:hover{background:rgba(9,216,199,.08);box-shadow:var(--glow-c)}
+.nav-explore{position:relative;}
+.nav-explore-toggle{font-family:var(--mono);font-size:.78rem;letter-spacing:.15em;color:rgba(200,224,232,.68);border:1px solid rgba(9,216,199,.22);background:rgba(9,216,199,.025);padding:.55rem .9rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;}
+.nav-explore-toggle::after{content:'⌄';margin-left:.55rem;color:var(--cyan);}
+.nav-explore-toggle:hover,.nav-explore-toggle:focus-visible{color:var(--cyan);border-color:rgba(9,216,199,.48);background:rgba(9,216,199,.07);outline:none;}
+#main-nav .nav-links{position:absolute;top:calc(100% + .8rem);left:0;z-index:110;width:min(560px,calc(100vw - 2rem));margin:0;padding:.7rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.2rem;list-style:none;background:rgba(13,26,47,.98);border:1px solid rgba(9,216,199,.22);box-shadow:0 18px 40px rgba(0,0,0,.36);backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-5px);transition:opacity .18s ease,transform .18s ease,visibility .18s;}
+#main-nav .nav-explore.open .nav-links,#main-nav .nav-explore:not(.pointer-closed):hover .nav-links,#main-nav .nav-explore:not(.pointer-closed):focus-within .nav-links{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);}
+#main-nav .nav-explore.pointer-closed .nav-links{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-5px);}
+#main-nav .nav-links li{min-width:0;}
+#main-nav .nav-links a{display:block;padding:.55rem .65rem;border-radius:4px;color:rgba(200,224,232,.68);font-size:.7rem;letter-spacing:.1em;white-space:nowrap;}
+#main-nav .nav-links a:hover,#main-nav .nav-links a:focus-visible{color:var(--cyan);background:rgba(9,216,199,.07);outline:1px solid rgba(9,216,199,.18);}
+#main-nav .nav-links a::after{left:.65rem;bottom:.35rem;}
+#main-nav .nav-explore-toggle:focus-visible,#main-nav .nav-links a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;}
 .home-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 2rem 3rem;position:relative;z-index:1;overflow:hidden}
 .home-hero::before{content:'';position:absolute;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(9,216,199,.08),transparent 65%);filter:blur(60px);top:-20%;left:-12%;pointer-events:none}
 .home-hero::after{content:'';position:absolute;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(189,9,39,.07),transparent 70%);filter:blur(70px);bottom:-20%;right:-10%;pointer-events:none}
@@ -428,11 +440,10 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 @keyframes spin{to{transform:rotate(360deg)}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}@keyframes fadeLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}@keyframes hintPulse{0%,100%{text-shadow:var(--glow-c)}50%{text-shadow:0 0 50px rgba(9,216,199,.7),0 0 80px rgba(9,216,199,.3)}}@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:900px){
   nav#main-nav,.poster-nav{padding:1rem 1.5rem}.nav-path{display:none}
-  nav#main-nav{flex-wrap:wrap;gap:.6rem 1rem}
-  nav#main-nav .nav-links{display:flex;order:3;flex:0 1 calc(100% - 1rem);width:calc(100% - 1rem);min-width:0;max-width:calc(100% - 1rem);overflow-x:auto;gap:1rem;margin:0;padding:.3rem 0 .45rem;scrollbar-width:thin}
-  nav#main-nav .nav-links li{flex:0 0 auto}
-  nav#main-nav .nav-links a{font-size:.6rem;white-space:nowrap}
-  nav#main-nav .terminal-btn{margin-left:auto}
+  nav#main-nav{gap:1rem}
+  #main-nav .nav-links{left:50%;right:auto;transform:translate(-50%,-5px);grid-template-columns:repeat(2,minmax(0,1fr));max-height:calc(100dvh - 100px);overflow-y:auto}
+  #main-nav .nav-explore.open .nav-links,#main-nav .nav-explore:not(.pointer-closed):hover .nav-links,#main-nav .nav-explore:not(.pointer-closed):focus-within .nav-links{transform:translate(-50%,0)}
+  #main-nav .nav-explore.pointer-closed .nav-links{transform:translate(-50%,-5px)}
   .home-title{font-size:2.5rem}.stat-item{border-right:none;padding:1rem 2rem}
   .poster-hero{grid-template-columns:1fr;min-height:auto}.hero-left{clip-path:none;padding:5rem 2rem 3rem}.hero-right{min-height:40vh}
   .story-inner{grid-template-columns:1fr;gap:2rem}.story-label-col{position:static}.story-big-label{writing-mode:horizontal-tb;transform:none;height:auto;font-size:2rem}
@@ -447,6 +458,15 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
   .footer-top{grid-template-columns:1fr;text-align:center}
   .footer-right{text-align:right}
   .footer-right a{margin:0 .7rem}
+}
+@media(max-width:600px){
+  nav#main-nav{padding:.8rem 1rem;gap:.5rem}
+  #main-nav .logo{font-size:.88rem;letter-spacing:.13em;gap:.4rem}
+  #main-nav .logo img{width:38px}
+  #main-nav .nav-explore-toggle{font-size:.64rem;letter-spacing:.1em;padding:.48rem .58rem}
+  #main-nav .terminal-btn{font-size:.6rem;letter-spacing:.08em;padding:.45rem .55rem;white-space:nowrap}
+  #main-nav .nav-links{width:min(420px,calc(100vw - 2.5rem));grid-template-columns:1fr;gap:.1rem;padding:.5rem}
+  #main-nav .nav-links a{padding:.58rem .65rem;font-size:.68rem}
 }
 </style>
 </head>
@@ -509,7 +529,9 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 
 <nav id="main-nav">
   <div class="logo"><img src="image/CYBERX-LOGO.png" width="100" alt="CYBERX Logo">CYBER<span>X</span></div>
-  <ul class="nav-links">
+  <div class="nav-explore">
+    <button class="nav-explore-toggle" id="home-nav-toggle" type="button" aria-expanded="false" aria-controls="home-nav-dropdown">EXPLORE</button>
+    <ul class="nav-links" id="home-nav-dropdown" aria-label="Explore CyberX">
     <li><a href="#red-team">RED TEAM</a></li>
     <li><a href="#blue-team">BLUE TEAM</a></li>
     <li><a href="puzzle.html">SECRET</a></li>
@@ -521,7 +543,8 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
     <li><a href="#experience">EXPERIENCE</a></li>
     <li><a href="#articles">ARTICLES</a></li>
     <li><a href="#donate">DONATE</a></li>
-  </ul>
+    </ul>
+  </div>
   <button class="terminal-btn" onclick="openTerminal()">&#9654;_ TERMINAL</button>
 </nav>
 
@@ -1626,6 +1649,56 @@ document.getElementById('terminal-overlay').addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeTerminal(); closeModulePage(); }
 });
+
+const homeExplore = document.querySelector('#main-nav .nav-explore');
+const homeExploreToggle = document.getElementById('home-nav-toggle');
+if (homeExplore && homeExploreToggle) {
+  let pinnedOpen = false;
+  let suppressHover = false;
+  const setExploreOpen = open => {
+    homeExplore.classList.toggle('open', open);
+    homeExplore.classList.toggle('pointer-closed', !open && suppressHover);
+    homeExploreToggle.setAttribute('aria-expanded', String(open));
+  };
+  homeExplore.addEventListener('pointerenter', () => {
+    if (matchMedia('(hover: hover)').matches && !suppressHover && !pinnedOpen) setExploreOpen(true);
+  });
+  homeExplore.addEventListener('pointerleave', () => {
+    suppressHover = false;
+    homeExplore.classList.remove('pointer-closed');
+    if (!pinnedOpen && !homeExplore.contains(document.activeElement)) setExploreOpen(false);
+  });
+  homeExplore.addEventListener('focusin', () => {
+    if (!suppressHover) setExploreOpen(true);
+  });
+  homeExplore.addEventListener('focusout', () => {
+    setTimeout(() => {
+      if (!pinnedOpen && !homeExplore.contains(document.activeElement) && !homeExplore.matches(':hover')) setExploreOpen(false);
+    }, 0);
+  });
+  homeExploreToggle.addEventListener('click', () => {
+    pinnedOpen = !pinnedOpen;
+    suppressHover = !pinnedOpen;
+    setExploreOpen(pinnedOpen);
+    if (!pinnedOpen) homeExploreToggle.blur();
+  });
+  homeExplore.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      pinnedOpen = false;
+      suppressHover = true;
+      setExploreOpen(false);
+      homeExploreToggle.focus();
+    }
+  });
+  document.addEventListener('pointerdown', event => {
+    if (!homeExplore.contains(event.target) && pinnedOpen) {
+      pinnedOpen = false;
+      suppressHover = false;
+      setExploreOpen(false);
+    }
+  });
+}
 
 initBootVerifier();
 renderModuleCards();
