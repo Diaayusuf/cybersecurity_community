@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberX | Community</title>
+    <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="CyberX home">
+          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
+          <span class="brand-word">CYBER<span>X</span></span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="learning.html">Learning</a>
+          <a href="leaderboard.html">Leaderboard</a>
+          <a href="community.html" class="active">Community</a>
+          <a href="resources.html">Resources</a>
+          <a href="assistant.html">AI Assistant</a>
+          <a href="profile.html" class="nav-cta">Profile</a>
+        </nav>
+        <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="learning.html">Learning</a>
+        <a href="leaderboard.html">Leaderboard</a>
+        <a href="community.html">Community</a>
+        <a href="resources.html">Resources</a>
+        <a href="assistant.html">AI Assistant</a>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="page-header compact">
+        <div class="kicker">Community</div>
+        <h1>Discuss tactics, incidents, and lessons learned</h1>
+        <p>These posts are demo-only until the backend feed is connected. All submission and voting actions are clearly non-persistent.</p>
+      </section>
+
+      <div class="feed-grid">
+        <div class="pad-card">
+          <div class="section-heading">
+            <h2>Community feed</h2>
+            <span class="pill success">Demo feed</span>
+          </div>
+          <div data-community-feed>
+            <article class="post-card">
+              <div class="post-meta"><span>Marin • SOC & Blue Team</span><span>2h ago</span></div>
+              <h3 class="post-title">Detection tuning after a ransomware drill</h3>
+              <p>We improved command-line telemetry and reduced noisy endpoint alerts. The most useful signal was process lineage tied to remote execution paths.</p>
+              <div class="feed-actions">
+                <div class="vote-row" data-vote-container>
+                  <button type="button" class="vote-button" data-vote="up">▲ Like</button>
+                  <span class="vote-value" data-vote-count>42</span>
+                </div>
+                <button type="button" class="btn btn-secondary" data-demo-action="demo">Comment</button>
+              </div>
+            </article>
+            <article class="post-card">
+              <div class="post-meta"><span>Rin • DFIR</span><span>5h ago</span></div>
+              <h3 class="post-title">Timeline artifacts for lateral movement</h3>
+              <p>Windows EDR + host logs remain the most complete sequence for confirming persistence. I’d still pair them with firewall flow data for network context.</p>
+              <div class="feed-actions">
+                <div class="vote-row" data-vote-container>
+                  <button type="button" class="vote-button" data-vote="up">▲ Like</button>
+                  <span class="vote-value" data-vote-count>26</span>
+                </div>
+                <button type="button" class="btn btn-secondary" data-demo-action="demo">Comment</button>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <div class="pad-card">
+          <div class="section-heading">
+            <h2>Create post</h2>
+            <span class="pill">Demo</span>
+          </div>
+          <form data-community-form>
+            <div class="field">
+              <label for="post-title">Title</label>
+              <input id="post-title" name="post-title" type="text" placeholder="Share a new insight" required />
+            </div>
+            <div class="field">
+              <label for="post-category">Category</label>
+              <select id="post-category" name="post-category">
+                <option>General Discussion</option>
+                <option>SOC &amp; Blue Team</option>
+                <option>DFIR</option>
+                <option>Malware Analysis</option>
+                <option>Web Security</option>
+                <option>Career &amp; Opportunities</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="post-content">Content</label>
+              <textarea id="post-content" name="post-content" placeholder="What did you learn this week?" required></textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Publish demo post</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="assets/js/cyberx-app.js"></script>
+  </body>
+</html>

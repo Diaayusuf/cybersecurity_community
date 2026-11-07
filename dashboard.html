@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberX | Dashboard</title>
+    <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="CyberX home">
+          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
+          <span class="brand-word">CYBER<span>X</span></span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="learning.html">Learning</a>
+          <a href="puzzle.html">Puzzle Arena</a>
+          <a href="dashboard.html" class="active">Dashboard</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="auth.html">Sign in</a>
+          <a href="profile.html" class="nav-cta">Profile</a>
+        </nav>
+        <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="learning.html">Learning</a>
+        <a href="puzzle.html">Puzzle Arena</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="auth.html">Sign in</a>
+      </div>
+    </header>
+
+    <main class="page-shell dashboard-shell">
+      <section class="page-header compact">
+        <div class="kicker">Operator summary</div>
+        <h1>Mission dashboard</h1>
+      </section>
+
+      <div class="stats-grid three-cols">
+        <article class="metric-card">
+          <div class="metric-label">Current streak</div>
+          <div class="metric-value">18 days</div>
+          <div class="metric-meta">+3.4% from last week</div>
+        </article>
+        <article class="metric-card accent">
+          <div class="metric-label">Accuracy</div>
+          <div class="metric-value">94.1%</div>
+          <div class="metric-meta">Best score in malware analysis</div>
+        </article>
+        <article class="metric-card danger">
+          <div class="metric-label">Incidents resolved</div>
+          <div class="metric-value">247</div>
+          <div class="metric-meta">Across red / blue labs</div>
+        </article>
+      </div>
+
+      <div class="split-grid dashboard-layout">
+        <div class="pad-card">
+          <div class="section-heading">
+            <h2>Recent training</h2>
+            <span class="pill success">Live</span>
+          </div>
+          <ul class="list-stack">
+            <li>
+              <span class="status-dot ok"></span>
+              <div>
+                <strong>Threat hunting fundamentals</strong>
+                <small>Completed 2 hours ago</small>
+              </div>
+            </li>
+            <li>
+              <span class="status-dot warn"></span>
+              <div>
+                <strong>IR tabletop simulation</strong>
+                <small>Needs review</small>
+              </div>
+            </li>
+            <li>
+              <span class="status-dot idle"></span>
+              <div>
+                <strong>Phishing resilience lab</strong>
+                <small>Unlocked for next round</small>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="pad-card">
+          <div class="section-heading">
+            <h2>Skill progression</h2>
+            <span class="pill">Quarterly</span>
+          </div>
+          <div class="progress-stack">
+            <div>
+              <div class="progress-label"><span>Threat detection</span><strong>87%</strong></div>
+              <div class="progress-bar"><span style="width: 87%"></span></div>
+            </div>
+            <div>
+              <div class="progress-label"><span>Secure coding</span><strong>71%</strong></div>
+              <div class="progress-bar"><span style="width: 71%"></span></div>
+            </div>
+            <div>
+              <div class="progress-label"><span>Incident response</span><strong>92%</strong></div>
+              <div class="progress-bar"><span style="width: 92%"></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pad-card">
+        <div class="section-heading">
+          <h2>Upcoming drills</h2>
+          <button class="btn btn-secondary" type="button">Sync calendar</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Session</th>
+                <th>Type</th>
+                <th>Owner</th>
+                <th>When</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Blue team briefing</td>
+                <td>Workshop</td>
+                <td>Marin</td>
+                <td>Today • 16:00</td>
+                <td><span class="pill success">Booked</span></td>
+              </tr>
+              <tr>
+                <td>Threat intel review</td>
+                <td>Analysis</td>
+                <td>Cypher</td>
+                <td>Tomorrow • 09:30</td>
+                <td><span class="pill">Queued</span></td>
+              </tr>
+              <tr>
+                <td>Zero trust exercise</td>
+                <td>Simulation</td>
+                <td>Drew</td>
+                <td>Wed • 14:00</td>
+                <td><span class="pill warning">Review</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+
+    <script src="assets/js/cyberx-app.js"></script>
+  </body>
+</html>

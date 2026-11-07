@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberX | Profile</title>
+    <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="CyberX home">
+          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
+          <span class="brand-word">CYBER<span>X</span></span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="learning.html">Learning</a>
+          <a href="puzzle.html">Puzzle Arena</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="auth.html">Sign in</a>
+          <a href="profile.html" class="active nav-cta">Profile</a>
+        </nav>
+        <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="learning.html">Learning</a>
+        <a href="puzzle.html">Puzzle Arena</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="auth.html">Sign in</a>
+      </div>
+    </header>
+
+    <main class="page-shell profile-shell">
+      <section class="page-header compact">
+        <div class="kicker">Profile</div>
+        <h1>Operator identity</h1>
+      </section>
+
+      <div class="split-grid">
+        <div class="pad-card profile-card">
+          <div class="avatar-ring">AX</div>
+          <h2>Alex Mercer</h2>
+          <div class="meta-row small"><span>Threat Hunter</span><span>Tier 5</span></div>
+          <div class="profile-badges">
+            <span class="pill success">Verified</span>
+            <span class="pill">On boarding</span>
+            <span class="pill warning">IR ready</span>
+          </div>
+        </div>
+
+        <div class="pad-card form">
+          <div class="section-heading">
+            <h2>Account settings</h2>
+            <span class="pill">Demo</span>
+          </div>
+          <form data-validate data-success-message="Profile updated in demo mode." novalidate>
+            <div class="field">
+              <label for="profile-name">Display name</label>
+              <input id="profile-name" type="text" value="Alex Mercer" required />
+            </div>
+            <div class="field">
+              <label for="profile-role">Primary role</label>
+              <input id="profile-role" type="text" value="Threat Hunter" required />
+            </div>
+            <div class="field">
+              <label for="profile-bio">Bio</label>
+              <textarea id="profile-bio" rows="4" required>Focused on intrusion detection, hunting workflows, and resilient incident response planning.</textarea>
+            </div>
+            <button class="btn btn-primary" type="submit">Save profile</button>
+          </form>
+        </div>
+      </div>
+    </main>
+
+    <script src="assets/js/cyberx-app.js"></script>
+  </body>
+</html>

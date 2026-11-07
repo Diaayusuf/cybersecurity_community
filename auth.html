@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CyberX | Authentication</title>
+    <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
+  </head>
+  <body>
+    <header class="header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="CyberX home">
+          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
+          <span class="brand-word">CYBER<span>X</span></span>
+        </a>
+        <nav class="nav" aria-label="Main navigation">
+          <a href="index.html">Home</a>
+          <a href="learning.html">Learning</a>
+          <a href="puzzle.html">Puzzle Arena</a>
+          <a href="dashboard.html">Dashboard</a>
+          <a href="pricing.html">Pricing</a>
+          <a href="auth.html" class="active">Sign in</a>
+          <a href="profile.html" class="nav-cta">Profile</a>
+        </nav>
+        <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+      </div>
+      <div class="mobile-menu">
+        <a href="index.html">Home</a>
+        <a href="learning.html">Learning</a>
+        <a href="puzzle.html">Puzzle Arena</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="pricing.html">Pricing</a>
+        <a href="auth.html">Sign in</a>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <section class="page-header">
+        <div class="kicker">Access portal</div>
+        <h1>Join the CyberX community</h1>
+        <p>Build your skills, track your progress, and compete with verified security practitioners.</p>
+      </section>
+
+      <div class="split-grid" style="margin-top: 20px;">
+        <div class="pad-card form">
+          <div class="kicker" style="margin-bottom: 12px;">Create account</div>
+          <form data-validate data-success-message="Account created in demo mode." novalidate>
+            <div class="field">
+              <label for="full-name">Full name</label>
+              <input id="full-name" type="text" placeholder="Alex Mercer" required />
+            </div>
+            <div class="field">
+              <label for="username">Username</label>
+              <input id="username" type="text" placeholder="alex-ops" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" type="email" placeholder="alex@cyberx.io" required />
+            </div>
+            <div class="field">
+              <label for="password">Password</label>
+              <input id="password" type="password" placeholder="Create a strong password" required />
+            </div>
+            <div class="field">
+              <label for="confirm-password">Confirm password</label>
+              <input id="confirm-password" type="password" placeholder="Repeat your password" required />
+            </div>
+            <label class="inline-check">
+              <input type="checkbox" required />
+              <span>I accept the terms and community guidelines.</span>
+            </label>
+            <button class="btn btn-primary" type="submit">Create account</button>
+          </form>
+        </div>
+
+        <div class="pad-card form">
+          <div class="kicker" style="margin-bottom: 12px;">Sign in</div>
+          <form data-validate data-success-message="Demo sign-in complete." novalidate>
+            <div class="field">
+              <label for="signin-email">Email</label>
+              <input id="signin-email" type="email" placeholder="you@cyberx.io" required />
+            </div>
+            <div class="field">
+              <label for="signin-password">Password</label>
+              <input id="signin-password" type="password" placeholder="••••••••" required />
+            </div>
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 18px;">
+              <label class="inline-check" style="margin:0;">
+                <input type="checkbox" />
+                <span>Remember me</span>
+              </label>
+              <a href="auth.html" style="color: var(--cx-cyan); font-size: 0.8rem;">Forgot password?</a>
+            </div>
+            <button class="btn btn-primary" type="submit">Access dashboard</button>
+          </form>
+          <div class="notice warning" style="margin-top: 18px;">Demo mode is enabled until a real Supabase auth backend is connected.</div>
+        </div>
+      </div>
+    </main>
+
+    <script src="assets/js/cyberx-app.js"></script>
+  </body>
+</html>

@@ -305,14 +305,14 @@
     color:rgba(255,215,0,0.36);
   }
   .hof-input{
-    background:rgba(0,0,0,0.5);
-    border:1px solid rgba(255,215,0,0.16);
+    background:#17364f;
+    border:1px solid rgba(9,216,199,0.24); border-radius:12px;
     color:var(--text); font-family:var(--mono-font);
     font-size:0.82rem; padding:0.7rem 1rem; outline:none;
     transition:border-color 0.3s,box-shadow 0.3s; width:100%;
   }
-  .hof-input:focus{ border-color:rgba(255,215,0,0.42); box-shadow:0 0 12px rgba(255,215,0,0.07); }
-  .hof-input::placeholder{ color:rgba(200,224,232,0.16); }
+  .hof-input:focus{ border-color:#18bfff; box-shadow:0 0 0 3px rgba(24,191,255,0.16); }
+  .hof-input::placeholder{ color:rgba(200,224,232,0.62); }
 
   .hof-flag-wrap{ margin-bottom:1.4rem; }
   .hof-flag-wrap label{
@@ -320,15 +320,15 @@
     color:rgba(9,216,199,0.38); margin-bottom:0.4rem;
   }
   .hof-flag{
-    background:rgba(0,0,0,0.7);
-    border:1px solid rgba(9,216,199,0.2);
+    background:#17364f;
+    border:1px solid rgba(9,216,199,0.24); border-radius:12px;
     color:var(--cyan); font-family:var(--mono-font);
     font-size:0.9rem; letter-spacing:0.18em;
     padding:0.85rem 1.1rem; outline:none; width:100%;
     text-transform:uppercase;
     transition:border-color 0.3s,box-shadow 0.3s;
   }
-  .hof-flag:focus{ border-color:var(--cyan); box-shadow:0 0 16px rgba(9,216,199,0.1); }
+  .hof-flag:focus{ border-color:#18bfff; box-shadow:0 0 0 3px rgba(24,191,255,0.16); }
   .hof-flag::placeholder{ color:rgba(9,216,199,0.16); letter-spacing:0.1em; }
   .hof-flag.correct{ border-color:var(--gold)!important; box-shadow:0 0 24px rgba(255,215,0,0.18)!important; color:var(--gold)!important; }
   .hof-flag.wrong  { border-color:var(--red)!important;  box-shadow:0 0 16px rgba(189,9,39,0.18)!important; animation:shake 0.45s ease; }
@@ -350,6 +350,7 @@
   .hof-btn:hover::before{ left:0; }
   .hof-btn:hover{ border-color:var(--gold); box-shadow:var(--glow-gold); color:#fff; }
   .hof-btn:active{ transform:scale(0.98); }
+  .hof-btn:disabled{ opacity:0.55; cursor:wait; }
 
   .hof-msg{
     font-size:0.66rem; letter-spacing:0.18em;
@@ -416,6 +417,9 @@
   .badge-first { color:var(--gold); border-color:rgba(255,215,0,0.38); background:rgba(255,215,0,0.06); }
   .badge-elite { color:var(--red);  border-color:rgba(189,9,39,0.32);  background:rgba(189,9,39,0.05); }
   .badge-solver{ color:var(--cyan); border-color:rgba(9,216,199,0.28); background:rgba(9,216,199,0.04); }
+  .verification-badge{ font-size:0.48rem; letter-spacing:0.12em; padding:0.2rem 0.45rem; border:1px solid; }
+  .badge-verified{ color:var(--cyan); border-color:rgba(9,216,199,0.38); background:rgba(9,216,199,0.06); }
+  .badge-legacy{ color:rgba(200,224,232,0.62); border-color:rgba(200,224,232,0.22); background:rgba(200,224,232,0.04); }
 
   .solver-domain{ font-size:0.65rem; letter-spacing:0.1em; color:rgba(9,216,199,0.38); }
   .solver-date  { font-size:0.6rem;  letter-spacing:0.1em; color:rgba(200,224,232,0.18); text-align:right; }
@@ -448,6 +452,10 @@
   .footer-links a{color:rgba(200,224,232,0.28);text-decoration:none;margin-left:1.2rem;transition:color 0.3s;}
   .footer-links a:hover{color:var(--cyan);}
   @media(max-width:680px){
+    .site-nav{flex-wrap:wrap;gap:.5rem;padding:.75rem 1rem;}
+    .site-nav .nav-logo{margin-right:auto;font-size:.9rem;}
+    .site-nav .nav-logo img{width:34px;}
+    .site-nav .nav-back{font-size:.55rem;letter-spacing:.1em;padding:.35rem .5rem;}
     .site-footer{grid-template-columns:1fr;text-align:center;padding:2rem 1.5rem;}
     .footer-links{text-align:center;}
     .footer-links a{margin:0 0.6rem;}
@@ -463,6 +471,10 @@
 <!-- NAV -->
 <nav class="site-nav">
   <a class="nav-logo" href="index.html"><img src="image/CYBERX-LOGO.png" alt="CYBERX Logo">CYBER<span>X</span></a>
+  <a class="nav-back" href="learning.html">LEARNING</a>
+  <a class="nav-back" href="dashboard.html">DASHBOARD</a>
+  <a class="nav-back" href="community.html">COMMUNITY</a>
+  <a class="nav-back" href="assistant.html">AI ASSISTANT</a>
   <a class="nav-back" href="index.html">← MISSION CONTROL</a>
 </nav>
 
@@ -553,7 +565,7 @@
       Binary → Base64 → ROT13 → XOR →
       <span style="color:var(--gold)">SHADOW_PROTOCOL</span>
     </div>
-    <div class="hof-total" id="hof-total">0 OPERATORS VERIFIED</div>
+    <div class="hof-total" id="hof-total">0 OPERATORS RECORDED</div>
   </div>
 
   <!-- Submit -->
@@ -579,7 +591,7 @@
         maxlength="30" autocomplete="off" spellcheck="false">
     </div>
 
-    <button class="hof-btn" onclick="submitSolver()">
+    <button class="hof-btn" id="hof-submit-btn" onclick="submitSolver()">
       ⚡ &nbsp; VERIFY &amp; CLAIM YOUR PLACE
     </button>
     <div class="hof-msg" id="hof-msg"></div>
@@ -588,7 +600,7 @@
   <!-- Leaderboard -->
   <div class="hof-board" id="hof-board">
     <div class="hof-board-head">
-      <span class="hof-board-label">// VERIFIED OPERATORS</span>
+      <span class="hof-board-label">// VERIFIED + HISTORICAL OPERATORS</span>
       <span class="hof-board-count" id="hof-board-count">0 ENTRIES</span>
     </div>
     <div id="hof-list">
@@ -607,32 +619,20 @@
   <div class="footer-links"><a href="index.html">HOME</a><a href="#hof">HALL OF FAME</a></div>
 </footer>
 
-<!--
-  ╔══════════════════════════════════════════════╗
-  ║  PUZZLE MASTER NOTES — remove before deploy  ║
-  ╠══════════════════════════════════════════════╣
-  ║  LAYER 0 — binary in top-noise → "BEGIN"     ║
-  ║  LAYER 1 — hex → base64 →                   ║
-  ║    /puzzle/layer2?key=XOR_IS_THE_WAY         ║
-  ║  LAYER 2 — ROT13: QRPELCG_GUR_ABVFR         ║
-  ║    → DECRYPT_THE_NOISE                       ║
-  ║    XOR 0x42 on bytes → PROTOCOL              ║
-  ║  Morse decoration → SHADOW                   ║
-  ║  FINAL FLAG: SHADOW_PROTOCOL                 ║
-  ╚══════════════════════════════════════════════╝
--->
+
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ══ CONFIG ══ */
-//DATABASE PASSWORD:Diaa11111010101@#
-const CORRECT_FLAG = 'SHADOW_PROTOCOL';
 const SUPABASE_URL = 'https://unxpmpgrvujijtfmyrfw.supabase.co';
 const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_Ek7khbWDoKNKcBGUf3BUZw_h_dMJm5j';
 
 const { createClient } = supabase;
 const supabaseClient = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
-const TABLE_NAME = 'puzzle_players';
+const TABLE_NAME = 'puzzle_leaderboard';
+const LEGACY_TABLE_NAME = 'puzzle_players';
+const VERIFIED_TABLE_NAME = 'puzzle_verified_solves';
+const CHALLENGE_ID = 'main';
 
 let solverState = [];
 let realtimeChannel = null;
@@ -651,12 +651,15 @@ function normalizeSolver(record){
   if(!record || !record.id) return null;
   const name = String(record.name ?? '').trim();
   const domain = String(record.domain ?? '').trim();
+  const createdAt = record.created_at || new Date().toISOString();
+  const parsedDate = new Date(createdAt);
   return {
     id: record.id,
     name,
     domain,
-    created_at: record.created_at || new Date().toISOString(),
-    date: record.created_at ? new Date(record.created_at).toISOString().slice(0,10) : '—'
+    created_at: Number.isNaN(parsedDate.getTime()) ? new Date().toISOString() : parsedDate.toISOString(),
+    date: Number.isNaN(parsedDate.getTime()) ? '—' : parsedDate.toISOString().slice(0,10),
+    verification_status: record.verification_status === 'server_verified' ? 'server_verified' : 'legacy_unverified'
   };
 }
 
@@ -677,7 +680,7 @@ function renderHOF(){
   const list = document.getElementById('hof-list');
 
   if(totalEl){
-    totalEl.textContent = solvers.length + ' OPERATOR' + (solvers.length !== 1 ? 'S' : '') + ' VERIFIED';
+    totalEl.textContent = solvers.length + ' OPERATOR' + (solvers.length !== 1 ? 'S' : '') + ' RECORDED';
   }
   if(countEl){
     countEl.textContent = solvers.length + (solvers.length !== 1 ? ' ENTRIES' : ' ENTRY');
@@ -705,7 +708,7 @@ function renderHOF(){
     return `
       <div class="solver-row ${rClass}" style="animation-delay:${i*0.06}s">
         <div class="solver-rank">${rIcon}</div>
-        <div class="solver-name">${esc(s.name)} ${badge}</div>
+        <div class="solver-name">${esc(s.name)} ${badge} ${s.verification_status === 'server_verified' ? '<span class="verification-badge badge-verified">SERVER VERIFIED</span>' : '<span class="verification-badge badge-legacy">LEGACY · UNVERIFIED</span>'}</div>
         <div class="solver-domain">${esc(s.domain || '—')}</div>
         <div class="solver-date">${esc(s.date || '—')}</div>
       </div>`;
@@ -718,7 +721,7 @@ async function loadSolvers(){
 
   const { data, error } = await supabaseClient
     .from(TABLE_NAME)
-    .select('*')
+    .select('id, name, domain, created_at, verification_status')
     .order('created_at', { ascending: true });
 
   if(error){
@@ -754,13 +757,8 @@ function subscribeToRealtime(){
   if(realtimeChannel) return;
 
   realtimeChannel = supabaseClient.channel('puzzle_players_changes')
-    .on('postgres_changes', {
-      event: 'INSERT',
-      schema: 'public',
-      table: TABLE_NAME
-    }, payload => {
-      addSolverToState(payload.new);
-    })
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: LEGACY_TABLE_NAME }, () => { loadSolvers(); })
+    .on('postgres_changes', { event: 'INSERT', schema: 'public', table: VERIFIED_TABLE_NAME }, () => { loadSolvers(); })
     .subscribe(status => {
       if(status === 'CHANNEL_ERROR' || status === 'TIMED_OUT'){
         const list = document.getElementById('hof-list');
@@ -771,116 +769,136 @@ function subscribeToRealtime(){
     });
 }
 
-/* ══ SUBMIT ══ */
+/* ══ SERVER-VERIFIED SUBMIT ══ */
+let pendingSubmission = null;
+let submitInProgress = false;
+
+function createIdempotencyKey(){
+  if(globalThis.crypto && typeof globalThis.crypto.randomUUID === 'function') return globalThis.crypto.randomUUID();
+  const bytes = new Uint8Array(16);
+  globalThis.crypto.getRandomValues(bytes);
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = [...bytes].map(value => value.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0,8)}-${hex.slice(8,12)}-${hex.slice(12,16)}-${hex.slice(16,20)}-${hex.slice(20)}`;
+}
+
 async function submitSolver(){
+  if(submitInProgress) return;
   const nameEl = document.getElementById('hof-name');
   const domEl = document.getElementById('hof-domain');
   const flagEl = document.getElementById('hof-flag');
   const msgEl = document.getElementById('hof-msg');
-
+  const submitBtn = document.getElementById('hof-submit-btn');
   const name = nameEl.value.trim();
   const domain = domEl.value.trim();
-  const flag = flagEl.value.trim().toUpperCase();
+  const answer = flagEl.value.trim();
 
   flagEl.classList.remove('correct', 'wrong');
   msgEl.className = 'hof-msg';
   msgEl.textContent = '';
+  if(!name){ msgEl.textContent = '✗ OPERATOR NAME REQUIRED'; msgEl.className = 'hof-msg err'; nameEl.focus(); return; }
+  if(name.length > 40){ msgEl.textContent = '✗ OPERATOR NAME EXCEEDS 40 CHARACTERS'; msgEl.className = 'hof-msg err'; nameEl.focus(); return; }
+  if(domain.length > 40){ msgEl.textContent = '✗ DOMAIN EXCEEDS 40 CHARACTERS'; msgEl.className = 'hof-msg err'; domEl.focus(); return; }
+  if(!answer){ msgEl.textContent = '✗ FLAG REQUIRED — SOLVE THE PUZZLE FIRST'; msgEl.className = 'hof-msg err'; flagEl.focus(); return; }
+  if(answer.length > 30){ msgEl.textContent = '✗ FLAG EXCEEDS THE ALLOWED LENGTH'; msgEl.className = 'hof-msg err'; flagEl.focus(); return; }
 
-  if(!name){
-    msgEl.textContent = '✗ OPERATOR NAME REQUIRED';
-    msgEl.className = 'hof-msg err';
-    nameEl.focus();
-    return;
-  }
-  if(name.length > 40){
-    msgEl.textContent = '✗ OPERATOR NAME EXCEEDS 40 CHARACTERS';
-    msgEl.className = 'hof-msg err';
-    nameEl.focus();
-    return;
-  }
-  if(domain.length > 40){
-    msgEl.textContent = '✗ DOMAIN EXCEEDS 40 CHARACTERS';
-    msgEl.className = 'hof-msg err';
-    domEl.focus();
-    return;
-  }
-  if(!flag){
-    msgEl.textContent = '✗ FLAG REQUIRED — SOLVE THE PUZZLE FIRST';
-    msgEl.className = 'hof-msg err';
-    flagEl.focus();
-    return;
-  }
-  if(flag !== CORRECT_FLAG){
-    flagEl.classList.add('wrong');
-    msgEl.textContent = '✗ INCORRECT FLAG — KEEP DIGGING, OPERATOR';
-    msgEl.className = 'hof-msg err';
-    return;
-  }
-
-  flagEl.classList.add('correct');
-
+  const requestFields = { challenge_id: CHALLENGE_ID, answer, player_name: name, domain: domain || null };
+  const fingerprint = JSON.stringify(requestFields);
   try{
-    const { data: existingRows, error: duplicateCheckError } = await supabaseClient
-      .from(TABLE_NAME)
-      .select('id, name');
-
-    if(duplicateCheckError){
-      throw duplicateCheckError;
+    if(!pendingSubmission || pendingSubmission.fingerprint !== fingerprint){
+      pendingSubmission = { fingerprint, idempotency_key: createIdempotencyKey() };
     }
+  }catch{
+    msgEl.textContent = '✗ SECURE SUBMISSION IS NOT AVAILABLE IN THIS BROWSER';
+    msgEl.className = 'hof-msg err';
+    return;
+  }
 
-    const alreadyExists = (existingRows || []).some(row => {
-      const candidate = String(row.name ?? '').trim().toLowerCase();
-      return candidate === name.toLowerCase();
+  submitInProgress = true;
+  const oldButtonText = submitBtn.textContent;
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'VERIFYING...';
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 12000);
+  try{
+    const response = await fetch(`${SUPABASE_URL}/functions/v1/submit-puzzle`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json', apikey: SUPABASE_PUBLISHABLE_KEY },
+      body: JSON.stringify({ ...requestFields, idempotency_key: pendingSubmission.idempotency_key }),
+      signal: controller.signal
     });
+    let result = null;
+    try{ result = await response.json(); }catch{ result = null; }
 
-    if(alreadyExists){
-      msgEl.textContent = '⚠ OPERATOR "' + name.toUpperCase() + '" ALREADY IMMORTALIZED.';
+    if(response.status === 429){
+      const retrySeconds = Number(response.headers.get('retry-after'));
+      msgEl.textContent = Number.isFinite(retrySeconds) && retrySeconds > 0
+        ? `⚠ TOO MANY ATTEMPTS — RETRY IN ${Math.ceil(retrySeconds / 60)} MINUTE(S)`
+        : '⚠ TOO MANY ATTEMPTS — PLEASE RETRY LATER';
+      msgEl.className = 'hof-msg err';
+      return;
+    }
+    if(response.status === 200 && result?.status === 'incorrect'){
+      flagEl.classList.add('wrong');
+      msgEl.textContent = '✗ INCORRECT FLAG — KEEP DIGGING, OPERATOR';
+      msgEl.className = 'hof-msg err';
+      pendingSubmission = null;
+      return;
+    }
+    if(response.status === 409 && result?.status === 'already_exists'){
+      msgEl.textContent = `⚠ OPERATOR "${name.toUpperCase()}" ALREADY IMMORTALIZED.`;
       msgEl.className = 'hof-msg ok';
+      pendingSubmission = null;
+      return;
+    }
+    if(response.status === 409 && result?.status === 'conflict'){
+      msgEl.textContent = '✗ SUBMISSION RETRY CONFLICT — SUBMIT AGAIN';
+      msgEl.className = 'hof-msg err';
+      pendingSubmission = null;
+      return;
+    }
+    if(response.status === 404){
+      msgEl.textContent = '✗ THIS CHALLENGE IS TEMPORARILY UNAVAILABLE';
+      msgEl.className = 'hof-msg err';
+      return;
+    }
+    const validSuccess = response.status === 201 && result?.status === 'verified'
+      && /^[0-9a-f]{8}-[0-9a-f]{4}-[1-8][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(result.solve_id || '')
+      && Number.isFinite(Date.parse(result.verified_at || ''));
+    if(!validSuccess){
+      msgEl.textContent = '✗ VERIFICATION UNAVAILABLE — CHECK YOUR CONNECTION AND RETRY';
+      msgEl.className = 'hof-msg err';
       return;
     }
 
-    const { data, error } = await supabaseClient
-      .from(TABLE_NAME)
-      .insert([
-        { name, domain: domain || null }
-      ])
-      .select();
-
-    if(error){
-      if(error.code === '23505' || /duplicate|already exists/i.test(error.message || '')){
-        msgEl.textContent = '⚠ OPERATOR "' + name.toUpperCase() + '" ALREADY IMMORTALIZED.';
-        msgEl.className = 'hof-msg ok';
-        return;
-      }
-      throw error;
-    }
-
-    const inserted = Array.isArray(data) && data[0] ? data[0] : null;
-    if(inserted){
-      addSolverToState(inserted);
-    }
-
+    flagEl.classList.add('correct');
+    addSolverToState({ id: result.solve_id, name, domain: domain || null, created_at: result.verified_at, verification_status: 'server_verified' });
     const isFirst = solverState.length === 1;
     msgEl.textContent = isFirst
       ? '🥇 FIRST BLOOD — ' + name.toUpperCase() + ' HAS BEEN IMMORTALIZED.'
       : '✓ ACCESS GRANTED — WELCOME TO THE HALL, ' + name.toUpperCase() + '.';
     msgEl.className = 'hof-msg ok';
-
+    pendingSubmission = null;
     nameEl.value = '';
     domEl.value = '';
     flagEl.value = '';
     flagEl.classList.remove('correct');
-
     setTimeout(() => {
-      document.querySelector('.hof-board').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const board = document.querySelector('.hof-board');
+      if(board) board.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }, 700);
-  } catch (error) {
-    msgEl.textContent = '✗ HALL OF FAME ERROR — TRY AGAIN LATER';
+  }catch{
+    // Keep the same idempotency key so a timeout retry cannot award twice.
+    msgEl.textContent = '✗ VERIFICATION UNAVAILABLE — CHECK YOUR CONNECTION AND RETRY';
     msgEl.className = 'hof-msg err';
-    console.error('Supabase submission failed:', error);
+  }finally{
+    clearTimeout(timeout);
+    submitInProgress = false;
+    submitBtn.disabled = false;
+    submitBtn.textContent = oldButtonText;
   }
 }
-
 /* Enter to submit */
 document.getElementById('hof-flag').addEventListener('keydown', e => {
   if(e.key === 'Enter'){

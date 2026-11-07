@@ -29,13 +29,8 @@
   --head:'Oswald',sans-serif;
   --pixel:'Press Start 2P',var(--display),sans-serif;
 }
-@font-face {
-  font-family:'Minecraft';
-  src:url('Minecraftia.ttf') format('truetype');
-  font-display:swap;
-}
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth;overflow-x:clip}
 body{background:var(--bg);color:var(--text);font-family:var(--body);overflow-x:hidden;cursor:crosshair}
 a{color:inherit}
 .grid-bg,.grid-layer{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(9,216,199,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(9,216,199,0.015) 1px,transparent 1px);background-size:60px 60px}
@@ -53,6 +48,18 @@ nav#main-nav.scrolled{background:rgba(13,26,47,.92);border-bottom-color:rgba(9,2
 .nav-links a:hover::after{width:100%}
 .terminal-btn{font-family:var(--mono);font-size:.75rem;letter-spacing:.15em;color:var(--cyan);border:1px solid rgba(9,216,199,.3);background:transparent;padding:.5rem 1.1rem;cursor:pointer;transition:all .3s}
 .terminal-btn:hover{background:rgba(9,216,199,.08);box-shadow:var(--glow-c)}
+.nav-explore{position:relative;}
+.nav-explore-toggle{font-family:var(--mono);font-size:.78rem;letter-spacing:.15em;color:rgba(200,224,232,.68);border:1px solid rgba(9,216,199,.22);background:rgba(9,216,199,.025);padding:.55rem .9rem;cursor:pointer;transition:color .2s,border-color .2s,background .2s;}
+.nav-explore-toggle::after{content:'⌄';margin-left:.55rem;color:var(--cyan);}
+.nav-explore-toggle:hover,.nav-explore-toggle:focus-visible{color:var(--cyan);border-color:rgba(9,216,199,.48);background:rgba(9,216,199,.07);outline:none;}
+#main-nav .nav-links{position:absolute;top:calc(100% + .8rem);left:0;z-index:110;width:min(560px,calc(100vw - 2rem));margin:0;padding:.7rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.2rem;list-style:none;background:rgba(13,26,47,.98);border:1px solid rgba(9,216,199,.22);box-shadow:0 18px 40px rgba(0,0,0,.36);backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-5px);transition:opacity .18s ease,transform .18s ease,visibility .18s;}
+#main-nav .nav-explore.open .nav-links,#main-nav .nav-explore:not(.pointer-closed):hover .nav-links,#main-nav .nav-explore:not(.pointer-closed):focus-within .nav-links{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0);}
+#main-nav .nav-explore.pointer-closed .nav-links{opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-5px);}
+#main-nav .nav-links li{min-width:0;}
+#main-nav .nav-links a{display:block;padding:.55rem .65rem;border-radius:4px;color:rgba(200,224,232,.68);font-size:.7rem;letter-spacing:.1em;white-space:nowrap;}
+#main-nav .nav-links a:hover,#main-nav .nav-links a:focus-visible{color:var(--cyan);background:rgba(9,216,199,.07);outline:1px solid rgba(9,216,199,.18);}
+#main-nav .nav-links a::after{left:.65rem;bottom:.35rem;}
+#main-nav .nav-explore-toggle:focus-visible,#main-nav .nav-links a:focus-visible{outline:2px solid var(--cyan);outline-offset:2px;}
 .home-hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:7rem 2rem 3rem;position:relative;z-index:1;overflow:hidden}
 .home-hero::before{content:'';position:absolute;width:720px;height:720px;border-radius:50%;background:radial-gradient(circle,rgba(9,216,199,.08),transparent 65%);filter:blur(60px);top:-20%;left:-12%;pointer-events:none}
 .home-hero::after{content:'';position:absolute;width:620px;height:620px;border-radius:50%;background:radial-gradient(circle,rgba(189,9,39,.07),transparent 70%);filter:blur(70px);bottom:-20%;right:-10%;pointer-events:none}
@@ -138,10 +145,10 @@ section{padding:8rem 2rem;position:relative;z-index:1}
 .exp-form-title{font-family:var(--pixel);font-size:.82rem;color:var(--cyan);margin-bottom:1.5rem;line-height:1.6}
 .form-group{margin-bottom:1.2rem}
 .form-group label{font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;color:rgba(200,224,232,.45);display:block;margin-bottom:.4rem}
-.form-group input,.form-group textarea,.form-group select{width:100%;background:rgba(13,26,47,.8);border:1px solid rgba(9,216,199,.15);color:var(--text);font-family:var(--body);font-size:.95rem;padding:.7rem 1rem;outline:none;transition:border-color .3s}
-.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:rgba(9,216,199,.4)}
+.form-group input,.form-group textarea,.form-group select{width:100%;background:rgba(23,54,79,.92);border:1px solid rgba(9,216,199,.24);border-radius:12px;color:var(--text);font-family:var(--body);font-size:.95rem;padding:.7rem 1rem;outline:none;transition:border-color .3s,box-shadow .3s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{border-color:#18bfff;box-shadow:0 0 0 3px rgba(24,191,255,.16)}
 .form-group textarea{resize:vertical;min-height:100px}
-.form-group select option{background:var(--dark)}
+.form-group select option{background:#17364f;color:var(--text)}
 .exp-note{font-family:var(--mono);font-size:.65rem;letter-spacing:.1em;color:rgba(200,224,232,.3);margin-top:.8rem}
 .exp-posts{display:flex;flex-direction:column;gap:1.2rem}
 .exp-post{position:relative;transition:border-color .3s}
@@ -149,7 +156,7 @@ section{padding:8rem 2rem;position:relative;z-index:1}
 .exp-post-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.8rem;gap:1rem}
 .exp-company{font-family:var(--mono);font-size:.7rem;letter-spacing:.15em;color:var(--cyan)}
 .exp-role{font-family:var(--mono);font-size:.65rem;color:rgba(200,224,232,.35);margin-top:.2rem}
-.exp-text{font-size:.9rem;line-height:1.7;color:rgba(200,224,232,.6)}
+.exp-text{font-size:.9rem;line-height:1.7;color:rgba(200,224,232,.6);white-space:pre-wrap}
 .verified-badge{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;color:var(--cyan);border:1px solid rgba(9,216,199,.3);padding:.2rem .5rem;white-space:nowrap}
 .articles-section{background:var(--bg)}
 .articles-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:1.5rem;margin-top:3rem}
@@ -192,8 +199,15 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 .t-dot{width:10px;height:10px;border-radius:50%}.t-dot.r{background:#ff5f57}.t-dot.y{background:#febc2e}.t-dot.g{background:#28c840}
 .terminal-body{padding:1.5rem;min-height:300px;max-height:48vh;overflow-y:auto;font-size:.8rem;line-height:1.9;scrollbar-width:thin;scrollbar-color:rgba(9,216,199,.15) transparent}
 .t-line{color:var(--cyan)}.t-line.dim{color:rgba(9,216,199,.4)}.t-line.r{color:var(--red)}.t-line.y{color:#f0a500}.t-line.w{color:#c8e0e8}.t-line.dir{color:var(--cyan);font-weight:bold}.t-line.file-g{color:var(--cyan)}.t-line.file-r{color:var(--red)}.t-line.file-y{color:#f0a500}
-.terminal-input-row{display:flex;align-items:center;padding:.8rem 1.2rem 1rem;background:#1a1a2e;border-top:1px solid #16213e;gap:.5rem}
-#t-input{flex:1;background:none;border:none;outline:none;color:#e2e8f0;font-family:var(--mono);font-size:.82rem;caret-color:var(--cyan)}
+.term-command-name{color:var(--cyan);display:inline-block;min-width:180px}
+.term-command-description{color:rgba(200,224,232,.4)}
+.term-hint{color:rgba(9,216,199,.3);font-size:.65rem}
+.term-accent{color:var(--cyan)}
+.term-prompt{color:#09D8C7}
+.terminal-input-row{display:flex;align-items:center;padding:.8rem 1.2rem 1rem;background:#17364f;border-top:1px solid rgba(9,216,199,.2);gap:.5rem}
+#t-input{flex:1;min-width:0;background:rgba(13,26,47,.7);border:1px solid rgba(9,216,199,.24);border-radius:10px;outline:none;color:#e2e8f0;font-family:var(--mono);font-size:.82rem;padding:.65rem .8rem;caret-color:var(--cyan)}
+#t-input:focus-visible{border-color:#18bfff;box-shadow:0 0 0 3px rgba(24,191,255,.16)}
+#t-input::placeholder{color:rgba(200,224,232,.62)}
 .t-prompt{color:var(--cyan);white-space:nowrap}
 @keyframes termSlide{from{transform:translateY(40px);opacity:0}to{transform:translateY(0);opacity:1}}
 @keyframes glitchCell{0%,100%{transform:translate(0);filter:none}25%{transform:translate(-2px,1px);filter:hue-rotate(90deg)}75%{transform:translate(2px,-1px);filter:hue-rotate(-90deg)}}
@@ -425,7 +439,11 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 .hint-code{font-family:var(--display);font-size:clamp(2rem,7vw,4.5rem);letter-spacing:.5em;color:var(--cyan);text-shadow:var(--glow-c);animation:hintPulse 3s ease-in-out infinite}
 @keyframes spin{to{transform:rotate(360deg)}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}@keyframes fadeLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}@keyframes hintPulse{0%,100%{text-shadow:var(--glow-c)}50%{text-shadow:0 0 50px rgba(9,216,199,.7),0 0 80px rgba(9,216,199,.3)}}@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 @media(max-width:900px){
-  nav#main-nav,.poster-nav{padding:1rem 1.5rem}.nav-links,.nav-path{display:none}
+  nav#main-nav,.poster-nav{padding:1rem 1.5rem}.nav-path{display:none}
+  nav#main-nav{gap:1rem}
+  #main-nav .nav-links{left:50%;right:auto;transform:translate(-50%,-5px);grid-template-columns:repeat(2,minmax(0,1fr));max-height:calc(100dvh - 100px);overflow-y:auto}
+  #main-nav .nav-explore.open .nav-links,#main-nav .nav-explore:not(.pointer-closed):hover .nav-links,#main-nav .nav-explore:not(.pointer-closed):focus-within .nav-links{transform:translate(-50%,0)}
+  #main-nav .nav-explore.pointer-closed .nav-links{transform:translate(-50%,-5px)}
   .home-title{font-size:2.5rem}.stat-item{border-right:none;padding:1rem 2rem}
   .poster-hero{grid-template-columns:1fr;min-height:auto}.hero-left{clip-path:none;padding:5rem 2rem 3rem}.hero-right{min-height:40vh}
   .story-inner{grid-template-columns:1fr;gap:2rem}.story-label-col{position:static}.story-big-label{writing-mode:horizontal-tb;transform:none;height:auto;font-size:2rem}
@@ -440,6 +458,15 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
   .footer-top{grid-template-columns:1fr;text-align:center}
   .footer-right{text-align:right}
   .footer-right a{margin:0 .7rem}
+}
+@media(max-width:600px){
+  nav#main-nav{padding:.8rem 1rem;gap:.5rem}
+  #main-nav .logo{font-size:.88rem;letter-spacing:.13em;gap:.4rem}
+  #main-nav .logo img{width:38px}
+  #main-nav .nav-explore-toggle{font-size:.64rem;letter-spacing:.1em;padding:.48rem .58rem}
+  #main-nav .terminal-btn{font-size:.6rem;letter-spacing:.08em;padding:.45rem .55rem;white-space:nowrap}
+  #main-nav .nav-links{width:min(420px,calc(100vw - 2.5rem));grid-template-columns:1fr;gap:.1rem;padding:.5rem}
+  #main-nav .nav-links a{padding:.58rem .65rem;font-size:.68rem}
 }
 </style>
 </head>
@@ -502,15 +529,22 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 
 <nav id="main-nav">
   <div class="logo"><img src="image/CYBERX-LOGO.png" width="100" alt="CYBERX Logo">CYBER<span>X</span></div>
-  <ul class="nav-links">
+  <div class="nav-explore">
+    <button class="nav-explore-toggle" id="home-nav-toggle" type="button" aria-expanded="false" aria-controls="home-nav-dropdown">EXPLORE</button>
+    <ul class="nav-links" id="home-nav-dropdown" aria-label="Explore CyberX">
     <li><a href="#red-team">RED TEAM</a></li>
     <li><a href="#blue-team">BLUE TEAM</a></li>
     <li><a href="puzzle.html">SECRET</a></li>
     <li><a href="awareness.html">AWARENESS</a></li>
+    <li><a href="learning.html">LEARNING</a></li>
+    <li><a href="dashboard.html">DASHBOARD</a></li>
+    <li><a href="community.html">COMMUNITY</a></li>
+    <li><a href="assistant.html">AI ASSISTANT</a></li>
     <li><a href="#experience">EXPERIENCE</a></li>
     <li><a href="#articles">ARTICLES</a></li>
     <li><a href="#donate">DONATE</a></li>
-  </ul>
+    </ul>
+  </div>
   <button class="terminal-btn" onclick="openTerminal()">&#9654;_ TERMINAL</button>
 </nav>
 
@@ -1283,16 +1317,33 @@ function submitExp() {
   if (!text.trim()) { alert('Please share your experience.'); return; }
   const post = document.createElement('div');
   post.className = 'exp-post';
-  post.innerHTML = `
-    <div class="exp-post-header">
-      <div>
-        <div class="exp-company">${domain || 'CYBERSECURITY'}</div>
-        <div class="exp-role">${role || 'Anonymous Professional'}</div>
-      </div>
-      <div class="verified-badge">✓ VERIFIED</div>
-    </div>
-    <div class="exp-text">${text}</div>
-  `;
+
+  const postHeader = document.createElement('div');
+  postHeader.className = 'exp-post-header';
+  const identity = document.createElement('div');
+
+  const company = document.createElement('div');
+  company.className = 'exp-company';
+  company.textContent = domain || 'CYBERSECURITY';
+
+  const operatorRole = document.createElement('div');
+  operatorRole.className = 'exp-role';
+  operatorRole.textContent = role || 'Anonymous Professional';
+
+  const verifiedBadge = document.createElement('div');
+  verifiedBadge.className = 'verified-badge';
+  verifiedBadge.textContent = '\u2713 VERIFIED';
+
+  const experience = document.createElement('div');
+  experience.className = 'exp-text';
+  experience.textContent = text;
+
+  identity.appendChild(company);
+  identity.appendChild(operatorRole);
+  postHeader.appendChild(identity);
+  postHeader.appendChild(verifiedBadge);
+  post.appendChild(postHeader);
+  post.appendChild(experience);
   document.getElementById('exp-posts').prepend(post);
   document.getElementById('exp-email').value = '';
   document.getElementById('exp-role').value = '';
@@ -1382,12 +1433,40 @@ function resolvePath(input) {
   if (!input.startsWith('/')) return (cwd.endsWith('/') ? cwd : cwd + '/') + input;
   return input;
 }
-function print(html, cls = '') {
-  const d = document.createElement('div');
-  d.className = 't-line ' + cls;
-  d.innerHTML = html;
-  document.getElementById('terminal-body').appendChild(d);
+function createTerminalLine(cls = '') {
+  const line = document.createElement('div');
+  line.className = `t-line ${cls}`.trim();
+  return line;
+}
+function appendTerminalLine(line) {
+  document.getElementById('terminal-body').appendChild(line);
   scrollTerminal();
+}
+function print(text, cls = '') {
+  const line = createTerminalLine(cls);
+  line.textContent = String(text ?? '');
+  appendTerminalLine(line);
+}
+function printParts(parts, cls = '') {
+  const line = createTerminalLine(cls);
+  parts.forEach(part => {
+    const span = document.createElement('span');
+    if (part.className) span.className = part.className;
+    span.textContent = String(part.text ?? '');
+    line.appendChild(span);
+  });
+  appendTerminalLine(line);
+}
+function printCommandEcho(raw) {
+  const line = createTerminalLine();
+  const prompt = document.createElement('span');
+  prompt.className = 'term-prompt';
+  prompt.textContent = `\u250c\u2500\u2500(root\u327fcyberx)-[${cwd}]`;
+  prompt.appendChild(document.createElement('br'));
+  prompt.appendChild(document.createTextNode('\u2514\u2500# '));
+  line.appendChild(prompt);
+  line.appendChild(document.createTextNode(String(raw ?? '')));
+  appendTerminalLine(line);
 }
 function scrollTerminal() {
   const b = document.getElementById('terminal-body');
@@ -1418,7 +1497,7 @@ const CMD = {
       ['--modules','List all learning modules'],['--status','System status'],
       ['--hint','Get a puzzle hint'],['--nav [page]','Navigate to page section'],
       ['--about','About CYBERX'],['--clear','Clear terminal'],['--secret','???'],
-    ].forEach(([c,d]) => print(`  <span style="color:var(--cyan);min-width:180px;display:inline-block">${c}</span><span style="color:rgba(200,224,232,.4)"> — ${d}</span>`));
+    ].forEach(([c,d]) => printParts([{text:'  '},{text:c,className:'term-command-name'},{text:`\u2014 ${d}`,className:'term-command-description'}]));
   },
   ls: args => {
     const target = args[0] ? resolvePath(args[0]) : cwd;
@@ -1428,8 +1507,12 @@ const CMD = {
     if (!items.length) { print('(empty directory)', 'dim'); return; }
     items.forEach(([name, n]) => {
       const label = n.type === 'dir' ? `${name}/` : name;
-      const hint = n.moduleId || n.url ? '  <span style="color:rgba(9,216,199,.3);font-size:.65rem">← cd to open</span>' : '';
-      print(label + hint, n.type === 'dir' ? 'dir' : (n.color || 'file-g'));
+      const colorClass = n.type === 'dir' ? 'dir' : (n.color || 'file-g');
+      if (n.moduleId || n.url) {
+        printParts([{text:label,className:colorClass},{text:'  \u2190 cd to open',className:'term-hint'}]);
+      } else {
+        print(label, colorClass);
+      }
     });
   },
   pwd: () => print(cwd),
@@ -1443,12 +1526,12 @@ const CMD = {
     cwd = target;
     updatePrompt();
     if (node.moduleId) {
-      print(`<span style="color:var(--cyan)">[ ACCESS GRANTED ]</span> Launching ${MODULES[node.moduleId].name}...`);
+      printParts([{text:'[ ACCESS GRANTED ]',className:'term-accent'},{text:` Launching ${MODULES[node.moduleId].name}...`}]);
       setTimeout(() => { closeTerminal(); launchModule(node.moduleId); }, 450);
       return;
     }
     if (node.url) {
-      print(`<span style="color:var(--cyan)">[ NAVIGATING ]</span> ${node.url}`);
+      printParts([{text:'[ NAVIGATING ]',className:'term-accent'},{text:` ${node.url}`}]);
       setTimeout(() => {
         closeTerminal();
         if (node.url.startsWith('#')) {
@@ -1459,7 +1542,7 @@ const CMD = {
     }
   },
   puzzle: () => {
-    print('<span style="color:var(--cyan)">[ UNLOCKED ]</span> Redirecting to puzzle.html...');
+    printParts([{text:'[ UNLOCKED ]',className:'term-accent'},{text:' Redirecting to puzzle.html...'}]);
     setTimeout(() => { closeTerminal(); window.location.href = 'puzzle.html'; }, 700);
   },
   cat: args => {
@@ -1529,7 +1612,7 @@ const CMD = {
     print('Free cybersecurity learning platform.', 'dim');
     print('Gaming meets security education.', 'dim');
   },
-  '--clear': () => { document.getElementById('terminal-body').innerHTML = ''; },
+  '--clear': () => { document.getElementById('terminal-body').textContent = ''; },
   '--secret': () => { print('YOU FOUND A HIDDEN COMMAND.', 'y'); print('The puzzle page holds the real secret. Try: puzzle', 'r'); },
   '--admin': () => { print('Redirecting to admin panel...', 'y'); setTimeout(() => { window.location.href = 'admin.html'; }, 800); },
 };
@@ -1552,7 +1635,7 @@ document.getElementById('t-input').addEventListener('keydown', e => {
   if (!raw) return;
   cmdHistory.push(raw);
   histIdx = -1;
-  print(`<span style="color:#09D8C7">┌──(root㉿cyberx)-[${cwd}]<br>└─# </span>${raw}`);
+  printCommandEcho(raw);
   const [cmd, ...args] = raw.split(/\s+/);
   const handler = CMD[cmd] || CMD[cmd.toLowerCase()];
   if (handler) handler(args);
@@ -1566,6 +1649,56 @@ document.getElementById('terminal-overlay').addEventListener('click', e => {
 document.addEventListener('keydown', e => {
   if (e.key === 'Escape') { closeTerminal(); closeModulePage(); }
 });
+
+const homeExplore = document.querySelector('#main-nav .nav-explore');
+const homeExploreToggle = document.getElementById('home-nav-toggle');
+if (homeExplore && homeExploreToggle) {
+  let pinnedOpen = false;
+  let suppressHover = false;
+  const setExploreOpen = open => {
+    homeExplore.classList.toggle('open', open);
+    homeExplore.classList.toggle('pointer-closed', !open && suppressHover);
+    homeExploreToggle.setAttribute('aria-expanded', String(open));
+  };
+  homeExplore.addEventListener('pointerenter', () => {
+    if (matchMedia('(hover: hover)').matches && !suppressHover && !pinnedOpen) setExploreOpen(true);
+  });
+  homeExplore.addEventListener('pointerleave', () => {
+    suppressHover = false;
+    homeExplore.classList.remove('pointer-closed');
+    if (!pinnedOpen && !homeExplore.contains(document.activeElement)) setExploreOpen(false);
+  });
+  homeExplore.addEventListener('focusin', () => {
+    if (!suppressHover) setExploreOpen(true);
+  });
+  homeExplore.addEventListener('focusout', () => {
+    setTimeout(() => {
+      if (!pinnedOpen && !homeExplore.contains(document.activeElement) && !homeExplore.matches(':hover')) setExploreOpen(false);
+    }, 0);
+  });
+  homeExploreToggle.addEventListener('click', () => {
+    pinnedOpen = !pinnedOpen;
+    suppressHover = !pinnedOpen;
+    setExploreOpen(pinnedOpen);
+    if (!pinnedOpen) homeExploreToggle.blur();
+  });
+  homeExplore.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      pinnedOpen = false;
+      suppressHover = true;
+      setExploreOpen(false);
+      homeExploreToggle.focus();
+    }
+  });
+  document.addEventListener('pointerdown', event => {
+    if (!homeExplore.contains(event.target) && pinnedOpen) {
+      pinnedOpen = false;
+      suppressHover = false;
+      setExploreOpen(false);
+    }
+  });
+}
 
 initBootVerifier();
 renderModuleCards();

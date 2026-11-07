@@ -1,0 +1,4 @@
+project_id = "cyberx-community"
+
+[functions.submit-puzzle]
+verify_jwt = false
