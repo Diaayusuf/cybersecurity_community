@@ -452,6 +452,15 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 .hint-label{font-family:var(--mono);font-size:.58rem;letter-spacing:.35em;color:rgba(9,216,199,.35);margin-bottom:1.5rem}
 .hint-code{font-family:var(--display);font-size:clamp(2rem,7vw,4.5rem);letter-spacing:.5em;color:var(--cyan);text-shadow:var(--glow-c);animation:hintPulse 3s ease-in-out infinite}
 @keyframes spin{to{transform:rotate(360deg)}}@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-18px)}}@keyframes fadeLeft{from{opacity:0;transform:translateX(-24px)}to{opacity:1;transform:none}}@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}@keyframes hintPulse{0%,100%{text-shadow:var(--glow-c)}50%{text-shadow:0 0 50px rgba(9,216,199,.7),0 0 80px rgba(9,216,199,.3)}}@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:960px) and (min-width:901px){
+  nav#main-nav{padding:1rem 1.5rem;gap:.8rem}
+  #main-nav .home-nav-desktop{display:none}
+  #main-nav .terminal-btn{margin-left:auto}
+  #main-nav .home-mobile-toggle{display:inline-flex;align-items:center;justify-content:center}
+  #main-nav .home-mobile-nav{display:block;position:absolute;top:calc(100% + .5rem);left:1rem;right:1rem;z-index:120;max-height:calc(100dvh - 110px);overflow-y:auto;padding:.55rem;border:1px solid rgba(9,216,199,.2);border-radius:9px;background:rgba(13,26,47,.98);box-shadow:0 14px 30px rgba(0,0,0,.32);backdrop-filter:blur(18px);opacity:0;visibility:hidden;pointer-events:none;transform:translateY(-5px);transition:opacity .18s ease,transform .18s ease,visibility .18s}
+  #main-nav .home-mobile-nav.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateY(0)}
+  #main-nav .home-mobile-nav[hidden]{display:none!important}
+}
 @media(max-width:900px){
   nav#main-nav,.poster-nav{padding:1rem 1.5rem}.nav-path{display:none}
   nav#main-nav{gap:.8rem}
@@ -545,62 +554,10 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
 
 <nav id="main-nav" aria-label="Main navigation">
   <a class="logo" href="index.html" aria-label="CyberX home"><img src="image/CYBERX-LOGO.png" width="100" alt="CYBERX Logo">CYBER<span>X</span></a>
-  <div class="home-nav-desktop">
-    <a class="home-nav-home" href="index.html">HOME</a>
-    <div class="home-nav-group">
-      <button class="home-nav-trigger" type="button" aria-expanded="false" aria-controls="home-operations-panel">OPERATIONS</button>
-      <div class="home-nav-panel" id="home-operations-panel" aria-label="Operations links">
-        <a href="#red-team">RED TEAM</a>
-        <a href="#blue-team">BLUE TEAM</a>
-        <a href="puzzle.html">SECRET / PUZZLE</a>
-        <a href="learning.html">LEARNING</a>
-        <a href="awareness.html">AWARENESS</a>
-      </div>
-    </div>
-    <div class="home-nav-group">
-      <button class="home-nav-trigger" type="button" aria-expanded="false" aria-controls="home-community-panel">COMMUNITY</button>
-      <div class="home-nav-panel" id="home-community-panel" aria-label="Community links">
-        <a href="community.html">COMMUNITY</a>
-        <a href="leaderboard.html">LEADERBOARD</a>
-        <a href="#experience">EXPERIENCE</a>
-      </div>
-    </div>
-    <div class="home-nav-group">
-      <button class="home-nav-trigger" type="button" aria-expanded="false" aria-controls="home-more-panel">MORE</button>
-      <div class="home-nav-panel" id="home-more-panel" aria-label="More CyberX links">
-        <a href="assistant.html">AI ASSISTANT</a>
-        <a href="#articles">ARTICLES</a>
-        <a href="#donate">DONATE</a>
-        <a href="dashboard.html">DASHBOARD</a>
-        <a href="profile.html">PROFILE</a>
-        <a href="pricing.html">PRICING</a>
-        <a href="auth.html">SIGN IN</a>
-      </div>
-    </div>
-  </div>
+  <div class="home-nav-desktop" aria-label="Main navigation"></div>
   <button class="home-mobile-toggle" id="home-mobile-toggle" type="button" aria-expanded="false" aria-controls="home-mobile-nav">MENU <span aria-hidden="true">☰</span></button>
   <button class="terminal-btn" onclick="openTerminal()">&#9654;_ TERMINAL</button>
-  <div class="home-mobile-nav" id="home-mobile-nav" role="group" aria-label="Mobile navigation" hidden>
-    <a href="index.html">HOME</a>
-    <div class="home-mobile-group">
-      <button class="home-mobile-group-toggle" type="button" aria-expanded="false" aria-controls="home-mobile-operations">OPERATIONS</button>
-      <div class="home-mobile-group-panel" id="home-mobile-operations" hidden>
-        <a href="#red-team">RED TEAM</a><a href="#blue-team">BLUE TEAM</a><a href="puzzle.html">SECRET / PUZZLE</a><a href="learning.html">LEARNING</a><a href="awareness.html">AWARENESS</a>
-      </div>
-    </div>
-    <div class="home-mobile-group">
-      <button class="home-mobile-group-toggle" type="button" aria-expanded="false" aria-controls="home-mobile-community">COMMUNITY</button>
-      <div class="home-mobile-group-panel" id="home-mobile-community" hidden>
-        <a href="community.html">COMMUNITY</a><a href="leaderboard.html">LEADERBOARD</a><a href="#experience">EXPERIENCE</a>
-      </div>
-    </div>
-    <div class="home-mobile-group">
-      <button class="home-mobile-group-toggle" type="button" aria-expanded="false" aria-controls="home-mobile-more">MORE</button>
-      <div class="home-mobile-group-panel" id="home-mobile-more" hidden>
-        <a href="assistant.html">AI ASSISTANT</a><a href="#articles">ARTICLES</a><a href="#donate">DONATE</a><a href="dashboard.html">DASHBOARD</a><a href="profile.html">PROFILE</a><a href="pricing.html">PRICING</a><a href="auth.html">SIGN IN</a>
-      </div>
-    </div>
-  </div>
+  <div class="home-mobile-nav" id="home-mobile-nav" role="group" aria-label="Mobile navigation" hidden></div>
 </nav>
 
 <section class="home-hero" id="home">
@@ -772,6 +729,7 @@ footer{background:#000;border-top:1px solid var(--border);padding:3rem;font-fami
   </div>
 </footer>
 
+<script src="assets/js/cyberx-navigation.js"></script>
 <script>
 // ─── IMAGE MAP ───────────────────────────────────────────────────────────────
 // Maps every logical icon key to a path inside image/.
@@ -1539,6 +1497,53 @@ function closeTerminal() {
   document.getElementById('terminal-overlay').classList.remove('open');
 }
 
+function getPublicNavigationPages() {
+  return (window.CYBERX_NAVIGATION?.categories || []).flatMap(category =>
+    category.items.filter(item => item.availability === 'available' && item.access === 'public')
+  );
+}
+function normalizeNavigationName(value) {
+  return String(value || '').toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim().replace(/\s+/g, ' ');
+}
+function resolveNavigationPage(value) {
+  const query = normalizeNavigationName(value);
+  if (!query) return null;
+  return getPublicNavigationPages().find(item =>
+    [item.name, ...(item.aliases || [])].some(alias => normalizeNavigationName(alias) === query)
+  ) || null;
+}
+function printNavigationPages(title = 'Available CyberX pages:') {
+  print(title, 'term-accent');
+  (window.CYBERX_NAVIGATION?.categories || []).forEach(category => {
+    const pages = category.items.filter(item => item.availability === 'available' && item.access === 'public');
+    if (!pages.length) return;
+    printParts([
+      { text: `  ${category.name}: `, className: 'term-command-name' },
+      { text: pages.map(item => item.name).join('  ·  '), className: 'term-command-description' },
+    ]);
+  });
+  print('Use: navigate <page name>  (aliases such as "puzzle" and "assistant" also work)', 'dim');
+}
+function navigateToPage(item) {
+  const target = new URL(item.destination, window.location.href);
+  if (target.origin !== window.location.origin) {
+    print('Navigation is limited to available local CyberX pages.', 'r');
+    return;
+  }
+  printParts([{ text: '[ NAVIGATING ] ', className: 'term-accent' }, { text: `${item.name} → ${item.destination}` }]);
+  setTimeout(() => {
+    closeTerminal();
+    if (target.pathname === window.location.pathname && target.hash) {
+      const section = document.getElementById(decodeURIComponent(target.hash.slice(1)));
+      if (!section) { print(`Page section not found: ${item.name}`, 'r'); return; }
+      history.pushState(null, '', target.hash);
+      section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      window.location.href = target.href;
+    }
+  }, 350);
+}
+
 const CMD = {
   '--help': () => {
     print('Available commands:', 'dim');
@@ -1551,8 +1556,25 @@ const CMD = {
       ['find [name]','Find file/dir by name'],['puzzle','Open the hidden puzzle section'],
       ['--modules','List all learning modules'],['--status','System status'],
       ['--hint','Get a puzzle hint'],['--nav [page]','Navigate to page section'],
+      ['help / pages / menu','Show help and available navigation'],['navigate <page>','Open a CyberX page'],
       ['--about','About CYBERX'],['--clear','Clear terminal'],['--secret','???'],
     ].forEach(([c,d]) => printParts([{text:'  '},{text:c,className:'term-command-name'},{text:`\u2014 ${d}`,className:'term-command-description'}]));
+  },
+  help: () => CMD['--help'](),
+  pages: () => printNavigationPages(),
+  menu: () => printNavigationPages('CyberX navigation menu:'),
+  navigate: args => {
+    const query = args.join(' ').trim();
+    if (!query) { printNavigationPages('Choose a page to navigate to:'); return; }
+    const page = resolveNavigationPage(query);
+    if (page) { navigateToPage(page); return; }
+    print(`Unknown page: ${query}`, 'r');
+    const normalized = normalizeNavigationName(query);
+    const suggestions = getPublicNavigationPages().filter(item =>
+      [item.name, ...(item.aliases || [])].some(alias => normalizeNavigationName(alias).includes(normalized) || normalized.includes(normalizeNavigationName(alias)))
+    ).slice(0, 5);
+    if (suggestions.length) print(`Did you mean: ${suggestions.map(item => item.name).join(', ')}?`, 'dim');
+    else print('Type pages to see the available page names.', 'dim');
   },
   ls: args => {
     const target = args[0] ? resolvePath(args[0]) : cwd;
@@ -1650,17 +1672,9 @@ const CMD = {
   },
   '--hint': () => { print('HINT SYSTEM:', 'y'); print('Complete a module to receive your first hint.', 'dim'); },
   '--nav': args => {
-    const pages = { home:'#home','red-team':'#red-team','blue-team':'#blue-team',puzzle:'puzzle.html',awareness:'awareness.html',experience:'#experience',articles:'#articles',donate:'#donate' };
-    const target = pages[args[0]];
-    if (!target) { print(`Available: ${Object.keys(pages).join(', ')}`, 'dim'); return; }
-    print(`Navigating to ${target}...`);
-    setTimeout(() => {
-      if (target.startsWith('#')) {
-        const el = document.querySelector(target);
-        if (el) el.scrollIntoView({ behavior:'smooth' });
-      } else { window.location.href = target; }
-      closeTerminal();
-    }, 350);
+    const page = resolveNavigationPage(args.join(' '));
+    if (!page) { printNavigationPages(`Unknown page: ${args.join(' ') || '(missing name)'}`); return; }
+    navigateToPage(page);
   },
   '--about': () => {
     print('CYBERX v1.0.0');

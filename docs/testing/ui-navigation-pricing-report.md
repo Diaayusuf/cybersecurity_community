@@ -19,3 +19,11 @@ Updated 2026-11-07.
 
 - The repository has no separate module detail or challenge detail HTML routes, so navigation points to existing pages and section anchors only.
 - Authentication, payment processing, sales contact, and the AI assistant remain demo behavior; these changes do not connect a backend.
+
+## Terminal navigation follow-up (2026-11-08)
+
+- Added `assets/js/cyberx-navigation.js` as the shared homepage registry for the ordered public categories, link names, destinations, aliases, and availability. Both homepage desktop/mobile navigation and the terminal use the same entries.
+- Added terminal commands `help`, `pages`, `menu`, and `navigate <page>`; expanded legacy `--nav <page>` to use the shared registry while retaining its old syntax. Existing terminal commands, parser/history/keyboard handling, UI, and open/close behavior remain in place.
+- Verified the page destinations and homepage anchors against existing files/IDs. Admin remains outside the public navigation list; no Admin authorization change is claimed. Pricing remains reachable under Account because it is an existing public page already present in the former homepage menu.
+- Added Playwright coverage for shared desktop/mobile link parity, route existence, aliases, suggestions, unknown destinations, existing terminal commands, open/close behavior, and navigation to a page and homepage section.
+- Targeted terminal navigation suite: **3 passed**. Final full Playwright suite: **56 passed**, including terminal, Community, M6, Admin, and Supabase static-contract checks. The M6 Node handler contract remained **16/16 passed**. `git diff --check` passed. No production service was contacted.

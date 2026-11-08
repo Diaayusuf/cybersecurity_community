@@ -52,3 +52,30 @@ This checklist is a reviewable roadmap, not authorization to begin major impleme
 - [ ] Review Wasmer routing, headers, HTTPS, caching, and direct page URL behavior.
 - [ ] Prepare rollback and monitoring plan; separately approve production Supabase changes and deployment.
 - [ ] Do not commit or push until explicitly requested.
+
+## M7 — Local Supabase setup and integration status (2026-11-08)
+
+Status: **incomplete; local database verification is blocked by the unavailable Docker engine and Supabase CLI.** Do not treat this milestone as complete based on checked-in files or mocked tests.
+
+- [x] Repository contains isolated Supabase project config (`supabase/config.toml`), the incremental M5/M6 migrations, and the `submit-puzzle` Edge Function.
+- [x] M5/M6 SQL, function contract, and test reports were inspected. Existing reports document 16 Node handler tests, 3 M6 browser tests, and the earlier 49-test browser baseline; the current regression results are recorded in `docs/testing/m11-3-frontend-qa-report.md`.
+- [ ] Apply M5/M6 migrations to local PostgreSQL and verify tables, indexes, constraints, RLS, policies, effective role grants, Realtime, and function RPC behavior. On 2026-11-08, Docker CLI was present but could not connect to the Docker Desktop Linux engine; Supabase CLI and `psql` were unavailable. No containers were modified, and no production or remote database was contacted.
+- [ ] Run the Edge Function against local Postgres. The passing Node tests use synthetic RPC mocks; they do not establish live transactional, permission, rate-limit, or idempotency behavior.
+- [ ] Community has no backend schema or authentication integration in the checked-in architecture. Its frontend contract explicitly describes posts, voting, comments, and moderation as demo UI with no persistence. Keep it demo-only until an authenticated, reviewed backend contract and usable local stack exist; no anonymous-author bypass or competing schema was introduced.
+
+## M8 — Security and functional hardening status (2026-11-08)
+
+Status: **incomplete; local frontend and mocked contract checks pass, while authorization requiring a real backend remains unverified.**
+
+- [x] Existing M6 synthetic contract coverage includes request tampering, rejected client-asserted correctness/score fields, bounded rate-limit behavior, idempotency, and mocked concurrency. See `docs/testing/m6-puzzle-test-report.md`.
+- [x] Current Admin browser suite exercises the UI gate, isolated synthetic storage, hostile stored text, URL validation, and destructive-action confirmations. These checks prove frontend behavior only.
+- [x] Community composer now validates and bounds text, trims input, guards repeated submits, renders user values through DOM text nodes, and labels local-only post/vote/comment feedback accurately. New browser tests exercise XSS-shaped title/body text, duplicate submission, one local vote per card, comments, empty feed, and form feedback.
+- [ ] Admin gate remains a client-side password check backed by localStorage, not server-enforced authentication. Protecting real admin data/actions requires an established auth/backend contract; no real role/authorization claim is made.
+- [ ] Verify anonymous, authenticated, and administrator RLS/authorization; live function rate limits/concurrency; Community ownership/moderation; and protected Admin operations against an isolated local/staging backend. Docker/Supabase runtime unavailability prevented these checks.
+
+## Community correction status (2026-11-08)
+
+- [x] Create Post controls use the existing CyberX form tokens and a scoped vertical grid; the desktop feed/composer grid has bounded columns and stacks at tablet/mobile widths.
+- [x] Required title/category/content, 120/5,000-character limits, trimming, inline errors, disabled/loading state, safe text-only rendering, category badge, empty-feed state, and explicit local-demo success/failure feedback are implemented.
+- [x] Existing Comments remain non-persistent demo notices. Likes remain one local UI increment per card and are not trusted or persisted. No Community backend or authentication was available, so success means inserted into this page session only.
+- [x] Playwright layout checks pass at 1920, 1440, 1280, 1024, 768, 390, 375, and 320 CSS pixels. Screenshots are stored in `docs/testing/community-m7m8-screenshots/`.
