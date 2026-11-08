@@ -6,7 +6,7 @@
     <title>CyberX | Community</title>
     <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
   </head>
-  <body>
+  <body class="community-page">
     <header class="header">
       <div class="header-inner">
         <a class="brand" href="index.html" aria-label="CyberX home">
@@ -47,7 +47,7 @@
             <h2>Community feed</h2>
             <span class="pill success">Demo feed</span>
           </div>
-          <div data-community-feed>
+          <div data-community-feed aria-live="polite">
             <article class="post-card">
               <div class="post-meta"><span>Marin • SOC & Blue Team</span><span>2h ago</span></div>
               <h3 class="post-title">Detection tuning after a ransomware drill</h3>
@@ -57,7 +57,7 @@
                   <button type="button" class="vote-button" data-vote="up">▲ Like</button>
                   <span class="vote-value" data-vote-count>42</span>
                 </div>
-                <button type="button" class="btn btn-secondary" data-demo-action="demo">Comment</button>
+                <button type="button" class="btn btn-secondary" data-demo-action="demo" data-demo-message="Comments are not connected and will not be saved.">Comment</button>
               </div>
             </article>
             <article class="post-card">
@@ -69,38 +69,42 @@
                   <button type="button" class="vote-button" data-vote="up">▲ Like</button>
                   <span class="vote-value" data-vote-count>26</span>
                 </div>
-                <button type="button" class="btn btn-secondary" data-demo-action="demo">Comment</button>
+                <button type="button" class="btn btn-secondary" data-demo-action="demo" data-demo-message="Comments are not connected and will not be saved.">Comment</button>
               </div>
             </article>
           </div>
         </div>
 
-        <div class="pad-card">
+        <div class="pad-card community-composer">
           <div class="section-heading">
             <h2>Create post</h2>
             <span class="pill">Demo</span>
           </div>
-          <form data-community-form>
+          <form class="form community-form" data-community-form novalidate>
             <div class="field">
               <label for="post-title">Title</label>
-              <input id="post-title" name="post-title" type="text" placeholder="Share a new insight" required />
+              <input id="post-title" name="post-title" type="text" placeholder="Share a new insight" maxlength="120" required aria-describedby="post-title-error" />
+              <span class="community-field-error" id="post-title-error" data-field-error="title" hidden></span>
             </div>
             <div class="field">
               <label for="post-category">Category</label>
-              <select id="post-category" name="post-category">
-                <option>General Discussion</option>
-                <option>SOC &amp; Blue Team</option>
-                <option>DFIR</option>
-                <option>Malware Analysis</option>
-                <option>Web Security</option>
-                <option>Career &amp; Opportunities</option>
+              <select id="post-category" name="post-category" required aria-describedby="post-category-error">
+                <option value="General Discussion">General Discussion</option>
+                <option value="SOC &amp; Blue Team">SOC &amp; Blue Team</option>
+                <option value="DFIR">DFIR</option>
+                <option value="Malware Analysis">Malware Analysis</option>
+                <option value="Web Security">Web Security</option>
+                <option value="Career &amp; Opportunities">Career &amp; Opportunities</option>
               </select>
+              <span class="community-field-error" id="post-category-error" data-field-error="category" hidden></span>
             </div>
             <div class="field">
               <label for="post-content">Content</label>
-              <textarea id="post-content" name="post-content" placeholder="What did you learn this week?" required></textarea>
+              <textarea id="post-content" name="post-content" placeholder="What did you learn this week?" maxlength="5000" required aria-describedby="post-content-error"></textarea>
+              <span class="community-field-error" id="post-content-error" data-field-error="content" hidden></span>
             </div>
-            <button class="btn btn-primary" type="submit">Publish demo post</button>
+            <p class="community-form-status" data-community-status role="status" aria-live="polite"></p>
+            <button class="btn btn-primary community-submit" type="submit">Publish demo post</button>
           </form>
         </div>
       </div>

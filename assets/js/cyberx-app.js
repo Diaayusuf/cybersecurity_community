@@ -167,13 +167,18 @@
 
   const initVoteButtons = () => {
     document.querySelectorAll('[data-vote]').forEach((button) => {
+      if (button.dataset.voteReady) return;
+      button.dataset.voteReady = 'true';
       button.addEventListener('click', () => {
+        if (button.disabled) return;
         const container = button.closest('[data-vote-container]');
         const valueNode = container?.querySelector('[data-vote-count]');
         const current = Number(valueNode?.textContent || '0');
         const delta = button.dataset.vote === 'up' ? 1 : -1;
         if (valueNode) valueNode.textContent = String(current + delta);
-        showToast('Vote recorded in demo mode.', 'success');
+        button.disabled = true;
+        button.setAttribute('aria-pressed', 'true');
+        showToast('Demo vote shown locally; it is not saved.', 'success');
       });
     });
   };
@@ -243,23 +248,100 @@
     const form = document.querySelector('[data-community-form]');
     const list = document.querySelector('[data-community-feed]');
     if (!form || !list) return;
+    const titleInput = form.querySelector('[name="post-title"]');
+    const categoryInput = form.querySelector('[name="post-category"]');
+    const contentInput = form.querySelector('[name="post-content"]');
+    const status = form.querySelector('[data-community-status]');
+    const submit = form.querySelector('[type="submit"]');
+    if (!titleInput || !categoryInput || !contentInput || !status || !submit) return;
+    let submitting = false;
+    const renderEmptyState = () => {
+      const hasPosts = Boolean(list.querySelector('.post-card'));
+      const emptyState = list.querySelector('.community-empty');
+      if (hasPosts) emptyState?.remove();
+      else if (!emptyState) {
+        const empty = document.createElement('p');
+        empty.className = 'community-empty';
+        empty.textContent = 'No community posts yet.';
+        list.append(empty);
+      }
+    };
+    renderEmptyState();
+    new MutationObserver(renderEmptyState).observe(list, { childList: true });
 
+    const setError = (field, message) => {
+      const error = form.querySelector(`[data-field-error="${field}"]`);
+      const input = field === 'title' ? titleInput : field === 'category' ? categoryInput : contentInput;
+      if (error) { error.textContent = message; error.hidden = !message; }
+      input.setAttribute('aria-invalid', String(Boolean(message)));
+    };
+    const setStatus = (message, state = '') => {
+      status.textContent = message;
+      if (state) status.dataset.state = state;
+      else delete status.dataset.state;
+    };
+
+    form.addEventListener('input', () => {
+      setStatus('');
+      setError('title', ''); setError('category', ''); setError('content', '');
+    });
     form.addEventListener('submit', (event) => {
       event.preventDefault();
-      const title = form.querySelector('[name="post-title"]');
-      const content = form.querySelector('[name="post-content"]');
-      if (!title || !content || !title.value.trim() || !content.value.trim()) {
-        showToast('Add a title and content before posting.', 'error');
+      if (submitting) return;
+      const title = titleInput.value.trim();
+      const category = categoryInput.value;
+      const content = contentInput.value.trim();
+      const validCategories = [...categoryInput.options].map((option) => option.value);
+      setError('title', !title ? 'Enter a title.' : title.length > 120 ? 'Use 120 characters or fewer.' : '');
+      setError('category', !validCategories.includes(category) ? 'Choose a listed category.' : '');
+      setError('content', !content ? 'Enter post content.' : content.length > 5000 ? 'Use 5,000 characters or fewer.' : '');
+      if (!title || title.length > 120 || !validCategories.includes(category) || !content || content.length > 5000) {
+        setStatus('Review the highlighted fields and try again.', 'error');
+        (form.querySelector('[aria-invalid="true"]') || titleInput).focus();
         return;
       }
-      const item = document.createElement('article');
-      item.className = 'post-card';
-      item.innerHTML = '<div class="post-meta"><span>Demo author</span><span>Just now</span></div><h3 class="post-title">' + window.escapeHtml(title.value.trim()) + '</h3><p>' + window.escapeHtml(content.value.trim()) + '</p><div class="feed-actions"><div class="vote-row"><button type="button" class="vote-button" data-vote="up">▲ Like</button><span class="vote-value" data-vote-count>1</span></div><button type="button" class="btn btn-secondary" data-demo-action="demo">Comment</button></div>';
-      list.prepend(item);
-      form.reset();
-      showToast('Demo post added to the community feed.', 'success');
-      initVoteButtons();
-      initDemoInteractions();
+      submitting = true;
+      submit.disabled = true;
+      submit.setAttribute('aria-busy', 'true');
+      setStatus('Adding your post to this demo feed…', 'loading');
+
+      // The current Community feed is a local demo: append safely, never imply persistence.
+      requestAnimationFrame(() => {
+        try {
+          const item = document.createElement('article');
+          item.className = 'post-card';
+          const meta = document.createElement('div'); meta.className = 'post-meta';
+          const author = document.createElement('span'); author.textContent = 'Demo author';
+          const time = document.createElement('time'); time.textContent = 'Just now'; time.dateTime = new Date().toISOString();
+          meta.append(author, time);
+          const categoryLabel = document.createElement('span'); categoryLabel.className = 'tag-chip community-post-category'; categoryLabel.textContent = category;
+          const heading = document.createElement('h3'); heading.className = 'post-title'; heading.textContent = title;
+          const body = document.createElement('p'); body.textContent = content;
+          const actions = document.createElement('div'); actions.className = 'feed-actions';
+          const votes = document.createElement('div'); votes.className = 'vote-row'; votes.dataset.voteContainer = '';
+          const vote = document.createElement('button'); vote.type = 'button'; vote.className = 'vote-button'; vote.dataset.vote = 'up'; vote.textContent = '▲ Like';
+          const count = document.createElement('span'); count.className = 'vote-value'; count.dataset.voteCount = ''; count.textContent = '0';
+          votes.append(vote, count);
+          const comment = document.createElement('button'); comment.type = 'button'; comment.className = 'btn btn-secondary'; comment.dataset.demoAction = 'demo'; comment.dataset.demoMessage = 'Comments are not connected in this demo.'; comment.textContent = 'Comment';
+          actions.append(votes, comment);
+          item.append(meta, categoryLabel, heading, body, actions);
+          list.querySelector('.community-empty')?.remove();
+          list.prepend(item);
+          form.reset();
+          setError('title', ''); setError('category', ''); setError('content', '');
+          setStatus('Added to this browser session only. This post was not saved to a server.', 'success');
+          showToast('Demo post added locally; it is not saved.', 'success');
+          initVoteButtons();
+          initDemoInteractions();
+        } catch {
+          setStatus('The demo post could not be displayed. Your form contents are still available.', 'error');
+          showToast('Could not add the demo post. Please try again.', 'error');
+        } finally {
+          submitting = false;
+          submit.disabled = false;
+          submit.removeAttribute('aria-busy');
+        }
+      });
     });
   };
 

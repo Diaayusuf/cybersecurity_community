@@ -174,3 +174,18 @@ Fresh pass counts from the final suite:
 - Browser console checks after fix: no page console errors or failed requests on the inspected pages
 
 This final verdict is based on the actual executed evidence above, not only on HTTP status checks.
+
+## 14. Community and M7/M8 follow-up (2026-11-08)
+
+The Create Post card in `community.html` was corrected using the existing CyberX theme. Labels now sit above full-width blue-tinted controls; the responsive feed/composer grid stacks at tablet and mobile widths. Submission validates and trims title/category/content, enforces 120/5,000-character bounds, prevents repeated submissions while busy, shows inline validation/loading/result feedback, and inserts the demo post with safe DOM text APIs. Category is displayed on the post. Empty feeds have a visible empty state. No Community persistence/authentication backend exists in the repository contract, so success explicitly means local page-session insertion only. Comments remain informational demo actions; vote counts remain client-side demo UI and are not trusted or persisted.
+
+Verification run for this follow-up:
+
+- `node --check assets/js/cyberx-app.js`, `node --check tests/community.spec.mjs`, `node --check supabase/functions/submit-puzzle/handler.mjs`, and `node --check supabase/functions/submit-puzzle/index.ts`: passed.
+- `npm.cmd run test:m6`: 16 Node tests and 3 M6 Playwright tests passed.
+- `npx.cmd playwright test tests/community.spec.mjs`: 4 Community tests passed. Layout/overflow and label/control geometry were checked at 1920, 1440, 1280, 1024, 768, 390, 375, and 320 CSS-pixel viewport widths. The tests cover required-field errors, category, hostile title/body text, local success feedback, loading/duplicate submission, empty feed, comments, and repeated vote events.
+- `npm.cmd test`: 53 Playwright tests passed, including Admin, M6, Supabase static contract, and Community tests.
+- Screenshots: `docs/testing/community-m7m8-screenshots/` contains 1440 desktop default, validation, submitting, and local-demo success states, plus 1024 tablet and 390/320 mobile views.
+- `git diff --check`: passed with no whitespace errors.
+
+M7/M8 remain incomplete. The local Supabase configuration, M5/M6 migrations, and Edge Function are present, but Docker CLI could not connect to the Docker Desktop Linux engine; the Supabase CLI and `psql` are unavailable. No migration, live Edge Function, RLS/grant, Realtime, or database-backed rate/concurrency test was run. M6 results are synthetic Node mocks and browser intercepts only. Existing Admin browser tests verify frontend behavior, not authorization: `admin.html` still uses a client-side localStorage password gate, and protected server-side Admin operations are not established. No Community schema was invented, and no remote/production Supabase or Wazuh container was touched.
