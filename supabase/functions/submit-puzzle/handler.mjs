@@ -134,7 +134,8 @@ function serviceCredentials(env) {
   const url = readEnv(env, 'SUPABASE_URL').replace(/\/$/, '');
   try {
     const parsed = new URL(url);
-    if (parsed.protocol !== 'https:' && !(parsed.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(parsed.hostname))) return null;
+    const localCliGateway = parsed.protocol === 'http:' && parsed.hostname === 'kong' && parsed.port === '8000';
+    if (parsed.protocol !== 'https:' && !(parsed.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(parsed.hostname)) && !localCliGateway) return null;
   } catch { return null; }
   const secretMap = parseObjectSecret(env, 'SUPABASE_SECRET_KEYS');
   const secret = secretMap?.default;

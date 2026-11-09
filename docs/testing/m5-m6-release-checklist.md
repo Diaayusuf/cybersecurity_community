@@ -8,17 +8,19 @@
 - [x] Confirm the code structure matches the documented security boundaries
 - [x] Verify the server-side validation logic through local tests
 - [x] Verify the browser contract through Playwright
-- [ ] Execute real SQL migrations in a local or staging PostgreSQL environment
-- [ ] Execute the real Edge Function against a live local/staging Supabase project
-- [ ] Validate Realtime updates against a real database
+- [x] Execute M5/M6 and additive M7/M8 migrations in the isolated local PostgreSQL environment
+- [x] Execute the real M6 Edge Function against local Supabase/Postgres with synthetic challenge data
+- [x] Validate the verified-solve Realtime event against a live local database
 
 ## 2. Local integration verification
 
 - [x] `node --test tests/puzzle/submit-puzzle.test.mjs` runs successfully
 - [x] `npx playwright test tests/m6-puzzle-frontend.spec.mjs` runs successfully
 - [x] `npx playwright test` runs successfully
-- [ ] Real PostgreSQL local migration validation
-- [ ] Real Supabase function invocation against a local/staging database
+- [x] Real PostgreSQL local migration validation and catalog/RLS checks
+- [x] Real Supabase function invocation against a local database
+- [x] Real local Auth, profile, Community persistence, ownership, XSS, and concurrency workflow
+- [x] Verify complete local password reset email-link consumption through Mailpit and authenticate with the updated password
 - [ ] Real browser flow against deployed staging function and live database
 
 ## 3. Staging deployment
@@ -77,4 +79,4 @@
 
 ## 8. Release gate summary
 
-This checklist remains partially complete because the current workspace did not include a verified local or staging PostgreSQL/Supabase environment for real migration and function execution. Static code review and local regression tests are complete; live staging deployment and post-deployment verification remain required before any production release decision.
+This checklist remains partially complete. The isolated local PostgreSQL/Supabase environment, migrations, function, Realtime, Auth recovery, and regression suites are verified. Live staging deployment and post-deployment verification remain required before any production release decision.

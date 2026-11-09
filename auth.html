@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="image/CYBERX-LOGO2.png" type="image/png" />
     <title>CyberX | Authentication</title>
     <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
   </head>
@@ -10,8 +11,7 @@
     <header class="header">
       <div class="header-inner">
         <a class="brand" href="index.html" aria-label="CyberX home">
-          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
-          <span class="brand-word">CYBER<span>X</span></span>
+          <img src="image/CYBERX-LOGO2.png" alt="CYBERX logo" />
         </a>
         <nav class="nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
@@ -44,60 +44,78 @@
       <div class="split-grid" style="margin-top: 20px;">
         <div class="pad-card form">
           <div class="kicker" style="margin-bottom: 12px;">Create account</div>
-          <form data-validate data-success-message="Account created in demo mode." novalidate>
+          <form data-auth-signup data-auth-form novalidate>
             <div class="field">
               <label for="full-name">Full name</label>
-              <input id="full-name" type="text" placeholder="Alex Mercer" required />
+              <input id="full-name" name="display_name" type="text" placeholder="Alex Mercer" maxlength="48" autocomplete="name" required />
             </div>
             <div class="field">
               <label for="username">Username</label>
-              <input id="username" type="text" placeholder="alex-ops" required />
+              <input id="username" name="handle" type="text" placeholder="alex-ops" maxlength="32" autocomplete="username" required />
             </div>
             <div class="field">
               <label for="email">Email</label>
-              <input id="email" type="email" placeholder="alex@cyberx.io" required />
+              <input id="email" name="email" type="email" placeholder="alex@cyberx.io" autocomplete="email" required />
             </div>
             <div class="field">
               <label for="password">Password</label>
-              <input id="password" type="password" placeholder="Create a strong password" required />
+              <input id="password" name="password" type="password" placeholder="At least 12 characters" minlength="12" autocomplete="new-password" required />
             </div>
             <div class="field">
               <label for="confirm-password">Confirm password</label>
-              <input id="confirm-password" type="password" placeholder="Repeat your password" required />
+              <input id="confirm-password" name="confirm-password" type="password" placeholder="Repeat your password" minlength="12" autocomplete="new-password" required />
             </div>
             <label class="inline-check">
               <input type="checkbox" required />
               <span>I accept the terms and community guidelines.</span>
             </label>
+            <p class="notice" data-auth-status role="status" aria-live="polite" hidden></p>
             <button class="btn btn-primary" type="submit">Create account</button>
           </form>
         </div>
 
         <div class="pad-card form">
           <div class="kicker" style="margin-bottom: 12px;">Sign in</div>
-          <form data-validate data-success-message="Demo sign-in complete." novalidate>
+          <form data-auth-signin data-auth-form novalidate>
             <div class="field">
               <label for="signin-email">Email</label>
-              <input id="signin-email" type="email" placeholder="you@cyberx.io" required />
+              <input id="signin-email" name="email" type="email" placeholder="you@cyberx.io" autocomplete="email" required />
             </div>
             <div class="field">
               <label for="signin-password">Password</label>
-              <input id="signin-password" type="password" placeholder="••••••••" required />
+              <input id="signin-password" name="password" type="password" placeholder="••••••••" autocomplete="current-password" required />
             </div>
             <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-bottom: 18px;">
               <label class="inline-check" style="margin:0;">
                 <input type="checkbox" />
                 <span>Remember me</span>
               </label>
-              <a href="auth.html" style="color: var(--cx-cyan); font-size: 0.8rem;">Forgot password?</a>
+              <a href="#password-reset" data-password-reset style="color: var(--cx-cyan); font-size: 0.8rem;">Forgot password?</a>
             </div>
+            <p class="notice" data-auth-status role="status" aria-live="polite" hidden></p>
             <button class="btn btn-primary" type="submit">Access dashboard</button>
           </form>
-          <div class="notice warning" style="margin-top: 18px;">Demo mode is enabled until a real Supabase auth backend is connected.</div>
+          <form data-auth-recovery data-auth-form novalidate hidden>
+            <div class="kicker" style="margin: 18px 0 12px;">Set a new password</div>
+            <div class="field">
+              <label for="recovery-password">New password</label>
+              <input id="recovery-password" name="password" type="password" minlength="12" autocomplete="new-password" required />
+            </div>
+            <div class="field">
+              <label for="recovery-confirm-password">Confirm new password</label>
+              <input id="recovery-confirm-password" name="confirm-password" type="password" minlength="12" autocomplete="new-password" required />
+            </div>
+            <p class="notice" data-auth-status role="status" aria-live="polite" hidden></p>
+            <button class="btn btn-primary" type="submit">Update password</button>
+          </form>
+          <div class="notice warning" data-auth-demo style="margin-top: 18px;">Demo mode is enabled until a local Supabase backend is configured.</div>
         </div>
       </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/cyberx-local-config.js"></script>
+    <script src="assets/js/cyberx-backend.js"></script>
     <script src="assets/js/cyberx-app.js"></script>
   </body>
 </html>

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="image/CYBERX-LOGO2.png" type="image/png" />
     <title>CyberX | Learning</title>
     <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
   </head>
@@ -10,8 +11,7 @@
     <header class="header">
       <div class="header-inner">
         <a class="brand" href="index.html" aria-label="CyberX home">
-          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
-          <span class="brand-word">CYBER<span>X</span></span>
+          <img src="image/CYBERX-LOGO2.png" alt="CYBERX logo" />
         </a>
         <nav class="nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
@@ -41,27 +41,34 @@
         <p>Hands-on labs, operator notes, and scenario-based training designed for practical defenders and adversary thinkers.</p>
       </section>
 
+      <p class="notice warning" data-learning-message role="status" aria-live="polite">
+        Demo progress is not saved until a local account is connected.
+      </p>
+
       <div class="course-grid">
-        <article class="course-card">
+        <article class="course-card" data-learning-track="offensive-tradecraft">
           <span class="mini-label">Red team</span>
           <h3>Offensive tradecraft</h3>
           <p>Explore reconnaissance, web exploitation, and tactical sequencing through short guided labs.</p>
-          <div class="meta-row"><span>6 modules</span><span>3h 20m</span></div>
-          <button class="btn btn-primary" type="button">Start path</button>
+          <div class="meta-row"><span>6 modules</span><span>3h 20m</span><span data-track-state>Not started</span></div>
+          <button class="btn btn-primary" data-start-track="offensive-tradecraft" type="button">Start path</button>
+          <button class="btn btn-secondary" data-complete-track="offensive-tradecraft" type="button" hidden>Mark path complete</button>
         </article>
-        <article class="course-card">
+        <article class="course-card" data-learning-track="detection-engineering">
           <span class="mini-label">Blue team</span>
           <h3>Detection engineering</h3>
           <p>Learn alert triage, telemetry strategy, and resilient logging patterns for defenders.</p>
-          <div class="meta-row"><span>8 modules</span><span>4h 45m</span></div>
-          <button class="btn btn-primary" type="button">Start path</button>
+          <div class="meta-row"><span>8 modules</span><span>4h 45m</span><span data-track-state>Not started</span></div>
+          <button class="btn btn-primary" data-start-track="detection-engineering" type="button">Start path</button>
+          <button class="btn btn-secondary" data-complete-track="detection-engineering" type="button" hidden>Mark path complete</button>
         </article>
-        <article class="course-card">
+        <article class="course-card" data-learning-track="secure-operations">
           <span class="mini-label">Governance</span>
           <h3>Secure operations</h3>
           <p>Understand security policy, access design, risk controls, and realistic compliance decision-making.</p>
-          <div class="meta-row"><span>5 modules</span><span>2h 10m</span></div>
-          <button class="btn btn-primary" type="button">Start path</button>
+          <div class="meta-row"><span>5 modules</span><span>2h 10m</span><span data-track-state>Not started</span></div>
+          <button class="btn btn-primary" data-start-track="secure-operations" type="button">Start path</button>
+          <button class="btn btn-secondary" data-complete-track="secure-operations" type="button" hidden>Mark path complete</button>
         </article>
       </div>
 
@@ -90,6 +97,9 @@
       </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/cyberx-local-config.js"></script>
+    <script src="assets/js/cyberx-backend.js"></script>
     <script src="assets/js/cyberx-app.js"></script>
   </body>
 </html>
