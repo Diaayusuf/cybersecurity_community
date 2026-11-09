@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="image/CYBERX-LOGO2.png" type="image/png" />
     <title>CyberX | Profile</title>
     <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
   </head>
@@ -10,8 +11,7 @@
     <header class="header">
       <div class="header-inner">
         <a class="brand" href="index.html" aria-label="CyberX home">
-          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
-          <span class="brand-word">CYBER<span>X</span></span>
+          <img src="image/CYBERX-LOGO2.png" alt="CYBERX logo" />
         </a>
         <nav class="nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
@@ -40,42 +40,52 @@
         <h1>Operator identity</h1>
       </section>
 
-      <div class="split-grid">
+      <p class="notice warning" data-profile-access-note hidden>
+        Sign in to view your account settings. <a href="auth.html">Go to sign in</a>.
+      </p>
+
+      <div class="split-grid" data-profile-content hidden>
         <div class="pad-card profile-card">
-          <div class="avatar-ring">AX</div>
-          <h2>Alex Mercer</h2>
-          <div class="meta-row small"><span>Threat Hunter</span><span>Tier 5</span></div>
+          <div class="avatar-ring" data-profile-initials>CX</div>
+          <h2 data-profile-display-name>Member</h2>
+          <div class="meta-row small"><span data-profile-handle></span><span data-profile-headline></span></div>
           <div class="profile-badges">
-            <span class="pill success">Verified</span>
-            <span class="pill">On boarding</span>
-            <span class="pill warning">IR ready</span>
+            <span class="pill">CyberX member</span>
           </div>
         </div>
 
         <div class="pad-card form">
           <div class="section-heading">
             <h2>Account settings</h2>
-            <span class="pill">Demo</span>
+            <button class="btn btn-secondary" type="button" data-auth-signout>Sign out</button>
           </div>
-          <form data-validate data-success-message="Profile updated in demo mode." novalidate>
+          <form data-profile-form novalidate>
             <div class="field">
               <label for="profile-name">Display name</label>
-              <input id="profile-name" type="text" value="Alex Mercer" required />
+              <input id="profile-name" name="display_name" type="text" maxlength="48" required />
             </div>
             <div class="field">
-              <label for="profile-role">Primary role</label>
-              <input id="profile-role" type="text" value="Threat Hunter" required />
+              <label for="profile-handle">Username</label>
+              <input id="profile-handle" name="handle" type="text" maxlength="32" required />
+            </div>
+            <div class="field">
+              <label for="profile-role">Headline</label>
+              <input id="profile-role" name="headline" type="text" maxlength="64" />
             </div>
             <div class="field">
               <label for="profile-bio">Bio</label>
-              <textarea id="profile-bio" rows="4" required>Focused on intrusion detection, hunting workflows, and resilient incident response planning.</textarea>
+              <textarea id="profile-bio" name="bio" rows="4" maxlength="500"></textarea>
             </div>
             <button class="btn btn-primary" type="submit">Save profile</button>
+            <p class="notice" data-profile-status role="status" aria-live="polite" hidden></p>
           </form>
         </div>
       </div>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/cyberx-local-config.js"></script>
+    <script src="assets/js/cyberx-backend.js"></script>
     <script src="assets/js/cyberx-app.js"></script>
   </body>
 </html>

@@ -48,14 +48,17 @@ The body is capped at 8 KiB. Extra fields (including correctness, score, rank, i
 
 ## Local development
 
-The full Supabase local stack requires Docker and a Deno Edge Runtime. In a local environment with the prerequisites installed:
+The full Supabase local stack requires Docker and a Deno Edge Runtime. This workspace now has the isolated local stack running; the local Edge Function is served with synthetic-only configuration stored in the ignored `supabase/functions/.env.local` file. Do not copy this file into Git or use production answers/keys.
 
-1. Start a disposable local Supabase stack and apply the local migrations using current CLI help.
-2. Create an ignored `supabase/functions/.env.local` containing only synthetic challenge data, random local HMAC keys, the local origin, and local platform settings. Do not copy production answers or credentials.
-3. Run `supabase functions serve submit-puzzle --env-file supabase/functions/.env.local`.
-4. Exercise the local function with a synthetic request. Browser integration must rewrite all Supabase URLs to the local stack; never let a local regression test fall through to the production project.
+1. Start only the configured local project: `npx.cmd --yes supabase@latest start`.
+2. Apply pending migrations locally: `npx.cmd --yes supabase@latest migration up --local`.
+3. Create an ignored `.env.local` containing synthetic challenge data, independent random local HMAC keys, and the local test origin. Let the CLI inject its reserved `SUPABASE_*` values; do not place service credentials in a browser config.
+4. Run `npx.cmd --yes supabase@latest functions serve submit-puzzle --env-file supabase/functions/.env.local`.
+5. Keep browser integration pointed at local API `http://127.0.0.1:54321`; never let a local regression test fall through to a hosted project.
 
-This workspace had no Deno or running local Supabase/Docker runtime. The included Node tests mock the PostgREST RPC responses, and Playwright intercepts external services; they are not staging/database integration tests.
+The local CLI runs the Edge Function in its `supabase-edge-runtime`. Its platform URL is the internal Docker endpoint `http://kong:8000`; the handler permits that exact local endpoint in addition to HTTPS deployments and loopback development URLs. It rejects other plain-HTTP hosts. The workspace's local Supabase database, API, Auth, Realtime, and Edge Function were exercised with synthetic data; this does not establish staging or production configuration.
+
+Local integration results (2026-11-08): incorrect answer returned `200 incorrect`; valid answer returned `201 verified`; an identical retry returned the same solve; duplicate normalized name returned 409; unknown challenge returned 404; malformed input returned 400; missing/invalid publishable key returned 401; the 9th request in a per-source window returned 429; and a browser Realtime subscriber received the safe verified-solve event. No answers, local keys, raw addresses, or private RPC fields are included in the response or report.
 
 ## Tests
 
@@ -65,7 +68,7 @@ This workspace had no Deno or running local Supabase/Docker runtime. The include
 - `npm.cmd test` — full existing Admin suite plus M6 browser tests.
 - `supabase/tests/m6-readonly-verification.sql` — run only after reviewed migrations on disposable staging. It returns booleans, not row values.
 
-Database-backed transaction, Realtime, platform source-header, and migration tests remain staging gates.
+The local database-backed transaction, source-header, idempotency, rate-limit, and Realtime paths are now tested. Hosted gateway behavior, secret provisioning, email confirmation, API exposure settings, and production/staging migration compatibility remain release gates.
 
 ## Deployment and rollback
 

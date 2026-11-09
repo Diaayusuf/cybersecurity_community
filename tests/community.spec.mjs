@@ -5,6 +5,12 @@ import { test, expect } from '@playwright/test';
 const shots = fileURLToPath(new URL('../docs/testing/community-m7m8-screenshots/', import.meta.url));
 mkdirSync(shots, { recursive: true });
 
+test.beforeEach(async ({ page }) => {
+  await page.route('**/assets/js/cyberx-local-config.js', (route) => route.fulfill({
+    status: 200, contentType: 'application/javascript', body: 'window.CYBERX_SUPABASE_CONFIG = null;',
+  }));
+});
+
 test('Community composer and feed stay within the CyberX layout at required widths', async ({ page }) => {
   for (const width of [1920, 1440, 1280, 1024, 768, 390, 375, 320]) {
     await page.setViewportSize({ width, height: width < 500 ? 844 : 900 });

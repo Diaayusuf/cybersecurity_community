@@ -7,3 +7,7 @@ playwright/.cache/
 .env
 .env.*
 !.env.example
+supabase/.temp/
+supabase/.branches/
+supabase/functions/.env.local
+assets/js/cyberx-local-config.js

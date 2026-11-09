@@ -207,3 +207,35 @@ The following remain open before any real production decision:
 The safest next action is to provision and verify a dedicated disposable Supabase staging project, apply the M5 and M6 migrations there in order, deploy the function with the required secrets, and run the live database and function verification before any production release decision.
 
 This workspace is not a production environment and no production apply was performed.
+
+## 19. Superseding local integration update (2026-11-08)
+
+Sections 7–18 above record the historical state from 2026-11-07. They are superseded for local verification by this update; production and staging were not accessed.
+
+### Local environment and migrations
+
+- Supabase CLI 3.0.0 started the isolated project. API/Kong: `http://127.0.0.1:54321`; PostgreSQL: `127.0.0.1:54322`; Studio: `http://127.0.0.1:54323`; Inbucket: `http://127.0.0.1:54324`.
+- PostgreSQL, Auth, REST, Kong, Realtime, Studio, Storage, and Edge Runtime were available. The optional Vector log collector was still initializing/restarting; its Docker log TCP endpoint refused connections. Core database and HTTP services remained healthy.
+- Seven migrations are applied and listed locally in chronological order: M5, M6, M7 Auth/Community, Community post idempotency, Community rate limits, existing-member profile backfill, and Learning path starts.
+- The fresh-local M5 baseline bootstrap runs only if `public.puzzle_players` is absent and recreates the audited legacy shape/policies before M5 hardening. Existing relations are untouched. Production was never targeted.
+- `supabase/tests/m6-readonly-verification.sql`: 18/18 checks passed. `supabase/tests/m7-readonly-verification.sql`: 15/15 checks passed. They verify actual catalog state, effective privileges, RLS, ownership triggers, unique constraints, private rate counters, safe views, and Realtime publication.
+
+### Live local behavior
+
+- A synthetic Auth signup created a database-owned profile. Chromium verified signup, password/confirmation validation, profile update/reload, session restoration, invalid-token denial, cross-user profile/post denial, and sign-out protection. Local Auth auto-confirms; production email confirmation is not configured here.
+- Profile, started Learning paths, and Dashboard counts are session-scoped and persisted locally. Lesson completion/achievements remain unavailable because no lesson activity flow exists.
+- Community creates posts/comments/likes in local Postgres. Anonymous users can read the curated feed views but cannot write or read profile/base tables. Authenticated authors cannot supply their own UUID; cross-user reads/mutations were denied. Hostile profile/post text rendered literally.
+- A six-request concurrent Community write test with one prior start created four rows and rate-rejected two, matching the 5-post-per-10-minute cap. Database caps are 5 posts, 20 comments, and 60 reactions per aligned 10-minute window; duplicate reactions and repeated post request IDs are constrained.
+- The real local `submit-puzzle` Edge Function returned the expected synthetic invalid/correct/duplicate/unknown/malformed/unauthorized/rate-limit outcomes. Correct-answer retry returned the same solve. A local browser Realtime subscription received the verified solve row with only `id`, `challenge_id`, `name`, `domain`, and `verified_at`.
+- Local Auth password-reset recovery was verified end to end through Mailpit: the reset email was retrieved from the local inbox, its recovery link opened the recovery form, the password update succeeded, and a fresh Auth client signed in with the new password. This is local-only evidence; production email configuration remains unverified.
+
+### Current regression results
+
+- `npm.cmd test`: 56 passed, 0 failed, 3 conditionally skipped (exit 0). The three local backend integration tests were run separately with `CYBERX_LOCAL_SUPABASE_TESTS=1`; all 3 passed.
+- `npm.cmd run test:m6`: 16 Node tests and 3 M6 Playwright tests passed.
+- `CYBERX_LOCAL_SUPABASE_TESTS=1; playwright test tests/m7-auth-community.spec.mjs`: 3 local Chromium integration tests passed, including password reset and the real Realtime event.
+- `node --check` for changed JavaScript/tests, `deno check --no-remote supabase/functions/submit-puzzle/index.ts`, and `git diff --check` passed.
+
+### Remaining M7/M8 limits
+
+Membership/billing, lesson completion, resource preferences, AI/Discord, moderation/suggestions, and server-enforced Admin roles/actions are not implemented. The Admin localStorage gate remains cosmetic. Production email confirmation, distributed abuse, expired-session edge cases, and broader security sweeps on demo pages remain unverified. No production Supabase, deployment, commit, push, merge, branch switch, or Wazuh container operation occurred.

@@ -3,6 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="image/CYBERX-LOGO2.png" type="image/png" />
     <title>CyberX | Community</title>
     <link rel="stylesheet" href="assets/css/cyberx-ui.css" />
   </head>
@@ -10,8 +11,7 @@
     <header class="header">
       <div class="header-inner">
         <a class="brand" href="index.html" aria-label="CyberX home">
-          <img src="image/CYBERX-LOGO.png" alt="CYBERX logo" />
-          <span class="brand-word">CYBER<span>X</span></span>
+          <img src="image/CYBERX-LOGO2.png" alt="CYBERX logo" />
         </a>
         <nav class="nav" aria-label="Main navigation">
           <a href="index.html">Home</a>
@@ -38,14 +38,14 @@
       <section class="page-header compact">
         <div class="kicker">Community</div>
         <h1>Discuss tactics, incidents, and lessons learned</h1>
-        <p>These posts are demo-only until the backend feed is connected. All submission and voting actions are clearly non-persistent.</p>
+        <p>Share incident notes, practical techniques, and ideas with the community. Sign in to publish, comment, react, or report content.</p>
       </section>
 
       <div class="feed-grid">
         <div class="pad-card">
           <div class="section-heading">
             <h2>Community feed</h2>
-            <span class="pill success">Demo feed</span>
+            <span class="pill success" data-community-mode>Demo feed</span>
           </div>
           <div data-community-feed aria-live="polite">
             <article class="post-card">
@@ -73,13 +73,17 @@
               </div>
             </article>
           </div>
+          <p class="community-form-status" data-community-feed-status role="status" aria-live="polite"></p>
         </div>
 
         <div class="pad-card community-composer">
           <div class="section-heading">
             <h2>Create post</h2>
-            <span class="pill">Demo</span>
+            <span class="pill" data-community-composer-mode>Demo</span>
           </div>
+          <p class="notice warning" data-community-auth-note hidden>
+            Sign in to publish posts, like, or comment. <a href="auth.html">Sign in or create an account</a>.
+          </p>
           <form class="form community-form" data-community-form novalidate>
             <div class="field">
               <label for="post-title">Title</label>
@@ -108,8 +112,33 @@
           </form>
         </div>
       </div>
+
+      <section class="community-backend-workflows" data-community-backend-workflows hidden aria-label="Community safety workflows">
+        <div class="pad-card">
+          <div class="section-heading"><h2>Suggest an improvement</h2><span class="pill">Member ideas</span></div>
+          <p>Suggestions are visible to you and authorized reviewers. Review status is shared; internal notes stay private.</p>
+          <form class="form community-form" data-suggestion-form novalidate>
+            <div class="field"><label for="suggestion-title">Title</label><input id="suggestion-title" name="suggestion-title" maxlength="120" required /></div>
+            <div class="field"><label for="suggestion-detail">Description</label><textarea id="suggestion-detail" name="suggestion-detail" maxlength="3000" required></textarea></div>
+            <p class="community-form-status" data-suggestion-status role="status" aria-live="polite"></p>
+            <button class="btn btn-primary community-submit" type="submit">Submit suggestion</button>
+          </form>
+          <div data-suggestion-list aria-live="polite"></div>
+        </div>
+
+        <div class="pad-card" data-moderation-panel hidden>
+          <div class="section-heading"><h2>Community review queue</h2><span class="pill">Authorized reviewers</span></div>
+          <p>Review actions are checked by PostgreSQL against the signed moderator role.</p>
+          <p class="community-form-status" data-moderation-status role="status" aria-live="polite"></p>
+          <div data-moderation-queue></div>
+          <div data-moderation-audit></div>
+        </div>
+      </section>
     </main>
 
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="assets/js/cyberx-local-config.js"></script>
+    <script src="assets/js/cyberx-backend.js"></script>
     <script src="assets/js/cyberx-app.js"></script>
   </body>
 </html>
