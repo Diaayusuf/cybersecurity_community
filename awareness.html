@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="icon" href="image/CYBERX-LOGO2.png" type="image/png">
 <title>CYBERX — Security Awareness</title>
+<link rel="stylesheet" href="assets/css/cyberx-ui.css">
 <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -30,15 +31,7 @@ body{background:var(--bg);color:#c8d8e8;font-family:'Rajdhani',sans-serif;overfl
 #particle-canvas{position:fixed;inset:0;pointer-events:none;z-index:0;opacity:.5;}
 
 /* ── NAV ── */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.1rem 3rem;display:flex;align-items:center;justify-content:space-between;background:rgba(13,26,47,0.95);backdrop-filter:blur(24px);border-bottom:1px solid rgba(9,216,199,0.12);}
-.logo{font-family:'Orbitron',sans-serif;font-size:1.3rem;font-weight:900;color:var(--cyan);letter-spacing:.2em;text-shadow:var(--glow-g);display:flex;align-items:center;gap:.6rem;white-space:nowrap;}
-.logo img{width:160px;height:42px;object-fit:cover;object-position:center;display:block;filter:drop-shadow(0 0 14px rgba(9,216,199,0.35));}
-.logo span{color:var(--red);}
-.nav-links{display:flex;gap:2rem;list-style:none;font-family:'Share Tech Mono',monospace;font-size:.75rem;letter-spacing:.15em;}
-.nav-links a{color:rgba(200,216,232,.55);text-decoration:none;transition:color .3s;position:relative;}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--cyan);transition:width .3s;}
-.nav-links a:hover{color:var(--cyan);}
-.nav-links a:hover::after{width:100%;}
+/* Navbar presentation and behavior are shared through cyberx-ui.css and cyberx-app.js. */
 .back-btn{font-family:'Share Tech Mono',monospace;font-size:.72rem;letter-spacing:.15em;color:var(--cyan);border:1px solid rgba(9,216,199,.35);background:transparent;padding:.45rem 1rem;cursor:pointer;transition:all .3s;text-decoration:none;}
 .back-btn:hover{background:rgba(9,216,199,.1);box-shadow:var(--glow-c);}
 
@@ -251,10 +244,6 @@ footer{background:#000;border-top:1px solid var(--border);padding:2.5rem 3rem;di
 @keyframes orbB{0%,100%{transform:translate(0,0);}50%{transform:translate(-28px,20px);}}
 
 @media(max-width:768px){
-  nav{padding:.75rem 1rem;gap:.75rem;flex-wrap:wrap;}
-  .nav-links{display:flex;order:3;flex:0 1 calc(100% - .75rem);width:calc(100% - .75rem);min-width:0;max-width:calc(100% - .75rem);overflow-x:auto;gap:.75rem;font-size:.6rem;scrollbar-width:thin;margin:0;}
-  .nav-links li{flex:0 0 auto;}
-  .nav-links a{white-space:nowrap;}
   footer{grid-template-columns:1fr;text-align:center;}
   .f-r{text-align:center;}
   .sstat{padding:1.2rem 2rem;border-right:none;}
@@ -267,24 +256,15 @@ footer{background:#000;border-top:1px solid var(--border);padding:2.5rem 3rem;di
 <div class="cursor-ring" id="cursor-ring"></div>
 <canvas id="particle-canvas"></canvas>
 
-<!-- NAV -->
-<nav>
-  <div class="logo"><img src="image/CYBERX-LOGO2.png" alt="CYBERX logo"></div>
-  <ul class="nav-links">
-    <li><a href="#threats">THREATS</a></li>
-    <li><a href="#signs">SIGNS</a></li>
-    <li><a href="#tools">TOOLS</a></li>
-    <li><a href="#scenarios">SCENARIOS</a></li>
-    <li><a href="#checklist">CHECKLIST</a></li>
-    <li><a href="#emergency">EMERGENCY</a></li>
-    <li><a href="index.html">HOME</a></li>
-    <li><a href="learning.html">LEARNING</a></li>
-    <li><a href="puzzle.html">PUZZLE ARENA</a></li>
-    <li><a href="dashboard.html">DASHBOARD</a></li>
-    <li><a href="assistant.html">AI ASSISTANT</a></li>
-  </ul>
-  <a href="index.html" class="back-btn">← BACK TO HQ</a>
-</nav>
+<!-- Shared CyberX navigation -->
+<header class="header">
+  <div class="header-inner">
+    <a class="brand" href="index.html" aria-label="CyberX home"><img src="image/CYBERX-LOGO2.png" alt="CYBERX logo"></a>
+    <nav class="nav" aria-label="Main navigation"></nav>
+    <button class="mobile-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">☰</button>
+  </div>
+  <div class="mobile-menu"></div>
+</header>
 
 <!-- HERO -->
 <div class="page-hero">
@@ -761,5 +741,6 @@ function updateProgress(){
   // Could add a progress indicator here
 }
 </script>
+<script src="assets/js/cyberx-app.js"></script>
 </body>
 </html>
